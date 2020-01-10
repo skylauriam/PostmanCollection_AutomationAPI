@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "e4bc8197-7a78-4e82-b233-d0958cae3624",
+		"_postman_id": "c733a8ee-ae05-415d-841c-8e6a6f13d7c7",
 		"name": "Automation",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -31,13 +31,15 @@
 										"exec": [
 											"pm.test('Status code is 201', function () {",
 											"    pm.response.to.have.status(201);",
-											"    if (pm.environment.get(\"ENV\") == \"test\") {",
-											"        var token = pm.response.json().slt;",
-											"        pm.environment.set(\"JWTC-S831016\", \"Bearer \" + token);",
-											"}",
-											"  ",
 											"});",
 											"",
+											"if (pm.environment.get(\"ENV\") == \"test\") {",
+											"        var token = \"Bearer \" + pm.response.json().slt;",
+											"        pm.globals.set(\"token\", token);",
+											"        pm.environment.set(\"JWTC-S831016\", token);",
+											"//        pm.environment.set(\"JWTC-V7758345\", \"Bearer \" + token);",
+											"}        ",
+											"        ",
 											"/*pm.test('token has been extracted!', function() {",
 											"    pm.expect(pm.response.json()).",
 											"    var token = pm.response.json().slt;",
@@ -85,7 +87,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"application\":\"web\",\n  \"type\":\"JWTC\",\n  \"user\": {\n  \t\"username\": \"{{USER}}\",\n  \t\"password\": \"{{PWD}}\"\n  \t\n  }\n}",
+									"raw": "{\n  \"application\":\"web\",\n  \"type\":\"JWTC\",\n  \"user\": {\n  \t\"username\": \"{{USER_1}}\",\n  \t\"password\": \"{{PWD}}\"\n  \t\n  }\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1614,10 +1616,8 @@
 											"script": {
 												"id": "97ec4b79-9de2-49f8-960e-8eb742a8638a",
 												"exec": [
-													"if(pm.globals.get(\"workflow\") == \"IT\"){",
-													"    var jwt = \"Bearer \" + pm.globals.get(\"token\");",
-													"    pm.environment.set(\"JWTC-S831016\",jwt );",
-													"}"
+													"",
+													""
 												],
 												"type": "text/javascript"
 											}
@@ -2290,7 +2290,7 @@
 													{
 														"key": "Authorization",
 														"type": "text",
-														"value": "Bearer {{token}}"
+														"value": "{{token}}"
 													}
 												],
 												"url": {
@@ -9425,7 +9425,7 @@
 								"id": "8fcc9b6b-fee7-4599-9840-0d675cbf79d3",
 								"type": "text/javascript",
 								"exec": [
-									"ciao"
+									""
 								]
 							}
 						},
@@ -9445,6 +9445,28 @@
 				}
 			],
 			"protocolProfileBehavior": {}
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "f1f0f20f-1b9f-413d-b40e-d04097064031",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "0b2e18bb-562f-4d15-9a9f-c031135114f5",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
 		}
 	],
 	"protocolProfileBehavior": {}
