@@ -2338,11 +2338,12 @@
 													}
 												],
 												"url": {
-													"raw": "{{BASE_URL}}/e2e-contracts/{{e2eContractId_error}}/extra",
+													"raw": "{{BASE_URL}}/{{ENV}}/e2e-contracts/{{e2eContractId_error}}/extra",
 													"host": [
 														"{{BASE_URL}}"
 													],
 													"path": [
+														"{{ENV}}",
 														"e2e-contracts",
 														"{{e2eContractId_error}}",
 														"extra"
@@ -3881,14 +3882,14 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/e2e-contracts/T0xOODFjcW1adnlrd2RWTEs5blVvQT09",
+											"raw": "{{BASE_URL}}/{{ENV}}/e2e-contracts/NnNZRjhWS2pSRDIzZ2pBMDJSMllWZz09",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
 												"{{ENV}}",
 												"e2e-contracts",
-												"T0xOODFjcW1adnlrd2RWTEs5blVvQT09"
+												"NnNZRjhWS2pSRDIzZ2pBMDJSMllWZz09"
 											]
 										}
 									},
@@ -4520,7 +4521,7 @@
 										"header": [
 											{
 												"key": "Accept",
-												"value": "application/pdf",
+												"value": "application/json",
 												"type": "text"
 											},
 											{
