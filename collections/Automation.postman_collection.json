@@ -6,6 +6,54 @@
 	},
 	"item": [
 		{
+			"name": "BranchCheck",
+			"item": [
+				{
+					"name": "BranchCheck",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "94d7924d-68af-4615-a03f-c4be2a259ec7",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "3346d83a-ef42-4d69-8de7-a4b2cbd037a9",
+								"exec": [
+									"if (pm.environment.get('ENV') =='dev') {",
+									"    postman.setNextRequest('TeamManagement_GetAvailableSlots_200_OK_Auto');",
+									"} else if (pm.environment.get('ENV') =='test') {",
+									"    postman.setNextRequest('Auth User_1');",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "www.sky.it",
+							"host": [
+								"www",
+								"sky",
+								"it"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
 			"name": "Dev",
 			"item": [
 				{
@@ -15,36 +63,45 @@
 							"name": "Auth User_1",
 							"event": [
 								{
-									"listen": "prerequest",
+									"listen": "test",
 									"script": {
-										"id": "f3924f9a-b4f1-4a35-9f92-e7c217273d73",
+										"id": "df7112da-1426-4cec-8410-594351c1e379",
 										"exec": [
+											"//if(pm.iterationData.get('list').includes(pm.info.requestName)) {",
+											"    pm.test('Status code is 201', function () {",
+											"        pm.response.to.have.status(201);",
+											"    });",
+											"    ",
+											"    if (pm.environment.get(\"ENV\") == \"test\") {",
+											"            var token = \"Bearer \" + pm.response.json().slt;",
+											"            pm.globals.set(\"token\", token);",
+											"            pm.environment.set(\"JWTC-S831016\", token);",
+											"    }",
+											"//}  ",
+											"/*pm.test('token has been extracted!', function() {",
+											"    pm.expect(pm.response.json()).",
+											"    var token = pm.response.json().slt;",
+											"    pm.globals.set(\"token\", token);",
+											"});*/",
+											"",
+											"",
 											""
 										],
 										"type": "text/javascript"
 									}
 								},
 								{
-									"listen": "test",
+									"listen": "prerequest",
 									"script": {
-										"id": "a5ce20f8-e75a-48de-be84-ef2990a634c3",
+										"id": "cd388de6-6af4-421a-91ac-d006859f9d9c",
 										"exec": [
-											"pm.test('Status code is 201', function () {",
-											"    pm.response.to.have.status(201);",
+											"/*if (pm.iterationData.get('list').include(pm.info.requestName)) {",
+											"    pm.test('Runned', function () {",
 											"});",
-											"",
-											"if (pm.environment.get(\"ENV\") == \"test\") {",
-											"        var token = \"Bearer \" + pm.response.json().slt;",
-											"        pm.globals.set(\"token\", token);",
-											"        pm.environment.set(\"JWTC-S831016\", token);",
-											"//      pm.environment.set(\"JWTC-V7758345\", \"Bearer \" + token); DA ELIMINARE",
-											"}        ",
-											"        ",
-											"/*pm.test('token has been extracted!', function() {",
-											"    pm.expect(pm.response.json()).",
-											"    var token = pm.response.json().slt;",
-											"    pm.globals.set(\"token\", token);",
-											"});*/"
+											"} else {",
+											"    pm.test.skip(\"Request skipped\", function() {",
+											"    });",
+											"}*/"
 										],
 										"type": "text/javascript"
 									}
@@ -126,14 +183,216 @@
 									"script": {
 										"id": "a5ce20f8-e75a-48de-be84-ef2990a634c3",
 										"exec": [
-											"pm.test('Status code is 201', function () {",
-											"    pm.response.to.have.status(201);",
+											"//if (pm.iterationData.get('list').includes(pm.info.requestName)) {",
+											"    pm.test('Status code is 201', function () {",
+											"        pm.response.to.have.status(201);",
+											"    });",
+											"//}",
+											"",
 											"    if (pm.environment.get(\"ENV\") == \"test\") {",
 											"        var token = pm.response.json().slt;",
 											"        pm.environment.set(\"JWTC-V7758345\", \"Bearer \" + token);",
 											"}",
 											"  ",
+											"",
+											"",
+											"/*pm.test('token has been extracted!', function() {",
+											"    pm.expect(pm.response.json()).",
+											"    var token = pm.response.json().slt;",
+											"    pm.globals.set(\"token\", token);",
+											"});*/"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json, text/plain, */*"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "User-Agent",
+										"type": "text",
+										"value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36"
+									},
+									{
+										"key": "Sec-Fetch-Mode",
+										"type": "text",
+										"value": "cors"
+									},
+									{
+										"key": "Referer",
+										"type": "text",
+										"value": "http://wsc-testbb.sky.it/login"
+									},
+									{
+										"key": "Origin",
+										"type": "text",
+										"value": "http://wsc-testbb.sky.it"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"application\":\"web\",\n  \"type\":\"JWTC\",\n  \"user\": {\n  \t\"username\": \"{{USER_2}}\",\n  \t\"password\": \"{{PWD}}\"\n  \t\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL_NO_SELFCARE}}/tokenmanager/{{ENV}}/auths",
+									"host": [
+										"{{BASE_URL_NO_SELFCARE}}"
+									],
+									"path": [
+										"tokenmanager",
+										"{{ENV}}",
+										"auths"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Auth User_2 Copy",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "f3924f9a-b4f1-4a35-9f92-e7c217273d73",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "a5ce20f8-e75a-48de-be84-ef2990a634c3",
+										"exec": [
+											"if (pm.request.name == pm.iterationData.requestName) {",
+											"    pm.test('Status code is 201', function () {",
+											"        pm.response.to.have.status(201);",
 											"});",
+											"}",
+											"",
+											"    if (pm.environment.get(\"ENV\") == \"test\") {",
+											"        var token = pm.response.json().slt;",
+											"        pm.environment.set(\"JWTC-V7758345\", \"Bearer \" + token);",
+											"}",
+											"  ",
+											"",
+											"",
+											"/*pm.test('token has been extracted!', function() {",
+											"    pm.expect(pm.response.json()).",
+											"    var token = pm.response.json().slt;",
+											"    pm.globals.set(\"token\", token);",
+											"});*/"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json, text/plain, */*"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "User-Agent",
+										"type": "text",
+										"value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36"
+									},
+									{
+										"key": "Sec-Fetch-Mode",
+										"type": "text",
+										"value": "cors"
+									},
+									{
+										"key": "Referer",
+										"type": "text",
+										"value": "http://wsc-testbb.sky.it/login"
+									},
+									{
+										"key": "Origin",
+										"type": "text",
+										"value": "http://wsc-testbb.sky.it"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"application\":\"web\",\n  \"type\":\"JWTC\",\n  \"user\": {\n  \t\"username\": \"{{USER_2}}\",\n  \t\"password\": \"{{PWD}}\"\n  \t\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL_NO_SELFCARE}}/tokenmanager/{{ENV}}/auths",
+									"host": [
+										"{{BASE_URL_NO_SELFCARE}}"
+									],
+									"path": [
+										"tokenmanager",
+										"{{ENV}}",
+										"auths"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Auth User_2 Copy Copy",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "f3924f9a-b4f1-4a35-9f92-e7c217273d73",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "a5ce20f8-e75a-48de-be84-ef2990a634c3",
+										"exec": [
+											"if (pm.request.name == pm.iterationData.requestName) {",
+											"    pm.test('Status code is 201', function () {",
+											"        pm.response.to.have.status(201);",
+											"});",
+											"}",
+											"",
+											"    if (pm.environment.get(\"ENV\") == \"test\") {",
+											"        var token = pm.response.json().slt;",
+											"        pm.environment.set(\"JWTC-V7758345\", \"Bearer \" + token);",
+											"}",
+											"  ",
+											"",
 											"",
 											"/*pm.test('token has been extracted!', function() {",
 											"    pm.expect(pm.response.json()).",
@@ -211,6 +470,21 @@
 								"id": "6a869ea8-4d8f-4f58-9353-c2155b0e3f4b",
 								"type": "text/javascript",
 								"exec": [
+									"if (pm.environment.get('ENV') =='test') {",
+									"    ",
+									"var req = pm.iterationData.get('list');",
+									"//var req = JSON.parse(pm.globals.get('requesting')).list;",
+									"var actual = pm.info.requestName;",
+									"    ",
+									"console.log(\"My Request is: \"+ actual);",
+									"    ",
+									"req.forEach(function(elem) {",
+									"    if(elem.name == actual){",
+									"        console.log(\"Eseguo: \"+actual);   ",
+									"        postman.setNextRequest(elem.next);",
+									"        }",
+									"    });",
+									"}",
 									""
 								]
 							}
@@ -1594,7 +1868,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "e3f6c747-fb63-4e03-93c9-292e63861d66",
+												"id": "31950c13-f3d5-4170-8394-23ddf9cf6a08",
 												"exec": [
 													"pm.test(\"Status code is 200\", function () {",
 													"    pm.response.to.have.status(200);",
@@ -1606,7 +1880,8 @@
 													"pm.test(\"Check devices id\", function() {",
 													"    var jsonData = pm.response.json();",
 													"    pm.expect(jsonData.devices[0].id).to.eql(\"AA1D9351BC5B6D167D936EF59D37F12D86C300C1\");",
-													"});*/"
+													"});*/",
+													""
 												],
 												"type": "text/javascript"
 											}
@@ -1614,9 +1889,8 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "97ec4b79-9de2-49f8-960e-8eb742a8638a",
+												"id": "805840db-faba-4496-99a5-b3cf53692acf",
 												"exec": [
-													"",
 													""
 												],
 												"type": "text/javascript"
@@ -7443,11 +7717,11 @@
 													"    pm.expect(stepLabels).to.have.members([\"ACTIVATION\", \"DOC_CHECK\", \"PURCHASE\", \"APPOINTMENT_SLOT\"]);",
 													"});",
 													"",
-													"activationStep = data.steps.filter(step => step.label == \"ACTIVATION\");",
+													"/*activationStep = data.steps.filter(step => step.label == \"ACTIVATION\");",
 													"pm.test(\"ACTIVATION has pendingReasons\", function() {",
-													"    pm.expect(activationStep).to.have.lengthOf(1)",
+													"    pm.expect(activationStep).to.have.lengthOf(1);",
 													"    pm.expect(activationStep[0].pendingReasons).to.have.members([\"SKY_ACTIVATION_ERROR\"]);",
-													"});"
+													"});*/"
 												],
 												"type": "text/javascript"
 											}
@@ -8824,7 +9098,7 @@
 													"    pm.expect(body.items.length).to.equal(19);",
 													"});",
 													"",
-													"let first = body.items[0];",
+													"//let first = body.items[0];",
 													"pm.test(\"item content\", function() {",
 													"    pm.expect(first.billingType).to.equal(\"PREMIUM\");",
 													"    pm.expect(first.startDate).to.equal(\"2019-09-30T04:00:00Z\");",
@@ -8889,7 +9163,7 @@
 													"    pm.expect(body.items.length).to.equal(19);",
 													"});",
 													"",
-													"let first = body.items[0];",
+													"//let first = body.items[0];",
 													"pm.test(\"item content\", function() {",
 													"    pm.expect(first.billingType).to.equal(\"PREMIUM\");",
 													"    pm.expect(first.startDate).to.equal(\"2019-09-30T04:00:00Z\");",
@@ -9423,7 +9697,21 @@
 								"id": "8fcc9b6b-fee7-4599-9840-0d675cbf79d3",
 								"type": "text/javascript",
 								"exec": [
-									""
+									"if (pm.environment.get('ENV') =='test') {",
+									"    ",
+									"var req = pm.iterationData.get('list');",
+									"//var req = JSON.parse(pm.globals.get('requesting')).list;",
+									"var actual = pm.info.requestName;",
+									"    ",
+									"console.log(\"My Request is: \"+ actual);",
+									"    ",
+									"req.forEach(function(elem) {",
+									"    if(elem.name == actual){",
+									"        console.log(\"Eseguo: \"+actual);   ",
+									"        postman.setNextRequest(elem.next);",
+									"        }",
+									"    });",
+									"} else postman.setNextRequest();"
 								]
 							}
 						},
@@ -9440,6 +9728,38 @@
 					],
 					"protocolProfileBehavior": {},
 					"_postman_isSubFolder": true
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "c4603a6a-70e5-411d-bef6-80594bc33097",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "d28eeca7-1d42-438d-98c6-31ff7aee5f0c",
+						"type": "text/javascript",
+						"exec": [
+							"/*var req = JSON.parse(pm.globals.get('requesting')).list;",
+							"var actual = pm.info.requestName;",
+							"",
+							"console.log(\"My Request is: \"+ actual);",
+							"",
+							"req.forEach( function(elem) {",
+							"    if(elem.name == actual){",
+							"        console.log(\"Esueguo: \"+actual);   ",
+							"        postman.setNextRequest(elem.next);",
+							"    }",
+							"});*/"
+						]
+					}
 				}
 			],
 			"protocolProfileBehavior": {}
