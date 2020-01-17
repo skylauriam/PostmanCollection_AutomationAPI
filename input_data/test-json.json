@@ -18,7 +18,7 @@
 		{"name": "RetrieveInvoicesByE2eContract_200", "next": "Retrieve Offer by contract_200"},
 		{"name": "Retrieve Offer by contract_200", "next": "Retrieve Offer by contract_200 With Code Filter"},
 		{"name": "Retrieve Offer by contract_200 With Code Filter", "next": "RetrieveCompatibleMops"},
-		{"name": "RetrieveCompatibleMops", "next": ""}
+		{"name": "RetrieveCompatibleMops", "next": ""},
 		]
 }
 ]
