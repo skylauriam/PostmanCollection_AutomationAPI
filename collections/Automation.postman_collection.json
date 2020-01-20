@@ -73,9 +73,10 @@
 											"    });",
 											"    ",
 											"    if (pm.environment.get(\"ENV\") == \"test\") {",
-											"            var token = \"Bearer \" + pm.response.json().slt;",
-											"            pm.globals.set(\"token\", token);",
-											"            pm.environment.set(\"JWTC-S831016\", token);",
+											"        var token = pm.response.json().slt;",
+											"        pm.environment.set(\"JWTC-S831016\", \"Bearer \" + token);",
+											"        pm.globals.set(\"token\", \"Bearer \" + token);",
+											"            ",
 											"    }",
 											"//}  ",
 											"/*pm.test('token has been extracted!', function() {",
@@ -192,6 +193,7 @@
 											"    if (pm.environment.get(\"ENV\") == \"test\") {",
 											"        var token = pm.response.json().slt;",
 											"        pm.environment.set(\"JWTC-V7758345\", \"Bearer \" + token);",
+											"        ",
 											"}",
 											"  ",
 											"",
@@ -2943,7 +2945,7 @@
 													{
 														"key": "Authorization",
 														"type": "text",
-														"value": "{{JWTC-S831016}}"
+														"value": "{{JWTC-V7758345}}"
 													}
 												],
 												"url": {
@@ -7717,11 +7719,11 @@
 													"    pm.expect(stepLabels).to.have.members([\"ACTIVATION\", \"DOC_CHECK\", \"PURCHASE\", \"APPOINTMENT_SLOT\"]);",
 													"});",
 													"",
-													"/*activationStep = data.steps.filter(step => step.label == \"ACTIVATION\");",
+													"activationStep = data.steps.filter(step => step.label == \"ACTIVATION\");",
 													"pm.test(\"ACTIVATION has pendingReasons\", function() {",
 													"    pm.expect(activationStep).to.have.lengthOf(1);",
 													"    pm.expect(activationStep[0].pendingReasons).to.have.members([\"SKY_ACTIVATION_ERROR\"]);",
-													"});*/"
+													"});"
 												],
 												"type": "text/javascript"
 											}
@@ -9098,7 +9100,7 @@
 													"    pm.expect(body.items.length).to.equal(19);",
 													"});",
 													"",
-													"//let first = body.items[0];",
+													"let first = body.items[0];",
 													"pm.test(\"item content\", function() {",
 													"    pm.expect(first.billingType).to.equal(\"PREMIUM\");",
 													"    pm.expect(first.startDate).to.equal(\"2019-09-30T04:00:00Z\");",
@@ -9163,7 +9165,7 @@
 													"    pm.expect(body.items.length).to.equal(19);",
 													"});",
 													"",
-													"//let first = body.items[0];",
+													"let first = body.items[0];",
 													"pm.test(\"item content\", function() {",
 													"    pm.expect(first.billingType).to.equal(\"PREMIUM\");",
 													"    pm.expect(first.startDate).to.equal(\"2019-09-30T04:00:00Z\");",
