@@ -1,60 +1,12 @@
 {
 	"info": {
-		"_postman_id": "c733a8ee-ae05-415d-841c-8e6a6f13d7c7",
+		"_postman_id": "94cf8370-fa02-4287-98e1-630f1c593d77",
 		"name": "Automation",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "BranchCheck",
-			"item": [
-				{
-					"name": "BranchCheck",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "94d7924d-68af-4615-a03f-c4be2a259ec7",
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"id": "3346d83a-ef42-4d69-8de7-a4b2cbd037a9",
-								"exec": [
-									"if (pm.environment.get('ENV') =='dev') {",
-									"    postman.setNextRequest('TeamManagement_GetAvailableSlots_200_OK_Auto');",
-									"} else if (pm.environment.get('ENV') =='test') {",
-									"    postman.setNextRequest('Auth User_1');",
-									"}"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "www.sky.it",
-							"host": [
-								"www",
-								"sky",
-								"it"
-							]
-						}
-					},
-					"response": []
-				}
-			],
-			"protocolProfileBehavior": {}
-		},
-		{
-			"name": "Dev",
+			"name": "selfcare",
 			"item": [
 				{
 					"name": "Authorization",
@@ -67,18 +19,17 @@
 									"script": {
 										"id": "df7112da-1426-4cec-8410-594351c1e379",
 										"exec": [
-											"//if(pm.iterationData.get('list').includes(pm.info.requestName)) {",
-											"    pm.test('Status code is 201', function () {",
+											"if (pm.environment.get(\"ENV\") == \"test\") {",
+											"   pm.test('Status code is 201', function () {",
 											"        pm.response.to.have.status(201);",
 											"    });",
-											"    ",
-											"    if (pm.environment.get(\"ENV\") == \"test\") {",
+											"",
 											"        var token = pm.response.json().slt;",
 											"        pm.environment.set(\"JWTC-S831016\", \"Bearer \" + token);",
 											"        pm.globals.set(\"token\", \"Bearer \" + token);",
 											"            ",
 											"    }",
-											"//}  ",
+											" ",
 											"/*pm.test('token has been extracted!', function() {",
 											"    pm.expect(pm.response.json()).",
 											"    var token = pm.response.json().slt;",
@@ -96,13 +47,7 @@
 									"script": {
 										"id": "cd388de6-6af4-421a-91ac-d006859f9d9c",
 										"exec": [
-											"/*if (pm.iterationData.get('list').include(pm.info.requestName)) {",
-											"    pm.test('Runned', function () {",
-											"});",
-											"} else {",
-											"    pm.test.skip(\"Request skipped\", function() {",
-											"    });",
-											"}*/"
+											""
 										],
 										"type": "text/javascript"
 									}
@@ -145,7 +90,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"application\":\"web\",\n  \"type\":\"JWTC\",\n  \"user\": {\n  \t\"username\": \"{{USER_1}}\",\n  \t\"password\": \"{{PWD}}\"\n  \t\n  }\n}",
+									"raw": "{ \n  \"application\":\"web\",\n  \"type\":\"JWTC\",\n  \"user\": {\n  \t\"username\": \"{{USER_1}}\",\n  \t\"password\": \"{{PWD}}\"\n  }\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -153,9 +98,9 @@
 									}
 								},
 								"url": {
-									"raw": "{{BASE_URL_NO_SELFCARE}}/tokenmanager/{{ENV}}/auths",
+									"raw": "{{BASE_URL}}/tokenmanager/{{ENV}}/auths",
 									"host": [
-										"{{BASE_URL_NO_SELFCARE}}"
+										"{{BASE_URL}}"
 									],
 									"path": [
 										"tokenmanager",
@@ -184,113 +129,11 @@
 									"script": {
 										"id": "a5ce20f8-e75a-48de-be84-ef2990a634c3",
 										"exec": [
-											"//if (pm.iterationData.get('list').includes(pm.info.requestName)) {",
+											"if (pm.environment.get(\"ENV\") == \"test\") {    ",
 											"    pm.test('Status code is 201', function () {",
 											"        pm.response.to.have.status(201);",
 											"    });",
-											"//}",
 											"",
-											"    if (pm.environment.get(\"ENV\") == \"test\") {",
-											"        var token = pm.response.json().slt;",
-											"        pm.environment.set(\"JWTC-V7758345\", \"Bearer \" + token);",
-											"        ",
-											"}",
-											"  ",
-											"",
-											"",
-											"/*pm.test('token has been extracted!', function() {",
-											"    pm.expect(pm.response.json()).",
-											"    var token = pm.response.json().slt;",
-											"    pm.globals.set(\"token\", token);",
-											"});*/"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"type": "text",
-										"value": "application/json, text/plain, */*"
-									},
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"type": "text",
-										"value": "application/json"
-									},
-									{
-										"key": "User-Agent",
-										"type": "text",
-										"value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36"
-									},
-									{
-										"key": "Sec-Fetch-Mode",
-										"type": "text",
-										"value": "cors"
-									},
-									{
-										"key": "Referer",
-										"type": "text",
-										"value": "http://wsc-testbb.sky.it/login"
-									},
-									{
-										"key": "Origin",
-										"type": "text",
-										"value": "http://wsc-testbb.sky.it"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"application\":\"web\",\n  \"type\":\"JWTC\",\n  \"user\": {\n  \t\"username\": \"{{USER_2}}\",\n  \t\"password\": \"{{PWD}}\"\n  \t\n  }\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{BASE_URL_NO_SELFCARE}}/tokenmanager/{{ENV}}/auths",
-									"host": [
-										"{{BASE_URL_NO_SELFCARE}}"
-									],
-									"path": [
-										"tokenmanager",
-										"{{ENV}}",
-										"auths"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Auth User_2 Copy",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"id": "f3924f9a-b4f1-4a35-9f92-e7c217273d73",
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "test",
-									"script": {
-										"id": "a5ce20f8-e75a-48de-be84-ef2990a634c3",
-										"exec": [
-											"if (pm.request.name == pm.iterationData.requestName) {",
-											"    pm.test('Status code is 201', function () {",
-											"        pm.response.to.have.status(201);",
-											"});",
-											"}",
-											"",
-											"    if (pm.environment.get(\"ENV\") == \"test\") {",
 											"        var token = pm.response.json().slt;",
 											"        pm.environment.set(\"JWTC-V7758345\", \"Bearer \" + token);",
 											"}",
@@ -352,108 +195,9 @@
 									}
 								},
 								"url": {
-									"raw": "{{BASE_URL_NO_SELFCARE}}/tokenmanager/{{ENV}}/auths",
+									"raw": "{{BASE_URL}}/tokenmanager/{{ENV}}/auths",
 									"host": [
-										"{{BASE_URL_NO_SELFCARE}}"
-									],
-									"path": [
-										"tokenmanager",
-										"{{ENV}}",
-										"auths"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Auth User_2 Copy Copy",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"id": "f3924f9a-b4f1-4a35-9f92-e7c217273d73",
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "test",
-									"script": {
-										"id": "a5ce20f8-e75a-48de-be84-ef2990a634c3",
-										"exec": [
-											"if (pm.request.name == pm.iterationData.requestName) {",
-											"    pm.test('Status code is 201', function () {",
-											"        pm.response.to.have.status(201);",
-											"});",
-											"}",
-											"",
-											"    if (pm.environment.get(\"ENV\") == \"test\") {",
-											"        var token = pm.response.json().slt;",
-											"        pm.environment.set(\"JWTC-V7758345\", \"Bearer \" + token);",
-											"}",
-											"  ",
-											"",
-											"",
-											"/*pm.test('token has been extracted!', function() {",
-											"    pm.expect(pm.response.json()).",
-											"    var token = pm.response.json().slt;",
-											"    pm.globals.set(\"token\", token);",
-											"});*/"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"type": "text",
-										"value": "application/json, text/plain, */*"
-									},
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"type": "text",
-										"value": "application/json"
-									},
-									{
-										"key": "User-Agent",
-										"type": "text",
-										"value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36"
-									},
-									{
-										"key": "Sec-Fetch-Mode",
-										"type": "text",
-										"value": "cors"
-									},
-									{
-										"key": "Referer",
-										"type": "text",
-										"value": "http://wsc-testbb.sky.it/login"
-									},
-									{
-										"key": "Origin",
-										"type": "text",
-										"value": "http://wsc-testbb.sky.it"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"application\":\"web\",\n  \"type\":\"JWTC\",\n  \"user\": {\n  \t\"username\": \"{{USER_2}}\",\n  \t\"password\": \"{{PWD}}\"\n  \t\n  }\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{BASE_URL_NO_SELFCARE}}/tokenmanager/{{ENV}}/auths",
-									"host": [
-										"{{BASE_URL_NO_SELFCARE}}"
+										"{{BASE_URL}}"
 									],
 									"path": [
 										"tokenmanager",
@@ -472,7 +216,7 @@
 								"id": "6a869ea8-4d8f-4f58-9353-c2155b0e3f4b",
 								"type": "text/javascript",
 								"exec": [
-									"if (pm.environment.get('ENV') =='test') {",
+									"/*if (pm.environment.get('ENV') =='test') {",
 									"    ",
 									"var req = pm.iterationData.get('list');",
 									"//var req = JSON.parse(pm.globals.get('requesting')).list;",
@@ -487,7 +231,7 @@
 									"        }",
 									"    });",
 									"}",
-									""
+									"*/"
 								]
 							}
 						},
@@ -506,7 +250,7 @@
 					"_postman_isSubFolder": true
 				},
 				{
-					"name": "Sub-Level",
+					"name": "All Requests",
 					"item": [
 						{
 							"name": "team-management",
@@ -522,22 +266,10 @@
 													"pm.test('Status code is 200', function () {",
 													"pm.response.to.have.status(200);",
 													"});",
+													"if (pm.environment.get('ENV') == 'dev') {",
 													"pm.test('Both agendas are returned', function() {",
 													"pm.expect(pm.response.json().items.length).to.eql(2);",
 													"});",
-													"//postman.setNextRequest(null);"
-												],
-												"type": "text/javascript"
-											}
-										},
-										{
-											"listen": "prerequest",
-											"script": {
-												"id": "ae779aad-e524-4808-99a5-39260f24e7dc",
-												"exec": [
-													"if(pm.globals.get(\"workflow\") == \"IT\"){",
-													"    var jwt = \"Bearer \" + pm.globals.get(\"token\");",
-													"    pm.environment.set(\"JWTC-S831016\",jwt );",
 													"}"
 												],
 												"type": "text/javascript"
@@ -556,14 +288,20 @@
 												"key": "Authorization",
 												"value": "{{JWTC-S831016}}",
 												"type": "text"
+											},
+											{
+												"key": "selected-e2e-id",
+												"value": "{{e2eContractId_15519866}}",
+												"type": "text"
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/agendas/angel/available-slots?agentId=foo",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/agendas/angel/available-slots?agentId=foo",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"agendas",
 												"angel",
@@ -592,7 +330,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "f948942f-eedd-4379-a034-e6aa3875c375",
+												"id": "7e5283f2-ec3a-4deb-8fd7-86ad5a6a8a0c",
 												"exec": [
 													"pm.test('Status code is 200', function () {",
 													"pm.response.to.have.status(200);",
@@ -607,7 +345,7 @@
 													"pm.expect(pm.response.json()[0].province).to.eql('MILANO');",
 													"});",
 													"pm.test('Egon-Route header set to true', function() {",
-													"pm.response.to.be.header('Egon-Route', 'true');",
+													"pm.response.to.be.header('egon-route', 'true');",
 													"});"
 												],
 												"type": "text/javascript"
@@ -623,7 +361,7 @@
 												"value": "application/json"
 											},
 											{
-												"key": "Egon-Route",
+												"key": "egon-route",
 												"type": "text",
 												"value": "true"
 											},
@@ -634,11 +372,12 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/cities?q=Milano",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/cities?q=Milano",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"cities"
 											],
@@ -673,7 +412,7 @@
 													"pm.expect(pm.response.json()[0].province).to.eql('MILANO');",
 													"});",
 													"pm.test('Egon-Route header set to true', function() {",
-													"pm.response.to.be.header('Egon-Route', 'true');",
+													"pm.response.to.be.header('egon-route', 'true');",
 													"});"
 												],
 												"type": "text/javascript"
@@ -689,17 +428,18 @@
 												"value": "application/json"
 											},
 											{
-												"key": "Egon-Route",
+												"key": "egon-route",
 												"type": "text",
 												"value": "true"
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/cities?q=Milano",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/cities?q=Milano",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"cities"
 											],
@@ -728,7 +468,7 @@
 													"pm.response.to.have.body('[]')",
 													"});",
 													"pm.test('Egon-Route header set to false', function() {",
-													"pm.response.to.be.header('Egon-Route', 'false');",
+													"pm.response.to.be.header('egon-route', 'false');",
 													"});"
 												],
 												"type": "text/javascript"
@@ -744,17 +484,18 @@
 												"value": "application/json"
 											},
 											{
-												"key": "Egon-Route",
+												"key": "egon-route",
 												"type": "text",
 												"value": "true"
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/cities?q=XXX",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/cities?q=XXX",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"cities"
 											],
@@ -789,7 +530,7 @@
 													"pm.expect(pm.response.json()[0].province).to.eql('MILANO');",
 													"});",
 													"pm.test('Egon-Route header set to false', function() {",
-													"pm.response.to.be.header('Egon-Route', 'false');",
+													"pm.response.to.be.header('egon-route', 'false');",
 													"});"
 												],
 												"type": "text/javascript"
@@ -805,17 +546,18 @@
 												"value": "application/json"
 											},
 											{
-												"key": "Egon-Route",
+												"key": "egon-route",
 												"type": "text",
 												"value": "false"
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/cities?q=Milano",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/cities?q=Milano",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"cities"
 											],
@@ -844,7 +586,7 @@
 													"pm.response.to.have.body('[]')",
 													"});",
 													"pm.test('Egon-Route header set to false', function() {",
-													"pm.response.to.be.header('Egon-Route', 'false');",
+													"pm.response.to.be.header('egon-route', 'false');",
 													"});"
 												],
 												"type": "text/javascript"
@@ -860,17 +602,18 @@
 												"value": "application/json"
 											},
 											{
-												"key": "Egon-Route",
+												"key": "egon-route",
 												"type": "text",
 												"value": "false"
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/cities?q=XXX",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/cities?q=XXX",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"cities"
 											],
@@ -908,16 +651,17 @@
 												"value": "application/json"
 											},
 											{
-												"key": "Egon-Route",
+												"key": "egon-route",
 												"value": "true"
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/cities/{{cityEgonId}}/streets?q=Via Buon",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/cities/{{cityEgonId}}/streets?q=Via Buon",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"cities",
 												"{{cityEgonId}}",
@@ -945,7 +689,7 @@
 													"pm.response.to.have.status(200);",
 													"});",
 													"pm.test('Egon-Route header set to true', function() {",
-													"pm.response.to.be.header('Egon-Route', 'true');",
+													"pm.response.to.be.header('egon-route', 'true');",
 													"});"
 												],
 												"type": "text/javascript"
@@ -960,7 +704,7 @@
 												"value": "application/json"
 											},
 											{
-												"key": "Egon-Route",
+												"key": "egon-route",
 												"value": "true"
 											},
 											{
@@ -970,11 +714,12 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/cities/{{cityEgonId}}/streets?q=Via Buon",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/cities/{{cityEgonId}}/streets?q=Via Buon",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"cities",
 												"{{cityEgonId}}",
@@ -1014,16 +759,17 @@
 												"value": "application/json"
 											},
 											{
-												"key": "Egon-Route",
+												"key": "egon-route",
 												"value": "true"
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/cities/{{cityEgonId}}/streets?q=123",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/cities/{{cityEgonId}}/streets?q=123",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"cities",
 												"{{cityEgonId}}",
@@ -1054,7 +800,7 @@
 													"pm.response.to.have.body('[]')",
 													"});",
 													"pm.test('Egon-Route header set to false', function() {",
-													"pm.response.to.be.header('Egon-Route', 'false');",
+													"pm.response.to.be.header('egon-route', 'false');",
 													"});"
 												],
 												"type": "text/javascript"
@@ -1069,16 +815,17 @@
 												"value": "application/json"
 											},
 											{
-												"key": "Egon-Route",
+												"key": "egon-route",
 												"value": "true"
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/cities/{{cityEgonId}}/streets?q=123",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/cities/{{cityEgonId}}/streets?q=123",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"cities",
 												"{{cityEgonId}}",
@@ -1128,16 +875,17 @@
 												"value": "application/json"
 											},
 											{
-												"key": "Egon-Route",
+												"key": "egon-route",
 												"value": "true"
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/cities/{{cityEgonId}}/streets?q=Via Buon",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/cities/{{cityEgonId}}/streets?q=Via Buon",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"cities",
 												"{{cityEgonId}}",
@@ -1168,7 +916,7 @@
 													"    pm.expect(pm.response.json()[0].egonId).to.eql('380100174147937');",
 													"});",
 													"pm.test('Egon-Route header set to true', function() {",
-													"    pm.response.to.be.header('Egon-Route', 'true');",
+													"    pm.response.to.be.header('egon-route', 'true');",
 													"});"
 												],
 												"type": "text/javascript"
@@ -1183,7 +931,7 @@
 												"value": "application/json"
 											},
 											{
-												"key": "Egon-Route",
+												"key": "egon-route",
 												"value": "true"
 											},
 											{
@@ -1193,11 +941,12 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/cities/{{cityEgonId}}/streets/{{streetEgonId}}/street-numbers?q=1",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/cities/{{cityEgonId}}/streets/{{streetEgonId}}/street-numbers?q=1",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"cities",
 												"{{cityEgonId}}",
@@ -1230,7 +979,7 @@
 													"    pm.expect(pm.response.json()[0].egonId).to.eql('380100174147937');",
 													"});",
 													"pm.test('Egon-Route header set to true', function() {",
-													"    pm.response.to.be.header('Egon-Route', 'true');",
+													"    pm.response.to.be.header('egon-route', 'true');",
 													"});"
 												],
 												"type": "text/javascript"
@@ -1245,7 +994,7 @@
 												"value": "application/json"
 											},
 											{
-												"key": "Egon-Route",
+												"key": "egon-route",
 												"value": "true"
 											},
 											{
@@ -1260,11 +1009,12 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/cities/{{cityEgonId}}/streets/{{streetEgonId}}/street-numbers?q=1",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/cities/{{cityEgonId}}/streets/{{streetEgonId}}/street-numbers?q=1",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"cities",
 												"{{cityEgonId}}",
@@ -1297,7 +1047,7 @@
 													"    pm.response.to.have.body('[]');",
 													"});",
 													"pm.test('Egon-Route header set to false', function() {",
-													"    pm.response.to.be.header('Egon-Route', 'false');",
+													"    pm.response.to.be.header('egon-route', 'false');",
 													"});"
 												],
 												"type": "text/javascript"
@@ -1312,16 +1062,17 @@
 												"value": "application/json"
 											},
 											{
-												"key": "Egon-Route",
+												"key": "egon-route",
 												"value": "true"
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/cities/{{cityEgonId}}/streets/{{streetEgonId}}/street-numbers?q=0",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/cities/{{cityEgonId}}/streets/{{streetEgonId}}/street-numbers?q=0",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"cities",
 												"{{cityEgonId}}",
@@ -1354,7 +1105,7 @@
 													"    pm.expect(pm.response.json()[0].egonId).to.eql('380100174147937');",
 													"});",
 													"pm.test('Egon-Route header set to false', function() {",
-													"    pm.response.to.be.header('Egon-Route', 'false');",
+													"    pm.response.to.be.header('egon-route', 'false');",
 													"});"
 												],
 												"type": "text/javascript"
@@ -1369,16 +1120,17 @@
 												"value": "application/json"
 											},
 											{
-												"key": "Egon-Route",
+												"key": "egon-route",
 												"value": "false"
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/cities/{{cityEgonId}}/streets/{{streetEgonId}}/street-numbers?q=1",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/cities/{{cityEgonId}}/streets/{{streetEgonId}}/street-numbers?q=1",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"cities",
 												"{{cityEgonId}}",
@@ -1411,7 +1163,7 @@
 													"    pm.response.to.have.body('[]');",
 													"});",
 													"pm.test('Egon-Route header set to false', function() {",
-													"    pm.response.to.be.header('Egon-Route', 'false');",
+													"    pm.response.to.be.header('egon-route', 'false');",
 													"});"
 												],
 												"type": "text/javascript"
@@ -1426,16 +1178,17 @@
 												"value": "application/json"
 											},
 											{
-												"key": "Egon-Route",
+												"key": "egon-route",
 												"value": "false"
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/cities/{{cityEgonId}}/streets/{{streetEgonId}}/street-numbers?q=0",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/cities/{{cityEgonId}}/streets/{{streetEgonId}}/street-numbers?q=0",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"cities",
 												"{{cityEgonId}}",
@@ -1504,11 +1257,12 @@
 											"raw": "{\n\t\"phoneNumber\":\"3211234567\",\n\t\"mobilePhone\":null,\n\t\"e2eContractId\":\"{{e2eContractId_7804492_S831016}}\",\n\t\"contractId\":\"{{e2eContractId_7804492_S831016}}\",\n\t\"workDescription\":\"MIGRATION\",\n\t\"migrationType\":\"FIBRA\"\n}"
 										},
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/call-me-now",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/call-me-now",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"call-me-now"
 											]
@@ -1561,11 +1315,12 @@
 											"raw": "{\n\t\"phoneNumber\":\"3211234567\",\n\t\"mobilePhone\":null,\n\t\"e2eContractId\":\"{{e2eContractId_error}}\",\n\t\"contractId\":\"{{e2eContractId_error}}\",\n\t\"workDescription\":\"MIGRATION\",\n\t\"migrationType\":\"FIBRA\"\n}"
 										},
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/call-me-now",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/call-me-now",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"call-me-now"
 											]
@@ -1618,11 +1373,12 @@
 											"raw": "{\n\t\"phoneNumber\":\"0123456789\",\n\t\"mobilePhone\":null,\n\t\"e2eContractId\":\"{{e2eContractId_7804492_S831016}}\",\n\t\"contractId\":\"{{e2eContractId_7804492_S831016}}\",\n\t\"workDescription\":\"MIGRATION\",\n\t\"migrationType\":\"FIBRA\"\n}\n"
 										},
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/call-me-now",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/call-me-now",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"call-me-now"
 											]
@@ -1675,11 +1431,12 @@
 											"raw": "{\n\t\"phoneNumber\":\"0234567891\",\n\t\"mobilePhone\":null,\n\t\"e2eContractId\":\"{{e2eContractId_7804492_S831016}}\",\n\t\"contractId\":\"{{e2eContractId_7804492_S831016}}\",\n\t\"workDescription\":\"MIGRATION\",\n\t\"migrationType\":\"FIBRA\"\n}\n"
 										},
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/call-me-now",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/call-me-now",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"call-me-now"
 											]
@@ -1732,11 +1489,12 @@
 											"raw": "{\n\t\"phoneNumber\":\"0345678912\",\n\t\"mobilePhone\":null,\n\t\"e2eContractId\":\"{{e2eContractId_7804492_S831016}}\",\n\t\"contractId\":\"{{e2eContractId_7804492_S831016}}\",\n\t\"workDescription\":\"MIGRATION\",\n\t\"migrationType\":\"FIBRA\"\n}\n"
 										},
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/call-me-now",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/call-me-now",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"call-me-now"
 											]
@@ -1782,11 +1540,12 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/customers/me/consents",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/customers/me/consents",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"customers",
 												"me",
@@ -1834,19 +1593,15 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"id\": \"{{consentToUpdate}}\",\n    \"status\": \"GIVEN\"\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
+											"raw": "{\n    \"id\": \"{{consentToUpdate}}\",\n    \"status\": \"GIVEN\"\n}"
 										},
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/customers/me/consents/{{consentToUpdate}}",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/customers/me/consents/{{consentToUpdate}}",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"customers",
 												"me",
@@ -1870,30 +1625,23 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "31950c13-f3d5-4170-8394-23ddf9cf6a08",
+												"id": "e3f6c747-fb63-4e03-93c9-292e63861d66",
 												"exec": [
 													"pm.test(\"Status code is 200\", function () {",
 													"    pm.response.to.have.status(200);",
 													"});",
-													"/*pm.test(\"Check availableSlots\", function() {",
+													"",
+													"if (pm.environment.get('ENV') == 'dev') {",
+													"pm.test(\"Check availableSlots\", function() {",
 													"    var jsonData = pm.response.json();",
 													"    pm.expect(jsonData.availableSlots).to.eql(7);",
 													"});",
+													"",
 													"pm.test(\"Check devices id\", function() {",
 													"    var jsonData = pm.response.json();",
 													"    pm.expect(jsonData.devices[0].id).to.eql(\"AA1D9351BC5B6D167D936EF59D37F12D86C300C1\");",
-													"});*/",
-													""
-												],
-												"type": "text/javascript"
-											}
-										},
-										{
-											"listen": "prerequest",
-											"script": {
-												"id": "805840db-faba-4496-99a5-b3cf53692acf",
-												"exec": [
-													""
+													"});",
+													"}"
 												],
 												"type": "text/javascript"
 											}
@@ -1914,11 +1662,12 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/customers/me/devices",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/customers/me/devices",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"customers",
 												"me",
@@ -1936,6 +1685,7 @@
 											"script": {
 												"id": "e3f6c747-fb63-4e03-93c9-292e63861d66",
 												"exec": [
+													"return;",
 													"pm.test(\"Status code is 422\", function () {",
 													"    pm.response.to.have.status(422);",
 													"});"
@@ -1959,11 +1709,12 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/customers/me/devices",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/customers/me/devices",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"customers",
 												"me",
@@ -2009,11 +1760,12 @@
 											"raw": ""
 										},
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/customers/me/devices/{{deviceId}}",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/customers/me/devices/{{deviceId}}",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"customers",
 												"me",
@@ -2060,11 +1812,12 @@
 											"raw": ""
 										},
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/customers/me/devices/{{wrongDeviceId}}",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/customers/me/devices/{{wrongDeviceId}}",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"customers",
 												"me",
@@ -2126,11 +1879,12 @@
 											"raw": ""
 										},
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/e2e-contracts/{{e2eContractId_7804492_S831016}}/instalment-plans/{{e2eContractId_7804492_S831016}}/status",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/e2e-contracts/{{e2eContractId_7804492_S831016}}/instalment-plans/{{e2eContractId_7804492_S831016}}/status",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"e2e-contracts",
 												"{{e2eContractId_7804492_S831016}}",
@@ -2178,11 +1932,12 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/e2e-contracts/{{e2eContractId_7804492_S831016}}/instalment-plans",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/e2e-contracts/{{e2eContractId_7804492_S831016}}/instalment-plans",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"e2e-contracts",
 												"{{e2eContractId_7804492_S831016}}",
@@ -2233,11 +1988,12 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/e2e-contracts/{{e2eContractId_forbidden}}/instalment-plans",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/e2e-contracts/{{e2eContractId_forbidden}}/instalment-plans",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"e2e-contracts",
 												"{{e2eContractId_forbidden}}",
@@ -2285,11 +2041,12 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/customers/me/document-urls",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/customers/me/document-urls",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"customers",
 												"me",
@@ -2349,11 +2106,12 @@
 											"raw": "{\r\n \"egonIDStreetNumber\": \"{{streetNumberEgonId}}\",\r\n \"egonIDStreet\": \"{{streetEgonId}}\", \r\n \"streetNumber\": \"10\"\r\n}"
 										},
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/coverage-check",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/coverage-check",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"coverage-check"
 											]
@@ -2403,11 +2161,12 @@
 											"raw": "{\r\n \"egonIDStreetNumber\": \"{{streetNumberEgonId_error}}\",\r\n \"egonIDStreet\": \"{{streetEgonId}}\", \r\n \"streetNumber\": \"10\"\r\n}"
 										},
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/coverage-check",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/coverage-check",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"coverage-check"
 											]
@@ -2460,11 +2219,12 @@
 													"raw": ""
 												},
 												"url": {
-													"raw": "{{BASE_URL}}/e2e-contracts/{{e2eContractId_7804492_S831016}}/extra",
+													"raw": "{{BASE_URL}}/{{ENV}}/e2e-contracts/{{e2eContractId_7804492_S831016}}/extra",
 													"host": [
 														"{{BASE_URL}}"
 													],
 													"path": [
+														"{{ENV}}",
 														"e2e-contracts",
 														"{{e2eContractId_7804492_S831016}}",
 														"extra"
@@ -2507,11 +2267,12 @@
 													"raw": ""
 												},
 												"url": {
-													"raw": "{{BASE_URL}}/e2e-contracts/{{e2eContractId_error}}/extra",
+													"raw": "{{BASE_URL}}/{{ENV}}/e2e-contracts/{{e2eContractId_error}}/extra",
 													"host": [
 														"{{BASE_URL}}"
 													],
 													"path": [
+														"{{ENV}}",
 														"e2e-contracts",
 														"{{e2eContractId_error}}",
 														"extra"
@@ -2531,17 +2292,14 @@
 															"pm.test(\"Status code is 200\", function () {",
 															"    pm.response.to.have.status(200);",
 															"});",
-															"pm.test(\"Check registrationDate\", function() {",
-															"    var jsonData = pm.response.json();",
-															"    pm.expect(jsonData.registrationDate).to.eql(\"2015-10-14\");",
-															"});",
+															"if (pm.environment.get('ENV') == 'dev') {",
 															"pm.test(\"Check loyaltyEligibilityDate\", function() {",
 															"    var jsonData = pm.response.json();",
-															"    pm.expect(jsonData.loyaltyEligibilityDate).to.eql(\"2008-05-01\");",
+															"    pm.expect(jsonData.loyaltyEligibilityDate).to.eql(\"2007-07-11\");",
 															"});",
-															"pm.test(\"Check agingLoyalty\", function() {",
+															"pm.test(\"Check ageingLoyaltyDate\", function() {",
 															"    var jsonData = pm.response.json();",
-															"    pm.expect(jsonData.agingLoyalty).to.eql(\"146\");",
+															"    pm.expect(jsonData.ageingLoyaltyDate).to.eql(\"2006-07-11\");",
 															"});",
 															"pm.test(\"Check agingSkyExtra\", function() {",
 															"    var jsonData = pm.response.json();",
@@ -2550,7 +2308,8 @@
 															"pm.test(\"Check skyExtraFlag\", function() {",
 															"    var jsonData = pm.response.json();",
 															"    pm.expect(jsonData.skyExtraFlag).to.eql(\"Y\");",
-															"});"
+															"});",
+															"}"
 														],
 														"type": "text/javascript"
 													}
@@ -2566,7 +2325,7 @@
 													{
 														"key": "Authorization",
 														"type": "text",
-														"value": "{{token}}"
+														"value": "{{JWTC-S831016}}"
 													}
 												],
 												"url": {
@@ -2671,11 +2430,12 @@
 													"raw": "{\n    \"channel\": \"WEB\",\n    \"operationCode\": \"1\"\n}"
 												},
 												"url": {
-													"raw": "{{BASE_URL}}/e2e-contracts/{{e2eContractId_7804492_S831016}}/contracts/{{e2eContractId_7804492_S831016}}/requirement-trace",
+													"raw": "{{BASE_URL}}/{{ENV}}/e2e-contracts/{{e2eContractId_7804492_S831016}}/contracts/{{e2eContractId_7804492_S831016}}/requirement-trace",
 													"host": [
 														"{{BASE_URL}}"
 													],
 													"path": [
+														"{{ENV}}",
 														"e2e-contracts",
 														"{{e2eContractId_7804492_S831016}}",
 														"contracts",
@@ -2722,11 +2482,12 @@
 													"raw": "{\n    \"channel\": \"WEB\",\n    \"operationCode\": \"invalid\"\n}"
 												},
 												"url": {
-													"raw": "{{BASE_URL}}/e2e-contracts/{{e2eContractId_error}}/contracts/{{e2eContractId_error}}/requirement-trace",
+													"raw": "{{BASE_URL}}/{{ENV}}/e2e-contracts/{{e2eContractId_error}}/contracts/{{e2eContractId_error}}/requirement-trace",
 													"host": [
 														"{{BASE_URL}}"
 													],
 													"path": [
+														"{{ENV}}",
 														"e2e-contracts",
 														"{{e2eContractId_error}}",
 														"contracts",
@@ -2755,6 +2516,7 @@
 															"pm.test(\"Status code is 200\", function () {",
 															"    pm.response.to.have.status(200);",
 															"});",
+															"if (pm.environment.get('ENV') == 'dev') {",
 															"pm.test(\"Check total recurring costs\", function() {",
 															"    var jsonData = pm.response.json();",
 															"    pm.expect(jsonData.totalRecurring.price).to.eql(\"20,00\");",
@@ -2779,7 +2541,7 @@
 															"    var jsonData = pm.response.json();",
 															"    pm.expect(jsonData.unaTantumCosts.length).to.be.above(0);",
 															"});",
-															""
+															"}"
 														],
 														"type": "text/javascript"
 													}
@@ -2799,11 +2561,12 @@
 													}
 												],
 												"url": {
-													"raw": "{{BASE_URL}}/e2e-contracts/{{e2eContractId_15519865}}/offer-summary",
+													"raw": "{{BASE_URL}}/{{ENV}}/e2e-contracts/{{e2eContractId_15519865}}/offer-summary",
 													"host": [
 														"{{BASE_URL}}"
 													],
 													"path": [
+														"{{ENV}}",
 														"e2e-contracts",
 														"{{e2eContractId_15519865}}",
 														"offer-summary"
@@ -2842,11 +2605,12 @@
 													}
 												],
 												"url": {
-													"raw": "{{BASE_URL}}/e2e-contracts/{{e2eContractId_error}}/offer-summary",
+													"raw": "{{BASE_URL}}/{{ENV}}/e2e-contracts/{{e2eContractId_error}}/offer-summary",
 													"host": [
 														"{{BASE_URL}}"
 													],
 													"path": [
+														"{{ENV}}",
 														"e2e-contracts",
 														"{{e2eContractId_error}}",
 														"offer-summary"
@@ -2873,6 +2637,7 @@
 															"pm.test(\"Status code is 200\", function () {",
 															"    pm.response.to.have.status(200);",
 															"});",
+															"if (pm.environment.get('ENV') == 'dev') {",
 															"pm.test(\"Check shipmentCode\", function() {",
 															"    var jsonData = pm.response.json();",
 															"    pm.expect(jsonData.shipmentCode).to.eql(\"A01039104100\");",
@@ -2929,7 +2694,7 @@
 															"    var jsonData = pm.response.json();",
 															"    pm.expect(jsonData.trackingStates.length).to.be.above(0);",
 															"});",
-															""
+															"}"
 														],
 														"type": "text/javascript"
 													}
@@ -2993,11 +2758,12 @@
 													}
 												],
 												"url": {
-													"raw": "{{BASE_URL}}/e2e-contracts/{{e2eContractId_error}}/shipment-tracking",
+													"raw": "{{BASE_URL}}/{{ENV}}/e2e-contracts/{{e2eContractId_error}}/shipment-tracking",
 													"host": [
 														"{{BASE_URL}}"
 													],
 													"path": [
+														"{{ENV}}",
 														"e2e-contracts",
 														"{{e2eContractId_error}}",
 														"shipment-tracking"
@@ -3097,11 +2863,12 @@
 													}
 												],
 												"url": {
-													"raw": "{{BASE_URL}}/e2e-contracts/{{e2eContractId_7804492_S831016}}/contracts/{{e2eContractId_7804492_S831016}}/invoices/delivery-settings/options",
+													"raw": "{{BASE_URL}}/{{ENV}}/e2e-contracts/{{e2eContractId_7804492_S831016}}/contracts/{{e2eContractId_7804492_S831016}}/invoices/delivery-settings/options",
 													"host": [
 														"{{BASE_URL}}"
 													],
 													"path": [
+														"{{ENV}}",
 														"e2e-contracts",
 														"{{e2eContractId_7804492_S831016}}",
 														"contracts",
@@ -3119,112 +2886,114 @@
 									"_postman_isSubFolder": true
 								},
 								{
-									"name": "getAssets",
+									"name": "users-documents",
 									"item": [
 										{
-											"name": "users-documents",
-											"item": [
+											"name": "RetrieveUsersDocuments_200_Auto",
+											"event": [
 												{
-													"name": "RetrieveUsersDocuments_200_Auto",
-													"event": [
-														{
-															"listen": "test",
-															"script": {
-																"id": "60da7c12-f33f-4983-b94d-a67ff6d49841",
-																"exec": [
-																	"pm.test(\"Status code is 200\", function () {",
-																	"    pm.response.to.have.status(200);",
-																	"});",
-																	"pm.test(\"Check payer's document\", function() {",
-																	"    var jsonData = pm.response.json();",
-																	"    pm.expect(jsonData.payerDocument).not.eql(undefined).and.not.eql(null);",
-																	"});",
-																	"pm.test(\"Check consumer's document\", function() {",
-																	"    var jsonData = pm.response.json();",
-																	"    pm.expect(jsonData.consumerDocument).not.eql(undefined).and.not.eql(null);",
-																	"});",
-																	""
-																],
-																"type": "text/javascript"
-															}
-														}
-													],
-													"request": {
-														"method": "GET",
-														"header": [
-															{
-																"key": "Accept",
-																"value": "application/json"
-															},
-															{
-																"key": "Authorization",
-																"type": "text",
-																"value": "{{JWTC-S831016}}"
-															}
+													"listen": "test",
+													"script": {
+														"id": "60da7c12-f33f-4983-b94d-a67ff6d49841",
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {",
+															"    pm.response.to.have.status(200);",
+															"});",
+															"pm.test(\"Check payer's document\", function() {",
+															"    var jsonData = pm.response.json();",
+															"    pm.expect(jsonData.payerDocument).not.eql(undefined).and.not.eql(null);",
+															"});",
+															"pm.test(\"Check consumer's document\", function() {",
+															"    var jsonData = pm.response.json();",
+															"    pm.expect(jsonData.consumerDocument).not.eql(undefined).and.not.eql(null);",
+															"});",
+															""
 														],
-														"url": {
-															"raw": "{{BASE_URL}}/e2e-contracts/{{e2eContractId_7804492_S831016}}/users/documents",
-															"host": [
-																"{{BASE_URL}}"
-															],
-															"path": [
-																"e2e-contracts",
-																"{{e2eContractId_7804492_S831016}}",
-																"users",
-																"documents"
-															]
-														}
-													},
-													"response": []
-												},
-												{
-													"name": "RetrieveUsersDocuments_422_Auto",
-													"event": [
-														{
-															"listen": "test",
-															"script": {
-																"id": "2df500bb-2ad3-4ed3-8455-2d2f24029e5c",
-																"exec": [
-																	"pm.test(\"Status code is 422\", function () {",
-																	"    pm.response.to.have.status(422);",
-																	"});"
-																],
-																"type": "text/javascript"
-															}
-														}
-													],
-													"request": {
-														"method": "GET",
-														"header": [
-															{
-																"key": "Accept",
-																"value": "application/json"
-															},
-															{
-																"key": "Authorization",
-																"type": "text",
-																"value": "{{JWTC-S831016}}"
-															}
-														],
-														"url": {
-															"raw": "{{BASE_URL}}/e2e-contracts/{{e2eContractId_error}}/users/documents",
-															"host": [
-																"{{BASE_URL}}"
-															],
-															"path": [
-																"e2e-contracts",
-																"{{e2eContractId_error}}",
-																"users",
-																"documents"
-															]
-														}
-													},
-													"response": []
+														"type": "text/javascript"
+													}
 												}
 											],
-											"protocolProfileBehavior": {},
-											"_postman_isSubFolder": true
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													},
+													{
+														"key": "Authorization",
+														"type": "text",
+														"value": "{{JWTC-S831016}}"
+													}
+												],
+												"url": {
+													"raw": "{{BASE_URL}}/{{ENV}}/e2e-contracts/{{e2eContractId_7804492_S831016}}/users/documents",
+													"host": [
+														"{{BASE_URL}}"
+													],
+													"path": [
+														"{{ENV}}",
+														"e2e-contracts",
+														"{{e2eContractId_7804492_S831016}}",
+														"users",
+														"documents"
+													]
+												}
+											},
+											"response": []
 										},
+										{
+											"name": "RetrieveUsersDocuments_422_Auto",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "2df500bb-2ad3-4ed3-8455-2d2f24029e5c",
+														"exec": [
+															"pm.test(\"Status code is 422\", function () {",
+															"    pm.response.to.have.status(422);",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													},
+													{
+														"key": "Authorization",
+														"type": "text",
+														"value": "{{JWTC-S831016}}"
+													}
+												],
+												"url": {
+													"raw": "{{BASE_URL}}/{{ENV}}/e2e-contracts/{{e2eContractId_error}}/users/documents",
+													"host": [
+														"{{BASE_URL}}"
+													],
+													"path": [
+														"{{ENV}}",
+														"e2e-contracts",
+														"{{e2eContractId_error}}",
+														"users",
+														"documents"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"protocolProfileBehavior": {},
+									"_postman_isSubFolder": true
+								},
+								{
+									"name": "getAssets",
+									"item": [
 										{
 											"name": "getAssetsByIdParentChildFilter_7804492_200",
 											"event": [
@@ -3277,11 +3046,12 @@
 													}
 												],
 												"url": {
-													"raw": "{{BASE_URL}}/e2e-contracts/{{e2eContractId_7804492_S831016}}/assets",
+													"raw": "{{BASE_URL}}/{{ENV}}/e2e-contracts/{{e2eContractId_7804492_S831016}}/assets",
 													"host": [
 														"{{BASE_URL}}"
 													],
 													"path": [
+														"{{ENV}}",
 														"e2e-contracts",
 														"{{e2eContractId_7804492_S831016}}",
 														"assets"
@@ -3342,11 +3112,12 @@
 													}
 												],
 												"url": {
-													"raw": "{{BASE_URL}}/e2e-contracts/{{e2eContractId_15519863}}/assets",
+													"raw": "{{BASE_URL}}/{{ENV}}/e2e-contracts/{{e2eContractId_15519863}}/assets",
 													"host": [
 														"{{BASE_URL}}"
 													],
 													"path": [
+														"{{ENV}}",
 														"e2e-contracts",
 														"{{e2eContractId_15519863}}",
 														"assets"
@@ -3407,11 +3178,12 @@
 													}
 												],
 												"url": {
-													"raw": "{{BASE_URL}}/e2e-contracts/{{e2eContractId_15519864}}/assets",
+													"raw": "{{BASE_URL}}/{{ENV}}/e2e-contracts/{{e2eContractId_15519864}}/assets",
 													"host": [
 														"{{BASE_URL}}"
 													],
 													"path": [
+														"{{ENV}}",
 														"e2e-contracts",
 														"{{e2eContractId_15519864}}",
 														"assets"
@@ -3465,19 +3237,15 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\n\t\"channel\":\"WSC\",\n\t\"category\": \"Gestione Tecnica\",\n    \"subcategory\": \"BB - Problema copertura/navigazione\",\n    \"reason\": \"Linea\",\n    \"reasonDetail\": \"B9 (Passive - ONT-Hub degraded)\",\n    \"result\": \"TT verso SMC\"\n}",
-													"options": {
-														"raw": {
-															"language": "json"
-														}
-													}
+													"raw": "{\n\t\"channel\":\"WSC\",\n\t\"category\": \"Gestione Tecnica\",\n    \"subcategory\": \"BB - Problema copertura/navigazione\",\n    \"reason\": \"Linea\",\n    \"reasonDetail\": \"B9 (Passive - ONT-Hub degraded)\",\n    \"result\": \"TT verso SMC\"\n}"
 												},
 												"url": {
-													"raw": "{{BASE_URL}}/e2e-contracts/{{e2eContractId_7804492_S831016}}/contracts/{{e2eContractId_7804492_S831016}}/cases",
+													"raw": "{{BASE_URL}}/{{ENV}}/e2e-contracts/{{e2eContractId_7804492_S831016}}/contracts/{{e2eContractId_7804492_S831016}}/cases",
 													"host": [
 														"{{BASE_URL}}"
 													],
 													"path": [
+														"{{ENV}}",
 														"e2e-contracts",
 														"{{e2eContractId_7804492_S831016}}",
 														"contracts",
@@ -3526,19 +3294,15 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\n\t\"channel\":\"WSC\",\n\t\"category\": \"Gestione Tecnica\",\n    \"subcategory\": \"BB - Problema copertura/navigazione\",\n    \"reason\": \"Linea\",\n    \"reasonDetail\": \"B9 (Passive - ONT-Hub degraded)\",\n    \"result\": \"TT verso SMC\"\n}",
-													"options": {
-														"raw": {
-															"language": "json"
-														}
-													}
+													"raw": "{\n\t\"channel\":\"WSC\",\n\t\"category\": \"Gestione Tecnica\",\n    \"subcategory\": \"BB - Problema copertura/navigazione\",\n    \"reason\": \"Linea\",\n    \"reasonDetail\": \"B9 (Passive - ONT-Hub degraded)\",\n    \"result\": \"TT verso SMC\"\n}"
 												},
 												"url": {
-													"raw": "{{BASE_URL}}/e2e-contracts/{{e2eContractId_23118405}}/contracts/{{techContractId_23118405_503039921}}/cases",
+													"raw": "{{BASE_URL}}/{{ENV}}/e2e-contracts/{{e2eContractId_23118405}}/contracts/{{techContractId_23118405_503039921}}/cases",
 													"host": [
 														"{{BASE_URL}}"
 													],
 													"path": [
+														"{{ENV}}",
 														"e2e-contracts",
 														"{{e2eContractId_23118405}}",
 														"contracts",
@@ -3587,19 +3351,15 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\n\t\"channel\":\"WSC\",\n\t\"category\": \"Gestione Tecnica\",\n    \"subcategory\": \"BB - Problema copertura/navigazione\",\n    \"reason\": \"Linea\",\n    \"reasonDetail\": \"B9 (Passive - ONT-Hub degraded)\",\n    \"result\": \"TT verso SMC\",\n    \"healthChecks\": [\n    \t{\n    \t\t\"type\": \"BB\",\n    \t\t\"executionDate\": \"2019-12-04T00:00:00.000Z\",\n    \t\t\"requestId\": \"1575454120\",\n    \t\t\"bssId\": \"1575454119694\",\n    \t\t\"rag\": \"AMBER\",\n    \t\t\"faultCode\": \"provisional-number\",\n\t\t\t\"faultCause\": \"Ops! Qualcosa non va. Problema sullo Sky Hub\",\n\t\t\t\"nba\": \"8\",\n\t\t\t\"nbaDesc\": \"provisional-number\",\n\t\t\t\"diagnosticSummary\":\"{\\\"Session History\\\":{\\\"class attributes\\\":[\\\"A0-radauth1\\\"],\\\"connection type\\\":3,\\\"CPE ip address\\\":\\\"90.223.175.183\\\",\\\"CPE user name\\\":\\\"7050afffdf50@skydsl\\\",\\\"disconnect cause\\\":\\\"ppp-disconnect-cause=\\\",\\\"start time\\\":\\\"2018-11-09T14:26:59.000000Z\\\",\\\"end time\\\":1,\\\"ip version\\\":4,\\\"session id\\\":\\\"329003000323A75BE59933\\\"},\\\"Access Line Check\\\":{\\\"ontOperationalStatus\\\":\\\"UP\\\",\\\"ontLanStatus\\\":\\\"DISABLED\\\",\\\"attenuation\\\":\\\"-10.5\\\",\\\"WAP service Faults\\\":\\\"NA\\\",\\\"WAP service down time events\\\":\\\"NA\\\",\\\"WAP service attenuation\\\":\\\"NA\\\"}}\"\n    \t}\n    \t]\n}",
-													"options": {
-														"raw": {
-															"language": "json"
-														}
-													}
+													"raw": "{\n\t\"channel\":\"WSC\",\n\t\"category\": \"Gestione Tecnica\",\n    \"subcategory\": \"BB - Problema copertura/navigazione\",\n    \"reason\": \"Linea\",\n    \"reasonDetail\": \"B9 (Passive - ONT-Hub degraded)\",\n    \"result\": \"TT verso SMC\",\n    \"healthChecks\": [\n    \t{\n    \t\t\"type\": \"BB\",\n    \t\t\"executionDate\": \"2019-12-04T00:00:00.000Z\",\n    \t\t\"requestId\": \"1575454120\",\n    \t\t\"bssId\": \"1575454119694\",\n    \t\t\"rag\": \"AMBER\",\n    \t\t\"faultCode\": \"provisional-number\",\n\t\t\t\"faultCause\": \"Ops! Qualcosa non va. Problema sullo Sky Hub\",\n\t\t\t\"nba\": \"8\",\n\t\t\t\"nbaDesc\": \"provisional-number\",\n\t\t\t\"diagnosticSummary\":\"{\\\"Session History\\\":{\\\"class attributes\\\":[\\\"A0-radauth1\\\"],\\\"connection type\\\":3,\\\"CPE ip address\\\":\\\"90.223.175.183\\\",\\\"CPE user name\\\":\\\"7050afffdf50@skydsl\\\",\\\"disconnect cause\\\":\\\"ppp-disconnect-cause=\\\",\\\"start time\\\":\\\"2018-11-09T14:26:59.000000Z\\\",\\\"end time\\\":1,\\\"ip version\\\":4,\\\"session id\\\":\\\"329003000323A75BE59933\\\"},\\\"Access Line Check\\\":{\\\"ontOperationalStatus\\\":\\\"UP\\\",\\\"ontLanStatus\\\":\\\"DISABLED\\\",\\\"attenuation\\\":\\\"-10.5\\\",\\\"WAP service Faults\\\":\\\"NA\\\",\\\"WAP service down time events\\\":\\\"NA\\\",\\\"WAP service attenuation\\\":\\\"NA\\\"}}\"\n    \t}\n    \t]\n}"
 												},
 												"url": {
-													"raw": "{{BASE_URL}}/e2e-contracts/{{e2eContractId_23118405}}/contracts/{{techContractId_23118405_503039921}}/cases",
+													"raw": "{{BASE_URL}}/{{ENV}}/e2e-contracts/{{e2eContractId_23118405}}/contracts/{{techContractId_23118405_503039921}}/cases",
 													"host": [
 														"{{BASE_URL}}"
 													],
 													"path": [
+														"{{ENV}}",
 														"e2e-contracts",
 														"{{e2eContractId_23118405}}",
 														"contracts",
@@ -3655,14 +3415,15 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n      \"city\": \"Monticelli d'Adda\",\r\n      \"country\": \"Italia\",\r\n      \"displayName\": \"Monticelli d'Adda\",\r\n      \"egonId\": \"123456789\",\r\n      \"postalCode\": \"26842\",\r\n      \"province\": \"CR\",\r\n      \"staircaseId\": \"\",\r\n      \"street\": \"Bandiera d'Italia\",\r\n      \"streetNumber\": \"1\",\r\n      \"toponym\": \"Piazza\",\r\n      \"complexBuilding\": \"\",\r\n      \"indoor\": \"\",\r\n      \"floor\": \"\",\r\n      \"egonIdStreetNumber\": \"123456789\",\r\n      \"egonIdStreet\": \"123456789\",\r\n      \"egonIdStreetNumberId\": \"123456789\",\r\n      \"normalized\": \"true\"\r\n}"
+													"raw": "{\r\n      \"city\": \"Monticelli d'Adda\",\r\n      \"displayName\": \"Monticelli d'Adda\",\r\n      \"zipCode\": \"26842\",\r\n      \"province\": \"CR\",\r\n      \"street\": \"Bandiera d'Italia\",\r\n      \"streetNumber\": \"1\"\r\n}"
 												},
 												"url": {
-													"raw": "{{BASE_URL}}/e2e-contracts/{{e2eContractId_15519863}}/billing-address",
+													"raw": "{{BASE_URL}}/{{ENV}}/e2e-contracts/{{e2eContractId_15519863}}/billing-address",
 													"host": [
 														"{{BASE_URL}}"
 													],
 													"path": [
+														"{{ENV}}",
 														"e2e-contracts",
 														"{{e2eContractId_15519863}}",
 														"billing-address"
@@ -3709,14 +3470,15 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n      \"city\": \"Monticelli d'Adda\",\r\n      \"country\": \"Italia\",\r\n      \"displayName\": \"Monticelli d'Adda\",\r\n      \"egonId\": \"123456789\",\r\n      \"postalCode\": \"26842\",\r\n      \"province\": \"CR\",\r\n      \"staircaseId\": \"\",\r\n      \"street\": \"Bandiera d'Italia\",\r\n      \"streetNumber\": \"1\",\r\n      \"toponym\": \"Piazza\",\r\n      \"complexBuilding\": \"\",\r\n      \"indoor\": \"\",\r\n      \"floor\": \"\",\r\n      \"egonIdStreetNumber\": \"123456789\",\r\n      \"egonIdStreet\": \"123456789\",\r\n      \"egonIdStreetNumberId\": \"123456789\",\r\n      \"normalized\": \"true\"\r\n}"
+													"raw": "{\r\n      \"city\": \"Monticelli d'Adda\",\r\n      \"displayName\": \"Monticelli d'Adda\",\r\n      \"zipCode\": \"26842\",\r\n      \"province\": \"CR\",\r\n      \"street\": \"Bandiera d'Italia\",\r\n      \"streetNumber\": \"1\"\r\n}"
 												},
 												"url": {
-													"raw": "{{BASE_URL}}/e2e-contracts/{{e2eContractId_15519872}}/billing-address",
+													"raw": "{{BASE_URL}}/{{ENV}}/e2e-contracts/{{e2eContractId_15519872}}/billing-address",
 													"host": [
 														"{{BASE_URL}}"
 													],
 													"path": [
+														"{{ENV}}",
 														"e2e-contracts",
 														"{{e2eContractId_15519872}}",
 														"billing-address"
@@ -3763,14 +3525,15 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n      \"city\": \"Monticelli d'Adda\",\r\n      \"country\": \"Italia\",\r\n      \"displayName\": \"Monticelli d'Adda\",\r\n      \"egonId\": \"123456789\",\r\n      \"postalCode\": \"26842\",\r\n      \"province\": \"CR\",\r\n      \"staircaseId\": \"\",\r\n      \"street\": \"Bandiera d'Italia\",\r\n      \"streetNumber\": \"1\",\r\n      \"toponym\": \"Piazza\",\r\n      \"complexBuilding\": \"\",\r\n      \"indoor\": \"\",\r\n      \"floor\": \"\",\r\n      \"egonIdStreetNumber\": \"123456789\",\r\n      \"egonIdStreet\": \"123456789\",\r\n      \"egonIdStreetNumberId\": \"123456789\",\r\n      \"normalized\": \"true\"\r\n}"
+													"raw": "{\r\n      \"city\": \"Monticelli d'Adda\",\r\n      \"displayName\": \"Monticelli d'Adda\",\r\n      \"zipCode\": \"26842\",\r\n      \"province\": \"CR\",\r\n      \"street\": \"Bandiera d'Italia\",\r\n      \"streetNumber\": \"1\"\r\n}"
 												},
 												"url": {
-													"raw": "{{BASE_URL}}/e2e-contracts/{{e2eContractId_15519863}}/contracts/{{e2eContractId_15519863}}/billing-address",
+													"raw": "{{BASE_URL}}/{{ENV}}/e2e-contracts/{{e2eContractId_15519863}}/contracts/{{e2eContractId_15519863}}/billing-address",
 													"host": [
 														"{{BASE_URL}}"
 													],
 													"path": [
+														"{{ENV}}",
 														"e2e-contracts",
 														"{{e2eContractId_15519863}}",
 														"contracts",
@@ -3796,8 +3559,8 @@
 													"pm.test(\"Status code is 200\", function () {",
 													"    pm.response.to.have.status(200);",
 													"});",
-													"",
-													"/*let contractDetails = pm.response.json();",
+													"if (pm.environment.get('ENV') == 'dev') {",
+													"let contractDetails = pm.response.json();",
 													"pm.test(\"Has Sky Go\", function() {",
 													"    pm.expect(contractDetails.assetsContainer.assetsInfo.skyGoPlus).to.equal(true);",
 													"});",
@@ -3806,67 +3569,9 @@
 													"});",
 													"pm.test(\"Is DTT\", function() {",
 													"    pm.expect(contractDetails.assetsContainer.assetsInfo.genericDTT).to.equal(true);",
-													"});*/"
-												],
-												"type": "text/javascript"
-											}
-										},
-										{
-											"listen": "prerequest",
-											"script": {
-												"id": "65ed9f0b-625c-41a1-8f0c-3c9291f3b76c",
-												"exec": [
-													""
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"method": "GET",
-										"header": [
-											{
-												"key": "Accept",
-												"value": "application/json"
-											},
-											{
-												"key": "Authorization",
-												"type": "text",
-												"value": "{{JWTC-S831016}} "
-											}
-										],
-										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/e2e-contracts/NnNZRjhWS2pSRDIzZ2pBMDJSMllWZz09",
-											"host": [
-												"{{BASE_URL}}"
-											],
-											"path": [
-												"{{ENV}}",
-												"e2e-contracts",
-												"NnNZRjhWS2pSRDIzZ2pBMDJSMllWZz09"
-											]
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "Get pdf links for contract",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"id": "60da7c12-f33f-4983-b94d-a67ff6d49841",
-												"exec": [
-													"const technicalContractsPdfs = pm.response.json().technicalContractsPdfs;",
-													"",
-													"pm.test(\"Status code is 200\", function () {",
-													"    pm.response.to.have.status(200);",
 													"});",
-													"",
-													"pm.test(\"Each contract contains type and link\", function() {",
-													"    pdfsList = technicalContractsPdfs.map(contract => contract.pdfs);",
-													"    pdfsList.forEach(pdfsElement => pm.expect(pdfsElement).to.have.lengthOf(2));",
-													"});"
+													"}",
+													""
 												],
 												"type": "text/javascript"
 											}
@@ -3886,11 +3591,64 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/e2e-contracts/{{e2eContractId_7804492_S831016}}/contracts/pdf",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/e2e-contracts/{{e2eContractId_7804492_S831016}}",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
+												"{{ENV}}",
+												"e2e-contracts",
+												"{{e2eContractId_7804492_S831016}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get pdf links for contract",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "60da7c12-f33f-4983-b94d-a67ff6d49841",
+												"exec": [
+													"const technicalContractsPdfs = pm.response.json().technicalContractsPdfs;",
+													"",
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"if (pm.environment.get('ENV') == 'dev') {",
+													"pm.test(\"Each contract contains type and link\", function() {",
+													"    pdfsList = technicalContractsPdfs.map(contract => contract.pdfs);",
+													"    pdfsList.forEach(pdfsElement => pm.expect(pdfsElement).to.have.lengthOf(2));",
+													"});",
+													"}"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "{{JWTC-S831016}}"
+											}
+										],
+										"url": {
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/e2e-contracts/{{e2eContractId_7804492_S831016}}/contracts/pdf",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"e2e-contracts",
 												"{{e2eContractId_7804492_S831016}}",
@@ -3912,11 +3670,12 @@
 													"pm.test(\"Status code is 200\", function () {",
 													"    pm.response.to.have.status(200);",
 													"});",
-													"",
+													"if (pm.environment.get('ENV') == 'dev') {",
 													"pm.test(\"cloneable\", function () {",
 													"    var jsonData = pm.response.json();",
 													"    pm.expect(jsonData.contracts[0].methodOfPayment.cloneable).to.eql(false);",
-													"});"
+													"});",
+													"}"
 												],
 												"type": "text/javascript"
 											}
@@ -3936,11 +3695,12 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/e2e-contracts/{{e2eContractId_444555}}",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/e2e-contracts/{{e2eContractId_444555}}",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"e2e-contracts",
 												"{{e2eContractId_444555}}"
@@ -3960,11 +3720,12 @@
 													"pm.test(\"Status code is 200\", function () {",
 													"    pm.response.to.have.status(200);",
 													"});",
-													"",
+													"if (pm.environment.get('ENV') == 'dev') {",
 													"pm.test(\"cloneable\", function () {",
 													"    var jsonData = pm.response.json();",
 													"    pm.expect(jsonData.contracts[0].methodOfPayment.cloneable).to.eql(true);",
-													"});"
+													"});",
+													"}"
 												],
 												"type": "text/javascript"
 											}
@@ -3984,11 +3745,12 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/e2e-contracts/{{e2eContractId_456546}}",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/e2e-contracts/{{e2eContractId_456546}}",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"e2e-contracts",
 												"{{e2eContractId_456546}}"
@@ -4028,11 +3790,12 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/e2e-contracts/{{e2eContractId_15519866}}",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/e2e-contracts/{{e2eContractId_15519866}}",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"e2e-contracts",
 												"{{e2eContractId_15519866}}"
@@ -4072,11 +3835,12 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/e2e-contracts/{{e2eContractId_15519867}}",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/e2e-contracts/{{e2eContractId_15519867}}",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"e2e-contracts",
 												"{{e2eContractId_15519867}}"
@@ -4115,11 +3879,12 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/e2e-contracts/{{e2eContractId_error}}",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/e2e-contracts/{{e2eContractId_error}}",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"e2e-contracts",
 												"{{e2eContractId_error}}"
@@ -4158,11 +3923,12 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/e2e-contracts/NnNZRjhWS2pSRDIzZ2pBMDJSMllWZz09",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/e2e-contracts/NnNZRjhWS2pSRDIzZ2pBMDJSMllWZz09",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"e2e-contracts",
 												"NnNZRjhWS2pSRDIzZ2pBMDJSMllWZz09"
@@ -4182,13 +3948,13 @@
 													"pm.test(\"Status code is 200\", function () {",
 													"    pm.response.to.have.status(200);",
 													"});",
-													"",
+													"if (pm.environment.get('ENV') == 'dev') {",
 													"pm.test(\"Check list id\", function () {",
 													"    var jsonData = pm.response.json();",
 													"    pm.expect(jsonData.items[0].order.id).to.eql(\"czRPcWdaWkRFOEludFRmRHc3UXlhTkw4WnEzOUZ1N2NVNDg0OWt5TU02ST0=\");",
 													"    pm.expect(jsonData.items[19].case.id).to.eql(\"TXlFTC8yb3FyQVYrY0c3eENyeE9kOEZ0S29sUU5OM29uaUQwS1IxOWpYOD0=\");",
 													"});",
-													""
+													"}"
 												],
 												"type": "text/javascript"
 											}
@@ -4208,11 +3974,12 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/e2e-contracts/{{e2eContractId_7804492}}/activities",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/e2e-contracts/{{e2eContractId_7804492}}/activities",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"e2e-contracts",
 												"{{e2eContractId_7804492}}",
@@ -4233,7 +4000,7 @@
 													"pm.test(\"Status code is 200\", function () {",
 													"    pm.response.to.have.status(200);",
 													"});",
-													"",
+													"if (pm.environment.get('ENV') == 'dev') {",
 													"pm.test(\"Check list id\", function () {",
 													"    var jsonData = pm.response.json();",
 													"    pm.expect(jsonData[0].id).to.eql(\"T2RmY3JrblpGb0JMdlFrdW5rQjVvWENUM09yWHM1QThyOVNEcGFMWHlYTT0=\");",
@@ -4242,6 +4009,7 @@
 													"    pm.expect(jsonData[3].id).to.eql(\"T2F5NFhZYTgwZkpLVzRhN3BhUXVOVmwyQzNpbmNtNUhuOHBGdWJRVmtRK3dpeDVNVTJiMkVvaFBoS2ZaRWEySg==\");",
 													"    pm.expect(jsonData[4].id).to.eql(\"ZmU5Rmd1M2d2dFdvRUVZZ1BNZWk0VDdHazZmNFdnRVd6S0pOdlVVUHpuMD0=\");",
 													"});",
+													"}",
 													""
 												],
 												"type": "text/javascript"
@@ -4262,11 +4030,12 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/e2e-contracts/{{e2eContractId_7804492}}/orders",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/e2e-contracts/{{e2eContractId_7804492}}/orders",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"e2e-contracts",
 												"{{e2eContractId_7804492}}",
@@ -4306,11 +4075,12 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/e2e-contracts/{{e2eContractId_error}}/orders",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/e2e-contracts/{{e2eContractId_error}}/orders",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"e2e-contracts",
 												"{{e2eContractId_error}}",
@@ -4331,11 +4101,12 @@
 													"pm.test(\"Status code is 200\", function () {",
 													"    pm.response.to.have.status(200);",
 													"});",
-													"",
+													"if (pm.environment.get('ENV') == 'dev') {",
 													"pm.test(\"Retrieved 2 Invoices\", function () {",
 													"    var jsonData = pm.response.json();",
 													"    pm.expect(jsonData.length).to.eql(31);",
-													"});"
+													"});",
+													"}"
 												],
 												"type": "text/javascript"
 											}
@@ -4355,11 +4126,12 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/e2e-contracts/{{e2eContractId_7804492_S831016}}/invoices",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/e2e-contracts/{{e2eContractId_7804492_S831016}}/invoices",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"e2e-contracts",
 												"{{e2eContractId_7804492_S831016}}",
@@ -4400,11 +4172,12 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/e2e-contracts/{{e2eContractId_7804492_S831016}}/suppressed-invoices",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/e2e-contracts/{{e2eContractId_7804492_S831016}}/suppressed-invoices",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"e2e-contracts",
 												"{{e2eContractId_7804492_S831016}}",
@@ -4424,9 +4197,12 @@
 												"exec": [
 													"pm.test(\"Status code is 200\", function () {",
 													"    pm.response.to.have.status(200);",
+													"    ",
+													"    if (pm.environment.get('ENV') == 'dev') {",
 													"    var jsonData = pm.response.json();",
-													"",
 													"    pm.expect(jsonData.suppressedInvoices.length).to.eql(0);",
+													"    }",
+													"    ",
 													"});",
 													"",
 													""
@@ -4449,11 +4225,12 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/e2e-contracts/{{e2eContractId_error}}/suppressed-invoices",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/e2e-contracts/{{e2eContractId_error}}/suppressed-invoices",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"e2e-contracts",
 												"{{e2eContractId_error}}",
@@ -4502,11 +4279,12 @@
 											"raw": ""
 										},
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/e2e-contracts/{{e2eContractId_7804492_S831016}}/suppressed-invoices/status",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/e2e-contracts/{{e2eContractId_7804492_S831016}}/suppressed-invoices/status",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"e2e-contracts",
 												"{{e2eContractId_7804492_S831016}}",
@@ -4548,11 +4326,12 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/e2e-contracts/{{e2eContractId_7804492_S831016}}/invoices/{{invoiceId_TV}}?displayNumbers=OBFUSCATED&issueDate=2018-04-05&billingAccountId=12345",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/e2e-contracts/{{e2eContractId_7804492_S831016}}/invoices/{{invoiceId_TV}}?displayNumbers=OBFUSCATED&issueDate=2018-04-05&billingAccountId=12345",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"e2e-contracts",
 												"{{e2eContractId_7804492_S831016}}",
@@ -4620,11 +4399,12 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/e2e-contracts/{{e2eContractId_7804492_S831016}}/invoices/{{invoiceId_BB}}?displayNumbers=OBFUSCATED&issueDate=2018-12-03&billingAccountId=12345",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/e2e-contracts/{{e2eContractId_7804492_S831016}}/invoices/{{invoiceId_BB}}?displayNumbers=OBFUSCATED&issueDate=2018-12-03&billingAccountId=12345",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"e2e-contracts",
 												"{{e2eContractId_7804492_S831016}}",
@@ -4692,11 +4472,12 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/e2e-contracts/{{e2eContractId_7804492_S831016}}/invoices/{{invoiceId_BB}}?displayNumbers=VISIBLE&issueDate=2018-12-03&billingAccountId=12345",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/e2e-contracts/{{e2eContractId_7804492_S831016}}/invoices/{{invoiceId_BB}}?displayNumbers=VISIBLE&issueDate=2018-12-03&billingAccountId=12345",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"e2e-contracts",
 												"{{e2eContractId_7804492_S831016}}",
@@ -4715,6 +4496,69 @@
 												{
 													"key": "billingAccountId",
 													"value": "12345"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "RetrieveBBInvoiceCallListPdflByE2eContractAndByIdAndNumbersVisible_200",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "7d17e52b-b241-434c-8b6f-efe2f5bf138f",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"type": "text",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "{{JWTC-S831016}}"
+											}
+										],
+										"url": {
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/e2e-contracts/{{e2eContractId_7804492_S831016}}/invoices/{{invoiceId_BB}}/calls.pdf?displayNumbers=VISIBLE&issueDate=2018-12-03&=",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"{{DOMAIN}}",
+												"{{ENV}}",
+												"e2e-contracts",
+												"{{e2eContractId_7804492_S831016}}",
+												"invoices",
+												"{{invoiceId_BB}}",
+												"calls.pdf"
+											],
+											"query": [
+												{
+													"key": "displayNumbers",
+													"value": "VISIBLE"
+												},
+												{
+													"key": "issueDate",
+													"value": "2018-12-03"
+												},
+												{
+													"key": "",
+													"value": ""
 												}
 											]
 										}
@@ -4752,11 +4596,12 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/e2e-contracts/{{e2eContractId_7804492_S831016}}/calls?display-numbers=OBFUSCATED&interval=LAST_WEEK",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/e2e-contracts/{{e2eContractId_7804492_S831016}}/calls?display-numbers=OBFUSCATED&interval=LAST_WEEK",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"e2e-contracts",
 												"{{e2eContractId_7804492_S831016}}",
@@ -4784,8 +4629,8 @@
 											"script": {
 												"id": "47463A4C-432F-41A0-A782-5931E5D08BE7",
 												"exec": [
-													"pm.test(\"Status code is 406\", function () {",
-													"    pm.response.to.have.status(406);",
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
 													"});"
 												],
 												"type": "text/javascript"
@@ -4797,7 +4642,7 @@
 										"header": [
 											{
 												"key": "Accept",
-												"value": "application/json",
+												"value": "application/pdf",
 												"type": "text"
 											},
 											{
@@ -4807,15 +4652,16 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/e2e-contracts/{{e2eContractId_7804492_S831016}}/calls?display-numbers=OBFUSCATED&interval=LAST_WEEK",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/e2e-contracts/{{e2eContractId_7804492_S831016}}/calls.pdf?display-numbers=OBFUSCATED&interval=LAST_WEEK",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"e2e-contracts",
 												"{{e2eContractId_7804492_S831016}}",
-												"calls"
+												"calls.pdf"
 											],
 											"query": [
 												{
@@ -4876,11 +4722,12 @@
 											"raw": "{\n  \"methodOfPayment\": {\n    \"id\": \"{{e2eContractId_7804492_S831016}}\",\n    \"status\": \"TO_BE_VALIDATED\",\n    \"type\": \"BANK_ACCOUNT\",\n    \"billingFrequency\": \"MONTHLY\",\n    \"bankAccount\": {\n      \"abi\": \"02008\",\n      \"cab\": \"05245\",\n      \"cin\": \"X\",\n      \"holder\": \"string\",\n      \"iban\": \"IT23V0200805245000305688271\",\n      \"number\": \"000305688271\",\n      \"bank\": \"UNICREDIT BANCA SPA\",\n      \"agency\": \"string\",\n      \"agencyAddress\": \"VIA S. BERNARDO\",\n      \"agencyBank\": \"05245 ROMA 126\",\n      \"subscriberName\": \"DIETVORST PAGANO\",\n      \"subscriberFiscalCode\": \"DTVPGN52R25C747B\"\n    }\n  },\n   \"extendMopToContracts\": true\n}"
 										},
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/e2e-contracts/{{e2eContractId_7804492_S831016}}/contracts/{{e2eContractId_7804492_S831016}}/mop",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/e2e-contracts/{{e2eContractId_7804492_S831016}}/contracts/{{e2eContractId_7804492_S831016}}/mop",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"e2e-contracts",
 												"{{e2eContractId_7804492_S831016}}",
@@ -4937,11 +4784,12 @@
 											"raw": "{\n  \"methodOfPayment\": {\n    \"id\": \"S000SVI4ZklBbHZOekxpdWliWWVrdz09\",\n    \"status\": \"TO_BE_VALIDATED\",\n    \"type\": \"BANK_ACCOUNT\",\n    \"billingFrequency\": \"MONTHLY\",\n    \"bankAccount\": {\n      \"abi\": \"02008\",\n      \"cab\": \"05245\",\n      \"cin\": \"X\",\n      \"holder\": \"string\",\n      \"iban\": \"IT23V02008*****000305688271\",\n      \"ibanFull\": \"cnIxZlFDdUovRmlGbThxSGpZSExDblBaM0szdm9JdkNnVVp3b2R2RzZpYz0=\",\n        \"number\": \"000305688271\",\n      \"bank\": \"UNICREDIT BANCA SPA\",\n      \"agency\": \"string\",\n      \"agencyAddress\": \"VIA S. BERNARDO\",\n      \"agencyBank\": \"05245 ROMA 126\",\n      \"subscriberName\": \"DIETVORST PAGANO\",\n      \"subscriberFiscalCode\": \"DTVPGN52R25C747B\"\n    }\n  },\n   \"extendMopToContracts\": true\n}"
 										},
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/e2e-contracts/{{e2eContractId_7804492_S831016}}/contracts/{{e2eContractId_7804492_S831016}}/mop",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/e2e-contracts/{{e2eContractId_7804492_S831016}}/contracts/{{e2eContractId_7804492_S831016}}/mop",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"e2e-contracts",
 												"{{e2eContractId_7804492_S831016}}",
@@ -4998,11 +4846,12 @@
 											"raw": "{\n  \"methodOfPayment\": {\n    \"id\": \"S000SVI4ZklBbHZOekxpdWliWWVrdz09\",\n    \"status\": \"TO_BE_VALIDATED\",\n    \"type\": \"BANK_ACCOUNT\",\n    \"billingFrequency\": \"MONTHLY\",\n    \"bankAccount\": {\n      \"abi\": \"02008\",\n      \"cab\": \"05245\",\n      \"cin\": \"X\",\n      \"holder\": \"string\",\n      \"iban\": \"IT23V02008*****000305688271\",\n      \"number\": \"000305688271\",\n      \"bank\": \"UNICREDIT BANCA SPA\",\n      \"agency\": \"string\",\n      \"agencyAddress\": \"VIA S. BERNARDO\",\n      \"agencyBank\": \"05245 ROMA 126\",\n      \"subscriberName\": \"DIETVORST PAGANO\",\n      \"subscriberFiscalCode\": \"DTVPGN52R25C747B\"\n    }\n  },\n   \"extendMopToContracts\": true\n}"
 										},
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/e2e-contracts/{{e2eContractId_7804492_S831016}}/contracts/{{e2eContractId_7804492_S831016}}/mop",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/e2e-contracts/{{e2eContractId_7804492_S831016}}/contracts/{{e2eContractId_7804492_S831016}}/mop",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"e2e-contracts",
 												"{{e2eContractId_7804492_S831016}}",
@@ -5059,11 +4908,12 @@
 											"raw": "{\n  \"methodOfPayment\": {\n    \"id\": \"S000SVI4ZklBbHZOekxpdWliWWVrdz09\",\n    \"status\": \"TO_BE_VALIDATED\",\n    \"type\": \"CREDIT_CARD\",\n    \"billingFrequency\": \"MONTHLY\",\n    \"creditCard\": {\n      \"expirationYear\": 2021,\n      \"expirationMonth\": 11,\n      \"holder\": \"DIETVORST PAGANO\",\n      \"number\": \"5436245679876\",\n      \"type\": \"string\"\n    }\n  },\n   \"igfsTransaction\": {\n    \"paymentId\": \"332973232\",\n    \"shopId\": \"32223111\",\n    \"transactionId\": \"823178231789\"\n  },\n   \"extendMopToContracts\": true\n}"
 										},
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/e2e-contracts/{{e2eContractId_7804492_S831016}}/contracts/{{e2eContractId_7804492_S831016}}/mop",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/e2e-contracts/{{e2eContractId_7804492_S831016}}/contracts/{{e2eContractId_7804492_S831016}}/mop",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"e2e-contracts",
 												"{{e2eContractId_7804492_S831016}}",
@@ -5120,11 +4970,12 @@
 											"raw": "{\n  \"methodOfPayment\": {\n    \"id\": \"S000SVI4ZklBbHZOekxpdWliWWVrdz09\",\n    \"status\": \"TO_BE_VALIDATED\",\n    \"type\": \"BANK_ACCOUNT\",\n    \"billingFrequency\": \"MONTHLY\",\n    \"creditCard\": {\n      \"expirationYear\": 2021,\n      \"expirationMonth\": 11,\n      \"holder\": \"DIETVORST PAGANO\",\n      \"number\": \"5436245679876\",\n      \"type\": \"string\"\n    }\n  },\n   \"igfsTransaction\": {\n    \"paymentId\": \"332973232\",\n    \"shopId\": \"32223111\",\n    \"transactionId\": \"823178231789\"\n  },\n   \"extendMopToContracts\": true\n}"
 										},
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/e2e-contracts/{{e2eContractId_7804492_S831016}}/contracts/{{e2eContractId_7804492_S831016}}/mop",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/e2e-contracts/{{e2eContractId_7804492_S831016}}/contracts/{{e2eContractId_7804492_S831016}}/mop",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"e2e-contracts",
 												"{{e2eContractId_7804492_S831016}}",
@@ -5181,11 +5032,12 @@
 											"raw": "{\n  \"methodOfPayment\": {\n    \"id\": \"S000SVI4ZklBbHZOekxpdWliWWVrdz09\",\n    \"status\": \"TO_BE_VALIDATED\",\n    \"type\": \"BANK_ACCOUNT\",\n    \"billingFrequency\": \"MONTHLY\",\n    \"creditCard\": {\n      \"expirationYear\": 2021,\n      \"expirationMonth\": 11,\n      \"holder\": \"DIETVORST PAGANO\",\n      \"number\": \"5436245679876\",\n      \"type\": \"string\"\n    }\n  },\n   \"igfsTransaction\": {\n    \"paymentId\": \"332973232\",\n    \"shopId\": \"32223111\",\n    \"transactionId\": \"823178231789\"\n  },\n   \"extendMopToContracts\": true\n}"
 										},
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/e2e-contracts/{{e2eContractId_error}}/contracts/{{e2eContractId_error}}/mop",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/e2e-contracts/{{e2eContractId_error}}/contracts/{{e2eContractId_error}}/mop",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"e2e-contracts",
 												"{{e2eContractId_error}}",
@@ -5242,11 +5094,12 @@
 											"raw": "{\n  \"methodOfPayment\": {\n    \"id\": \"S000SVI4ZklBbHZOekxpdWliWWVrdz09\",\n    \"status\": \"TO_BE_VALIDATED\",\n    \"type\": \"POSTAL_SLIP\",\n    \"billingFrequency\": \"MONTHLY\"\n  },\n  \"extendMopToContracts\": true\n}"
 										},
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/e2e-contracts/{{e2eContractId_7804492_S831016}}/contracts/{{e2eContractId_7804492_S831016}}/mop",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/e2e-contracts/{{e2eContractId_7804492_S831016}}/contracts/{{e2eContractId_7804492_S831016}}/mop",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"e2e-contracts",
 												"{{e2eContractId_7804492_S831016}}",
@@ -5303,11 +5156,12 @@
 											"raw": "{\n  \"methodOfPayment\": {\n    \"id\": \"S000SVI4ZklBbHZOekxpdWliWWVrdz09\",\n    \"status\": \"TO_BE_VALIDATED\",\n    \"type\": \"CREDIT_CARD\",\n    \"billingFrequency\": \"MONTHLY\",\n    \"creditCard\": {\n      \"expirationYear\": 2021,\n      \"expirationMonth\": 11,\n      \"holder\": \"DIETVORST PAGANO\",\n      \"number\": \"5436245679876\",\n      \"type\": \"string\"\n    }\n  },\n   \"igfsTransaction\": {\n    \"paymentId\": \"332973232\",\n    \"shopId\": \"32223111\",\n    \"transactionId\": \"823178231789\"\n  },\n   \"extendMopToContracts\": true\n}"
 										},
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/e2e-contracts/{{e2eContractId_444555}}/contracts/{{techContract_444555_BB01247295}}/mop",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/e2e-contracts/{{e2eContractId_444555}}/contracts/{{techContract_444555_BB01247295}}/mop",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"e2e-contracts",
 												"{{e2eContractId_444555}}",
@@ -5330,7 +5184,7 @@
 													"pm.test(\"Status code is 200\", function () {",
 													"    pm.response.to.have.status(200);",
 													"});",
-													"",
+													"if (pm.environment.get('ENV') == 'dev') {",
 													"var jsonData = pm.response.json();",
 													"pm.test(\"Contains promotions\", function () {",
 													"    pm.expect(jsonData.offers.filter(o => o.type === \"PROMOTION\")).to.have.lengthOf(4);",
@@ -5338,7 +5192,8 @@
 													"",
 													"pm.test(\"Does not contain product PPACK_CINEMA\", function() {",
 													"    pm.expect(jsonData.offers.filter(o => o.code === \"PPACK_CINEMA\")).to.be.empty;",
-													"});"
+													"});",
+													"}"
 												],
 												"type": "text/javascript"
 											}
@@ -5364,11 +5219,12 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/e2e-contracts/{{e2eContractId_7804492_S831016}}/offers",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/e2e-contracts/{{e2eContractId_7804492_S831016}}/offers",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"e2e-contracts",
 												"{{e2eContractId_7804492_S831016}}",
@@ -5390,10 +5246,12 @@
 													"    pm.response.to.have.status(200);",
 													"});",
 													"",
+													"if (pm.environment.get('ENV') == 'dev') {",
 													"var jsonData = pm.response.json();",
 													"pm.test(\"Contains only PPACK_SPORT\", function() {",
 													"    pm.expect(jsonData.offers.filter(o => o.code === \"PPACK_SPORT\")).to.have.lengthOf(1);",
-													"});"
+													"});",
+													"}"
 												],
 												"type": "text/javascript"
 											}
@@ -5419,11 +5277,12 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/e2e-contracts/{{e2eContractId_7804492_S831016}}/offers?productCodeToFilter=PPACK_SPORT",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/e2e-contracts/{{e2eContractId_7804492_S831016}}/offers?productCodeToFilter=PPACK_SPORT",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"e2e-contracts",
 												"{{e2eContractId_7804492_S831016}}",
@@ -5490,11 +5349,12 @@
 											"raw": "{\r\n  \"uploadPayerDocument\": false,\r\n  \"migrationCodeVoice\": \"M9W1234567890123000A\",\r\n  \"cartId\": \"S000SVI4ZklBbHZOekxpdWliWWVrdz09\",\r\n  \"migrationCodeData\": \"M9W1234567890123000A\",\r\n  \"uploadConsumerDocument\": false,\r\n  \"contractType\": \"TV\",\r\n  \"consents\": [\r\n    {\r\n      \"status\": \"GIVEN\",\r\n      \"id\": \"SKY_BB_WITHDRAWAL\"\r\n    },\r\n    {\r\n      \"status\": \"GIVEN\",\r\n      \"id\": \"SKY_BB_NUMBER_PORTABILITY\"\r\n    }\r\n  ],\r\n  \"paymentDetails\": {\r\n    \"paymentMethod\": {\r\n      \"status\": \"ACTIVE\",\r\n      \"bankAccount\": {\r\n        \"subscriberName\": \"Alphonse Curtois\",\r\n        \"subscriberFiscalCode\": \"CRTLHN74C09C816X\",\r\n        \"abi\": \"01203\",\r\n        \"agencyAddress\": \"Via Montepacco 5, Secugnago\",\r\n        \"agency\": \"Agenzia 00034\",\r\n        \"number\": \"16890546\",\r\n        \"cin\": \"H\",\r\n        \"iban\": \"IT96D0300203280511187134237\",\r\n        \"agencyBank\": \"Agenzia di via Montepacco\",\r\n        \"cab\": \"19956\",\r\n        \"holder\": \"Alphonse Curtois\",\r\n        \"bank\": \"BPM\"\r\n      },\r\n      \"billingFrequency\": \"MONTHLY\",\r\n      \"type\": \"BANK_ACCOUNT\"\r\n    }\r\n  }\r\n}\r\n"
 										},
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/e2e-contracts/{{e2eContractId_7804492_S831016}}/sales-data",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/e2e-contracts/{{e2eContractId_7804492_S831016}}/sales-data",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"e2e-contracts",
 												"{{e2eContractId_7804492_S831016}}",
@@ -5531,11 +5391,12 @@
 											"raw": "{\r\n  \"uploadPayerDocument\": false,\r\n  \"migrationCodeVoice\": \"M9W1234567890123000A\",\r\n  \"cartId\": \"cVdHR0lTMGFoS3V6dlhyNUxCRC9odz09\",\r\n  \"migrationCodeData\": \"M9W1234567890123000A\",\r\n  \"uploadConsumerDocument\": false,\r\n  \"consents\": [\r\n    {\r\n      \"status\": \"GIVEN\",\r\n      \"id\": \"SKY_BB_WITHDRAWAL\"\r\n    },\r\n    {\r\n      \"status\": \"GIVEN\",\r\n      \"id\": \"SKY_PERSONAL_DATA\"\r\n    },\r\n    {\r\n      \"status\": \"GIVEN\",\r\n      \"id\": \"SKY_BB_NUMBER_PORTABILITY\"\r\n    }\r\n  ],\r\n  \"paymentDetails\": {\r\n    \"paymentMethod\": {\r\n      \"status\": \"ACTIVE\",\r\n      \"bankAccount\": {\r\n        \"subscriberName\": \"Alphonse Curtois\",\r\n        \"subscriberFiscalCode\": \"CRTLHN74C09C816X\",\r\n        \"abi\": \"01203\",\r\n        \"agencyAddress\": \"Via Montepacco 5, Secugnago\",\r\n        \"agency\": \"Agenzia 00034\",\r\n        \"number\": \"16890546\",\r\n        \"cin\": \"H\",\r\n        \"iban\": \"IT02H01203199560000000016890546\",\r\n        \"agencyBank\": \"Agenzia di via Montepacco\",\r\n        \"cab\": \"19956\",\r\n        \"holder\": \"Alphonse Curtois\",\r\n        \"bank\": \"BPM\"\r\n      },\r\n      \"billingFrequency\": \"MONTHLY\",\r\n      \"type\": \"BANK_ACCOUNT\"\r\n    }\r\n  }\r\n}\r\n"
 										},
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/e2e-contracts/{{e2eContractId_15519863}}/sales-data",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/e2e-contracts/{{e2eContractId_15519863}}/sales-data",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"e2e-contracts",
 												"{{e2eContractId_15519863}}",
@@ -5577,11 +5438,12 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/e2e-contracts/{{e2eContractId_7804492_S831016}}/contracts/{{e2eContractId_7804492_S831016}}/mop/options",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/e2e-contracts/{{e2eContractId_7804492_S831016}}/contracts/{{e2eContractId_7804492_S831016}}/mop/options",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"e2e-contracts",
 												"{{e2eContractId_7804492_S831016}}",
@@ -5589,6 +5451,142 @@
 												"{{e2eContractId_7804492_S831016}}",
 												"mop",
 												"options"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "CloneMopByE2eContractAndByIdContract_204",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "6d639462-64a4-4e5a-a06c-541d9c321c1f",
+												"exec": [
+													"pm.test(\"Status code is 204\", function () {",
+													"    pm.response.to.have.status(204);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Accept",
+												"type": "text",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "{{JWTC-S831016}}"
+											},
+											{
+												"key": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization-JWT-OTP",
+												"type": "text",
+												"value": "{{JWTCD}}"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/e2e-contracts/{{e2eContractId_7804492_S831016}}/contracts/{{e2eContractId_7804492_S831016}}/clone-mop?sourceContractId={{e2eContractId_7804492_S831016}}",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"{{DOMAIN}}",
+												"{{ENV}}",
+												"e2e-contracts",
+												"{{e2eContractId_7804492_S831016}}",
+												"contracts",
+												"{{e2eContractId_7804492_S831016}}",
+												"clone-mop"
+											],
+											"query": [
+												{
+													"key": "sourceContractId",
+													"value": "{{e2eContractId_7804492_S831016}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "CloneMopByE2eContractAndByIdContract_422",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "6d639462-64a4-4e5a-a06c-541d9c321c1f",
+												"exec": [
+													"pm.test(\"Status code is 422\", function () {",
+													"    pm.response.to.have.status(422);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Accept",
+												"type": "text",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "{{JWTC-S831016}}"
+											},
+											{
+												"key": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization-JWT-OTP",
+												"type": "text",
+												"value": "{{JWTCD}}"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/e2e-contracts/{{e2eContractId_15519863}}/contracts/{{e2eContractId_15519863}}/clone-mop?sourceContractId={{e2eContractId_15519863}}",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"{{DOMAIN}}",
+												"{{ENV}}",
+												"e2e-contracts",
+												"{{e2eContractId_15519863}}",
+												"contracts",
+												"{{e2eContractId_15519863}}",
+												"clone-mop"
+											],
+											"query": [
+												{
+													"key": "sourceContractId",
+													"value": "{{e2eContractId_15519863}}"
+												}
 											]
 										}
 									},
@@ -5649,11 +5647,12 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/leads?tokenId={{tokenId}}",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/leads?tokenId={{tokenId}}",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"leads"
 											],
@@ -5701,11 +5700,12 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/leads?tokenId={{tokenId_used}}",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/leads?tokenId={{tokenId_used}}",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"leads"
 											],
@@ -5744,11 +5744,12 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/leads?tokenId={{tokenId_unknown}}",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/leads?tokenId={{tokenId_unknown}}",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"leads"
 											],
@@ -5788,11 +5789,12 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/leads?tokenId={{tokenId_error}}",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/leads?tokenId={{tokenId_error}}",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"leads"
 											],
@@ -5841,7 +5843,7 @@
 												"value": "application/json"
 											},
 											{
-												"key": "Recaptcha",
+												"key": "recaptcha",
 												"value": "{{recaptcha}}",
 												"type": "text"
 											}
@@ -5851,11 +5853,12 @@
 											"raw": "{\r\n \"address\": {\r\n   \"city\": \"string\",\r\n   \"egonId\": \"string\",\r\n   \"postalCode\": \"string\",\r\n   \"province\": \"string\",\r\n   \"staircaseId\": \"string\",\r\n   \"street\": \"string\",\r\n   \"streetNumber\": \"string\"\r\n },\r\n \"email\": \"freddo@skytv.it\",\r\n \"id\": \"string\",\r\n \"name\": \"MARIANNA\",\r\n \"primaryContact\": \"SMS\",\r\n \"consents\": [\r\n    { \"id\": \"SKY_LEAD_PREFERENCES_ANALYSIS\", \"status\": \"GIVEN\"},\r\n    { \"id\": \"SKY_LEAD_PRIMARY_CONTACT\", \"status\": \"GIVEN\"}],\r\n \"registered\": true,\r\n \"secondaryContact\": \"SMS\",\r\n \"servicesOfInterest\": [\r\n   \"VOICE\"\r\n ],\r\n \"surname\": \"FREDDO\",\r\n \"telephoneNumber\": \"34567890224\",\r\n \"tokenId\": \"string\",\r\n \"sourceChannel\": \"string\"\r\n}"
 										},
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/leads",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/leads",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"leads"
 											]
@@ -5898,7 +5901,7 @@
 												"value": "application/json"
 											},
 											{
-												"key": "Recaptcha",
+												"key": "recaptcha",
 												"type": "text",
 												"value": "{{wrongRecaptcha}}"
 											}
@@ -5908,11 +5911,12 @@
 											"raw": "{\r\n \"address\": {\r\n   \"city\": \"string\",\r\n   \"egonId\": \"string\",\r\n   \"postalCode\": \"string\",\r\n   \"province\": \"string\",\r\n   \"staircaseId\": \"string\",\r\n   \"street\": \"string\",\r\n   \"streetNumber\": \"string\"\r\n },\r\n \"email\": \"freddo@skytv.it\",\r\n \"id\": \"string\",\r\n \"name\": \"MARIANNA\",\r\n \"primaryContact\": \"SMS\",\r\n \"consents\": [\r\n    { \"id\": \"SKY_LEAD_PREFERENCES_ANALYSIS\", \"status\": \"GIVEN\"},\r\n    { \"id\": \"SKY_LEAD_PRIMARY_CONTACT\", \"status\": \"GIVEN\"}],\r\n \"registered\": true,\r\n \"secondaryContact\": \"SMS\",\r\n \"servicesOfInterest\": [\r\n   \"VOICE\"\r\n ],\r\n \"surname\": \"FREDDO\",\r\n \"telephoneNumber\": \"34567890224\",\r\n \"tokenId\": \"string\",\r\n \"sourceChannel\": \"string\"\r\n}"
 										},
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/leads",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/leads",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"leads"
 											]
@@ -5956,11 +5960,12 @@
 											"raw": "{\r\n \"address\": {\r\n   \"city\": \"string\",\r\n   \"egonId\": \"string\",\r\n   \"postalCode\": \"string\",\r\n   \"province\": \"string\",\r\n   \"staircaseId\": \"string\",\r\n   \"street\": \"string\",\r\n   \"streetNumber\": \"string\"\r\n },\r\n \"email\": \"freddo@skytv.it\",\r\n \"id\": \"string\",\r\n \"name\": \"MARIANNA\",\r\n \"primaryContact\": \"SMS\",\r\n \"consents\": [\r\n    { \"id\": \"SKY_LEAD_PREFERENCES_ANALYSIS\", \"status\": \"GIVEN\"},\r\n    { \"id\": \"SKY_LEAD_PRIMARY_CONTACT\", \"status\": \"GIVEN\"}],\r\n \"registered\": true,\r\n \"secondaryContact\": \"SMS\",\r\n \"servicesOfInterest\": [\r\n   \"VOICE\"\r\n ],\r\n \"surname\": \"FREDDO\",\r\n \"telephoneNumber\": \"34567890224\",\r\n \"tokenId\": \"string\",\r\n \"sourceChannel\": \"string\"\r\n}"
 										},
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/leads",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/leads",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"leads"
 											]
@@ -6013,11 +6018,12 @@
 											"raw": "{\r\n \"address\": {\r\n   \"city\": \"string\",\r\n   \"egonId\": \"string\",\r\n   \"postalCode\": \"string\",\r\n   \"province\": \"string\",\r\n   \"staircaseId\": \"string\",\r\n   \"street\": \"string\",\r\n   \"streetNumber\": \"string\"\r\n },\r\n \"email\": \"freddo@skytv.it\",\r\n \"id\": \"string\",\r\n \"name\": \"MARIANNA\",\r\n \"primaryContact\": \"SMS\",\r\n \"consents\": [\r\n    { \"id\": \"SKY_LEAD_PREFERENCES_ANALYSIS\", \"status\": \"GIVEN\"},\r\n    { \"id\": \"SKY_LEAD_PRIMARY_CONTACT\", \"status\": \"GIVEN\"}],\r\n \"registered\": true,\r\n \"secondaryContact\": \"SMS\",\r\n \"servicesOfInterest\": [\r\n   \"VOICE\"\r\n ],\r\n \"surname\": \"FREDDO\",\r\n \"telephoneNumber\": \"34567890224\",\r\n \"tokenId\": \"string\",\r\n \"sourceChannel\": \"string\"\r\n}"
 										},
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/customers/me/leads",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/customers/me/leads",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"customers",
 												"me",
@@ -6058,7 +6064,7 @@
 												"value": "application/json"
 											},
 											{
-												"key": "Recaptcha",
+												"key": "recaptcha",
 												"value": "{{recaptcha}}",
 												"type": "text"
 											}
@@ -6068,11 +6074,12 @@
 											"raw": "{\r\n \"address\": {\r\n   \"city\": \"string\",\r\n   \"egonId\": \"string\",\r\n   \"postalCode\": \"string\",\r\n   \"province\": \"string\",\r\n   \"staircaseId\": \"string\",\r\n   \"street\": \"string\",\r\n   \"streetNumber\": \"string\"\r\n },\r\n \"email\": \"freddo@skytv.it\",\r\n \"id\": \"string\",\r\n \"primaryContact\": \"SMS\",\r\n \"consents\": [\r\n    { \"id\": \"SKY_LEAD_PREFERENCES_ANALYSIS\", \"status\": \"GIVEN\"},\r\n    { \"id\": \"SKY_LEAD_PRIMARY_CONTACT\", \"status\": \"GIVEN\"}],\r\n \"registered\": true,\r\n \"secondaryContact\": \"SMS\",\r\n \"servicesOfInterest\": [\r\n   \"VOICE\"\r\n ],\r\n \"surname\": \"FREDDO\",\r\n \"telephoneNumber\": \"34567890224\",\r\n \"tokenId\": \"string\",\r\n \"sourceChannel\": \"string\"\r\n}"
 										},
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/leads",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/leads",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"leads"
 											]
@@ -6121,11 +6128,12 @@
 											"raw": "{\r\n \"address\": {\r\n   \"city\": \"string\",\r\n   \"egonId\": \"string\",\r\n   \"postalCode\": \"string\",\r\n   \"province\": \"string\",\r\n   \"staircaseId\": \"string\",\r\n   \"street\": \"string\",\r\n   \"streetNumber\": \"string\"\r\n },\r\n \"email\": \"freddo@skytv.it\",\r\n \"id\": \"string\",\r\n \"primaryContact\": \"SMS\",\r\n \"consents\": [\r\n    { \"id\": \"SKY_LEAD_PREFERENCES_ANALYSIS\", \"status\": \"GIVEN\"},\r\n    { \"id\": \"SKY_LEAD_PRIMARY_CONTACT\", \"status\": \"GIVEN\"}],\r\n \"registered\": true,\r\n \"secondaryContact\": \"SMS\",\r\n \"servicesOfInterest\": [\r\n   \"VOICE\"\r\n ],\r\n \"surname\": \"FREDDO\",\r\n \"telephoneNumber\": \"34567890224\",\r\n \"tokenId\": \"string\",\r\n \"sourceChannel\": \"string\"\r\n}"
 										},
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/customers/me/leads",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/customers/me/leads",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"customers",
 												"me",
@@ -6169,7 +6177,7 @@
 												"value": "application/json"
 											},
 											{
-												"key": "Recaptcha",
+												"key": "recaptcha",
 												"value": "{{recaptcha}}",
 												"type": "text"
 											}
@@ -6179,11 +6187,12 @@
 											"raw": "{\r\n \"address\": {\r\n   \"city\": \"string\",\r\n   \"egonId\": \"string\",\r\n   \"postalCode\": \"string\",\r\n   \"province\": \"string\",\r\n   \"staircaseId\": \"string\",\r\n   \"street\": \"string\",\r\n   \"streetNumber\": \"string\"\r\n },\r\n \"email\": \"already.exists@lead.example\",\r\n \"id\": \"string\",\r\n \"name\": \"MARIANNA\",\r\n \"primaryContact\": \"SMS\",\r\n \"consents\": [\r\n    { \"id\": \"SKY_LEAD_PREFERENCES_ANALYSIS\", \"status\": \"GIVEN\"},\r\n    { \"id\": \"SKY_LEAD_PRIMARY_CONTACT\", \"status\": \"GIVEN\"}],\r\n \"registered\": true,\r\n \"secondaryContact\": \"SMS\",\r\n \"servicesOfInterest\": [\r\n   \"VOICE\"\r\n ],\r\n \"surname\": \"FREDDO\",\r\n \"telephoneNumber\": \"34567890224\",\r\n \"tokenId\": \"string\",\r\n \"sourceChannel\": \"string\"\r\n}"
 										},
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/leads",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/leads",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"leads"
 											]
@@ -6235,11 +6244,12 @@
 											"raw": "{\r\n \"address\": {\r\n   \"city\": \"string\",\r\n   \"egonId\": \"string\",\r\n   \"postalCode\": \"string\",\r\n   \"province\": \"string\",\r\n   \"staircaseId\": \"string\",\r\n   \"street\": \"string\",\r\n   \"streetNumber\": \"string\"\r\n },\r\n \"email\": \"already.exists@lead.example\",\r\n \"id\": \"string\",\r\n \"name\": \"MARIANNA\",\r\n \"primaryContact\": \"SMS\",\r\n \"consents\": [\r\n    { \"id\": \"SKY_LEAD_PREFERENCES_ANALYSIS\", \"status\": \"GIVEN\"},\r\n    { \"id\": \"SKY_LEAD_PRIMARY_CONTACT\", \"status\": \"GIVEN\"}],\r\n \"registered\": true,\r\n \"secondaryContact\": \"SMS\",\r\n \"servicesOfInterest\": [\r\n   \"VOICE\"\r\n ],\r\n \"surname\": \"FREDDO\",\r\n \"telephoneNumber\": \"34567890224\",\r\n \"tokenId\": \"string\",\r\n \"sourceChannel\": \"string\"\r\n}"
 										},
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/customers/me/leads",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/customers/me/leads",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"customers",
 												"me",
@@ -6291,11 +6301,12 @@
 											"raw": "{\n\t\"items\": [\n\t\t{\n            \"id\": \"SKY_LEAD_PREFERENCES_ANALYSIS\",\n            \"status\": \"GIVEN\"\n        },\n        {\n            \"id\": \"SKY_LEAD_PRIMARY_CONTACT\",\n            \"status\": \"GIVEN\"\n        },\n        {\n            \"id\": \"SKY_LEAD_SECONDARY_CONTACT\",\n            \"status\": \"GIVEN\"\n        }\n\t]\n}"
 										},
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/leads/{{leadId}}/privacies",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/leads/{{leadId}}/privacies",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"leads",
 												"{{leadId}}",
@@ -6335,11 +6346,12 @@
 											"raw": "{\r\n \"services\": [\r\n   \"VOICE\"\r\n ]\r\n}"
 										},
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/leads/{{leadId}}/services-of-interest",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/leads/{{leadId}}/services-of-interest",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"leads",
 												"{{leadId}}",
@@ -6407,11 +6419,12 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/customers/me/leads?e2eContractId={{e2eContractId_7804492_S831016}}",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/customers/me/leads?e2eContractId={{e2eContractId_7804492_S831016}}",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"customers",
 												"me",
@@ -6475,11 +6488,12 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/customers/me/leads?e2eContractId={{e2eContractId_7804492}}",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/customers/me/leads?e2eContractId={{e2eContractId_7804492}}",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"customers",
 												"me",
@@ -6544,11 +6558,12 @@
 											"raw": "{\r\n  \"migrationCode\": \"M9W1234567890123000A\"\r\n}"
 										},
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/migration-code-check",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/migration-code-check",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"migration-code-check"
 											]
@@ -6598,11 +6613,12 @@
 											"raw": "{\r\n  \"migrationCode\": \"M9W0112345678AB0M\"\r\n}"
 										},
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/migration-code-check",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/migration-code-check",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"migration-code-check"
 											]
@@ -6684,11 +6700,12 @@
 													}
 												],
 												"url": {
-													"raw": "{{BASE_URL}}/orders/{{orderId_migrationCodeCheck}}/appointments/{{appointmentId}}/check-rescheduled?",
+													"raw": "{{BASE_URL}}/{{ENV}}/orders/{{orderId_migrationCodeCheck}}/appointments/{{appointmentId}}/check-rescheduled?",
 													"host": [
 														"{{BASE_URL}}"
 													],
 													"path": [
+														"{{ENV}}",
 														"orders",
 														"{{orderId_migrationCodeCheck}}",
 														"appointments",
@@ -6747,11 +6764,12 @@
 													}
 												],
 												"url": {
-													"raw": "{{BASE_URL}}/orders/{{orderId_appointment_frozen}}/appointments/{{appointmentId}}/check-rescheduled",
+													"raw": "{{BASE_URL}}/{{ENV}}/orders/{{orderId_appointment_frozen}}/appointments/{{appointmentId}}/check-rescheduled",
 													"host": [
 														"{{BASE_URL}}"
 													],
 													"path": [
+														"{{ENV}}",
 														"orders",
 														"{{orderId_appointment_frozen}}",
 														"appointments",
@@ -6803,11 +6821,12 @@
 													}
 												],
 												"url": {
-													"raw": "{{BASE_URL}}/orders/{{orderId_installationNotFinished}}/appointments/{{appointmentId}}/check-rescheduled?",
+													"raw": "{{BASE_URL}}/{{ENV}}/orders/{{orderId_installationNotFinished}}/appointments/{{appointmentId}}/check-rescheduled?",
 													"host": [
 														"{{BASE_URL}}"
 													],
 													"path": [
+														"{{ENV}}",
 														"orders",
 														"{{orderId_installationNotFinished}}",
 														"appointments",
@@ -6866,11 +6885,12 @@
 													}
 												],
 												"url": {
-													"raw": "{{BASE_URL}}/orders/{{orderId_suspended_appointment}}/appointments/{{appointmentId}}/check-rescheduled",
+													"raw": "{{BASE_URL}}/{{ENV}}/orders/{{orderId_suspended_appointment}}/appointments/{{appointmentId}}/check-rescheduled",
 													"host": [
 														"{{BASE_URL}}"
 													],
 													"path": [
+														"{{ENV}}",
 														"orders",
 														"{{orderId_suspended_appointment}}",
 														"appointments",
@@ -6936,11 +6956,12 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/orders/{{orderId_migrationCodeCheck}}/tracking",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/orders/{{orderId_migrationCodeCheck}}/tracking",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"orders",
 												"{{orderId_migrationCodeCheck}}",
@@ -7001,11 +7022,12 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/orders/{{orderId_activated}}/tracking",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/orders/{{orderId_activated}}/tracking",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"orders",
 												"{{orderId_activated}}",
@@ -7073,11 +7095,12 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/orders/{{orderId_docCheck}}/tracking",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/orders/{{orderId_docCheck}}/tracking",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"orders",
 												"{{orderId_docCheck}}",
@@ -7137,11 +7160,12 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/orders/{{orderId_linePorting}}/tracking",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/orders/{{orderId_linePorting}}/tracking",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"orders",
 												"{{orderId_linePorting}}",
@@ -7194,11 +7218,12 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/orders/{{orderId_missingData}}",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/orders/{{orderId_missingData}}",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"orders",
 												"{{orderId_missingData}}"
@@ -7246,11 +7271,12 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/orders/{{orderId_suspended}}",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/orders/{{orderId_suspended}}",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"orders",
 												"{{orderId_suspended}}"
@@ -7298,11 +7324,12 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/orders/{{orderId_resumed}}",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/orders/{{orderId_resumed}}",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"orders",
 												"{{orderId_resumed}}"
@@ -7354,11 +7381,12 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/orders/{{orderId_voice_ko}}/tracking",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/orders/{{orderId_voice_ko}}/tracking",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"orders",
 												"{{orderId_voice_ko}}",
@@ -7408,11 +7436,12 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/orders/{{orderId_canceled_techIssue}}",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/orders/{{orderId_canceled_techIssue}}",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"orders",
 												"{{orderId_canceled_techIssue}}"
@@ -7461,21 +7490,15 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/orders/{{orderId_canceled_admin}}?",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/orders/{{orderId_canceled_admin}}",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"orders",
 												"{{orderId_canceled_admin}}"
-											],
-											"query": [
-												{
-													"key": "id",
-													"value": "",
-													"disabled": true
-												}
 											]
 										}
 									},
@@ -7531,11 +7554,12 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/orders/{{orderId_newline_installation}}/tracking",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/orders/{{orderId_newline_installation}}/tracking",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"orders",
 												"{{orderId_newline_installation}}",
@@ -7595,11 +7619,12 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/orders/{{orderId_resumed_after_suspended}}/tracking",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/orders/{{orderId_resumed_after_suspended}}/tracking",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"orders",
 												"{{orderId_resumed_after_suspended}}",
@@ -7639,11 +7664,12 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/orders/{{orderId_newline_installation}}",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/orders/{{orderId_newline_installation}}",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"orders",
 												"{{orderId_newline_installation}}"
@@ -7682,11 +7708,12 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/orders/{{orderId_newline_installation}}/problems",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/orders/{{orderId_newline_installation}}/problems",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"orders",
 												"{{orderId_newline_installation}}",
@@ -7721,7 +7748,7 @@
 													"",
 													"activationStep = data.steps.filter(step => step.label == \"ACTIVATION\");",
 													"pm.test(\"ACTIVATION has pendingReasons\", function() {",
-													"    pm.expect(activationStep).to.have.lengthOf(1);",
+													"    pm.expect(activationStep).to.have.lengthOf(1)",
 													"    pm.expect(activationStep[0].pendingReasons).to.have.members([\"SKY_ACTIVATION_ERROR\"]);",
 													"});"
 												],
@@ -7743,11 +7770,12 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/orders/{{orderId_smcProblem}}/tracking",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/orders/{{orderId_smcProblem}}/tracking",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"orders",
 												"{{orderId_smcProblem}}",
@@ -7798,11 +7826,12 @@
 											"raw": "{\r\n  \"op\": \"REPLACE\",\r\n  \"path\": \"migrationCode\",\r\n  \"value\": \"WIN0612345678001H\"\r\n}"
 										},
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/orders/{{orderId_migrationCodeCheck}}",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/orders/{{orderId_migrationCodeCheck}}",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"orders",
 												"{{orderId_migrationCodeCheck}}"
@@ -7856,11 +7885,12 @@
 											"raw": "{\r\n  \"op\": \"REPLACE\",\r\n  \"value\": \"WIN0612345678001H\"\r\n}"
 										},
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/orders/{{orderId_migrationCodeCheck}}",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/orders/{{orderId_migrationCodeCheck}}",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"orders",
 												"{{orderId_migrationCodeCheck}}"
@@ -7925,11 +7955,12 @@
 											"raw": "{\"contact\": {\r\n\r\n\"email\": \"example@email.org\",\r\n\"firstName\": \"ZEBASTIAN\",\r\n\"lastName\": \"EHSANI\"\r\n}\r\n,\"email\": \"example@email.org\"\r\n,\"firstName\": \"ZEBASTIAN\"\r\n,\"lastName\": \"EHSANI\"\r\n,\"contractId\": \"RjNNdkNEbHQxeDUzVVJNWHAzVUM0dz09\"\r\n,\"errorUrl\": \"http://localhost.sky.it:4200/error\"\r\n,\"language\": \"IT\"\r\n,\"notifyUrl\": \"http://localhost.sky.it:4200/purchase/thank-you\"}"
 										},
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/igfs-session",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/igfs-session",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"igfs-session"
 											]
@@ -7986,11 +8017,12 @@
 											"raw": "{\r\n\t\"contact\": \r\n\t{\r\n\t\t\"email\": \"example@email.org\",\r\n\t\t\"firstName\": \"ZEBASTIAN\",\r\n\t\t\"lastName\": \"EHSANI\"\r\n\t},\r\n\t\"email\": \"example@email.org\",\r\n\t\"firstName\": \"ZEBASTIAN\",\r\n\t\"lastName\": \"EHSANI\",\r\n\t\"contractId\": \"ZmNZemQ2R0YyeUwxSzc2d1FrQTBrUT09\",\r\n\t\"errorUrl\": \"http://localhost.sky.it:4200/error\",\r\n\t\"language\": \"IT\",\r\n\t\"notifyUrl\": \"http://localhost.sky.it:4200/purchase/thank-you\"\r\n\t\r\n}"
 										},
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/igfs-session",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/igfs-session",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"igfs-session"
 											]
@@ -8044,11 +8076,12 @@
 											"raw": "{\r\n\t\"contact\": {\r\n\t\t\"email\": \"example@email.org\",\r\n\t\t\"firstName\": \"ZEBASTIAN\",\r\n\t\t\"lastName\": \"EHSANI\"\r\n\t},\r\n\t\"email\": \"example@email.org\",\r\n\t\"firstName\": \"ZEBASTIAN\",\r\n\t\"lastName\": \"EHSANI\",\r\n\t\"contractId\": \"S000SVI4ZklBbHZOekxpdWliWWVrdz09\",\r\n\t\"errorUrl\": \"http://localhost.sky.it:4200/error\",\r\n\t\"language\": \"IT\",\r\n\t\"notifyUrl\": \"http://localhost.sky.it:4200/purchase/thank-you\"\r\n\t\r\n}"
 										},
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/igfs-session",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/igfs-session",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"igfs-session"
 											]
@@ -8110,11 +8143,12 @@
 											"raw": "{\r\n\t\"shopId\": \"Z01udWtTdFpIV2JWcE4yOHZ6bTFFVUpvNUZ6ZkMrMzlrZldoZ0FLMFlFdz0=\"\r\n}"
 										},
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/igfs-session/{{transactionId_igfs}}",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/igfs-session/{{transactionId_igfs}}",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"igfs-session",
 												"{{transactionId_igfs}}"
@@ -8167,11 +8201,70 @@
 											"raw": "{\r\n\"shopId\": \"ZmNZemQ2R0YyeUwxSzc2d1FrQTBrUT09\"\r\n}\r\n\r\n"
 										},
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/igfs-session/{{transactionId_igfs_error}}",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/igfs-session/{{transactionId_igfs_error}}",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
+												"{{ENV}}",
+												"igfs-session",
+												"{{transactionId_igfs_error}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Verify a payment method_cancel_button_422_Auto",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2e67608a-522c-4c91-a012-b542e0e06e91",
+												"exec": [
+													"pm.test(\"Status code is 422\", function () {",
+													"    pm.response.to.have.status(422);",
+													"});",
+													"",
+													"pm.test(\"Body matches string\", function () {",
+													"    pm.expect(pm.response.text(\"code\")).to.include(\"SCIGFSx0000001\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "{{JWTC-S831016}}"
+											},
+											{
+												"key": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n\"shopId\": \"ZS9OMXJKdm1qZzk1cFRIaUUyM3BVUT09\"\r\n}\r\n\r\n"
+										},
+										"url": {
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/igfs-session/{{transactionId_igfs_error}}",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"igfs-session",
 												"{{transactionId_igfs_error}}"
@@ -8226,11 +8319,12 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/services-of-interest",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/services-of-interest",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"services-of-interest"
 											]
@@ -8286,11 +8380,12 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/zip-codes?cityName=Milano&streetName=via Luigi Russolo&streetNumber=7&cityEgonId={{cityEgonId}}&streetEgonId={{streetEgonId}}",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/zip-codes?cityName=Milano&streetName=via Luigi Russolo&streetNumber=7&cityEgonId={{cityEgonId}}&streetEgonId={{streetEgonId}}",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"zip-codes"
 											],
@@ -8354,11 +8449,12 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/zip-codes?cityName=XXX&streetName=via Luigi Russolo&streetNumber=7&cityEgonId={{cityEgonId}}&streetEgonId={{streetEgonId}}",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/zip-codes?cityName=XXX&streetName=via Luigi Russolo&streetNumber=7&cityEgonId={{cityEgonId}}&streetEgonId={{streetEgonId}}",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"zip-codes"
 											],
@@ -8442,11 +8538,12 @@
 											"raw": "{\r\n  \"address\": {\r\n    \"city\": \"Pisogne\",\r\n    \"country\": \"string\",\r\n    \"displayName\": \"string\",\r\n    \"egonId\": \"string\",\r\n    \"postalCode\": \"25055\",\r\n    \"province\": \"string\",\r\n    \"staircaseId\": \"string\",\r\n    \"street\": \"string\",\r\n    \"streetNumber\": \"string\",\r\n    \"toponym\": \"string\",\r\n    \"complexBuilding\": \"string\",\r\n    \"indoor\": \"string\",\r\n    \"floor\": \"string\"\r\n  },\r\n  \"phone\": {\r\n    \"phone\": \"0364\"\r\n  },\r\n  \"migrationCode\": \"FT812345678222L\",\r\n  \"operator\": \"Eolo\"\r\n}"
 										},
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/number-portability-check",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/number-portability-check",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"number-portability-check"
 											]
@@ -8501,11 +8598,12 @@
 											"raw": "{\r\n  \"address\": {\r\n    \"city\": \"Pisogne\",\r\n    \"country\": \"string\",\r\n    \"displayName\": \"string\",\r\n    \"egonId\": \"string\",\r\n    \"postalCode\": \"000\",\r\n    \"province\": \"string\",\r\n    \"staircaseId\": \"string\",\r\n    \"street\": \"string\",\r\n    \"streetNumber\": \"string\",\r\n    \"toponym\": \"string\",\r\n    \"complexBuilding\": \"string\",\r\n    \"indoor\": \"string\",\r\n    \"floor\": \"string\"\r\n  },\r\n  \"phone\": {\r\n    \"phone\": \"0364\"\r\n  },\r\n  \"migrationCode\": \"FT812345678222L\",\r\n  \"operator\": \"Eolo\"\r\n}"
 										},
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/number-portability-check",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/number-portability-check",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"number-portability-check"
 											]
@@ -8555,11 +8653,12 @@
 											"raw": "{\r\n  \"address\": {\r\n    \"city\": \"Pisogne\",\r\n    \"country\": \"string\",\r\n    \"displayName\": \"string\",\r\n    \"egonId\": \"string\",\r\n    \"postalCode\": \"000\",\r\n    \"province\": \"string\",\r\n    \"staircaseId\": \"string\",\r\n    \"street\": \"string\",\r\n    \"streetNumber\": \"string\",\r\n    \"toponym\": \"string\",\r\n    \"complexBuilding\": \"string\",\r\n    \"indoor\": \"string\",\r\n    \"floor\": \"string\"\r\n  },\r\n  \"phone\": {\r\n    \"phone\": \"0364\"\r\n  }\r\n}"
 										},
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/number-portability-check",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/number-portability-check",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"number-portability-check"
 											]
@@ -8610,11 +8709,12 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/e2e-contracts/{{e2eContractId_7804492}}/voice-usage",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/e2e-contracts/{{e2eContractId_7804492}}/voice-usage",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"e2e-contracts",
 												"{{e2eContractId_7804492}}",
@@ -8660,11 +8760,12 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/e2e-contracts/{{e2eContractId_15519862}}/voice-usage",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/e2e-contracts/{{e2eContractId_15519862}}/voice-usage",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"e2e-contracts",
 												"{{e2eContractId_15519862}}",
@@ -8710,11 +8811,12 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/e2e-contracts/{{e2eContractId_15519863}}/voice-usage",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/e2e-contracts/{{e2eContractId_15519863}}/voice-usage",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"e2e-contracts",
 												"{{e2eContractId_15519863}}",
@@ -8777,11 +8879,12 @@
 											"raw": "{\r\n  \"offers\": [\r\n    {\r\n      \"item\": {\r\n            \"id\": \"01u2400000ALUI5AAP\",\r\n            \"cmsId\": \"TVC_FAMILY\",\r\n            \"code\": \"TVC_FAMILY\",\r\n            \"type\": \"PRODUCT\",\r\n            \"parentId\": \"01t24000005fRNrAAM\",\r\n            \"hierarchyPath\": \"01t24000005fRNBAA2<01t24000005fRNwAAM<01t24000005fRNtAAM<01t24000005fRNrAAM\"\r\n        },\r\n      \"operation\": \"ADD\"\r\n    }\r\n  ],\r\n  \"e2eContractId\": \"ZS9OMXJKdm1qZzk1cFRIaUUyM3BVUT09\"\r\n}"
 										},
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/cart-calculation",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/cart-calculation",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"cart-calculation"
 											]
@@ -8843,11 +8946,12 @@
 											"raw": "{\r\n  \"offers\": [\r\n    {\r\n      \"item\": {\r\n            \"id\": \"01u2400000ALUI5AAP\",\r\n            \"cmsId\": \"TVC_FAMILY\",\r\n            \"code\": \"TVC_FAMILY\",\r\n            \"type\": \"PRODUCT\",\r\n            \"parentId\": \"01t24000005fRNrAAM\",\r\n            \"hierarchyPath\": \"01t24000005fRNBAA2<01t24000005fRNwAAM<01t24000005fRNtAAM<01t24000005fRNrAAM\"\r\n        },\r\n      \"operation\": \"ADD\"\r\n    }\r\n  ],\r\n  \"e2eContractId\": \"ZS9OMXJKdm1qZzk1cFRIaUUyM3BVUT09\"\r\n}"
 										},
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/cart-calculation?purchase-policy=SKY_Q_BLACK",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/cart-calculation?purchase-policy=SKY_Q_BLACK",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"cart-calculation"
 											],
@@ -8906,11 +9010,12 @@
 											"raw": "{\r\n  \"offers\": [\r\n    {\r\n      \"item\": {\r\n            \"id\": \"01u25000006cE9QAAU\",\r\n            \"cmsId\": \"BROADBAND_1_BB\",\r\n            \"code\": \"BROADBAND_1_BB\",\r\n            \"packageCategory\": \"BB_PACKAGE\",\r\n            \"productSpec\": \"BB\",\r\n            \"type\": \"PRODUCT\",\r\n            \"parentId\": \"01t25000003H49WAAS\",\r\n            \"hierarchyPath\": \"01t25000003H4AtAAK<01t25000003H49qAAC<01t25000003H49WAAS\"\r\n        },\r\n      \"operation\": \"ADD\"\r\n    }\r\n  ],\r\n  \"e2eContractId\": \"S000SVI4ZklBbHZOekxpdWliWWVrdz09\"\r\n}"
 										},
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/cart-calculation",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/cart-calculation",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"cart-calculation"
 											]
@@ -8957,11 +9062,12 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/telco-providers",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/telco-providers",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"telco-providers"
 											]
@@ -9013,11 +9119,12 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/cases/{{caseId}}",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/cases/{{caseId}}",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"cases",
 												"{{caseId}}"
@@ -9063,14 +9170,127 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/cases/{{caseId_error}}",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/cases/{{caseId_error}}",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"cases",
 												"{{caseId_error}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Put_CloseTheLoop_success_204",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "4ba08cf1-befe-4647-8b09-c36bd736e30b",
+												"exec": [
+													"pm.test(\"Status code is 204\", function () {",
+													"    pm.response.to.have.status(204);",
+													"});",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{JWTC-V7758345}}",
+												"type": "text"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\"solved\":true}"
+										},
+										"url": {
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/cases/{{caseId}}/closeTheLoop",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"{{DOMAIN}}",
+												"{{ENV}}",
+												"cases",
+												"{{caseId}}",
+												"closeTheLoop"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Put_CloseTheLoop_failure_422",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "4ba08cf1-befe-4647-8b09-c36bd736e30b",
+												"exec": [
+													"pm.test(\"Status code is 422\", function () {",
+													"    pm.response.to.have.status(422);",
+													"});",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{JWTC-V7758345}}",
+												"type": "text"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\"solved\":true}"
+										},
+										"url": {
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/cases/{{caseId_error}}/closeTheLoop",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"{{DOMAIN}}",
+												"{{ENV}}",
+												"cases",
+												"{{caseId_error}}",
+												"closeTheLoop"
 											]
 										}
 									},
@@ -9125,11 +9345,12 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/agenda/activation-slots?rescheduling=false&id={{orderId_appointment_missing}}",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/agenda/activation-slots?rescheduling=false&id={{orderId_appointment_missing}}",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"agenda",
 												"activation-slots"
@@ -9190,11 +9411,12 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/agenda/activation-slots?rescheduling=true&id={{orderId_appointment_missing}}",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/agenda/activation-slots?rescheduling=true&id={{orderId_appointment_missing}}",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"agenda",
 												"activation-slots"
@@ -9252,11 +9474,12 @@
 											"raw": "\n{\n\t\"appointmentSlot\":\t{\n\t    \"startDate\": \"2019-09-30T04:00:00Z\",\n\t    \"endDate\": \"2019-09-30T06:00:00Z\",\n\t    \"id\": \"0a\",\n\t    \"typeId\": \"typeId\",\n\t    \"priority\": \"0\",\n\t    \"billingType\": \"PREMIUM\"\n\t},\n\t\"workingTimeExtension\": false,\n\t\"payerAuthorization\": false,\n\t\"rescheduling\": true\n}"
 										},
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/orders/{{orderId_appointment_missing}}/appointment-reservation",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/orders/{{orderId_appointment_missing}}/appointment-reservation",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"orders",
 												"{{orderId_appointment_missing}}",
@@ -9305,11 +9528,12 @@
 											"raw": "\n{\n\t\"appointmentSlot\":\t{\n\t    \"startDate\": \"2019-09-30T04:00:00Z\",\n\t    \"endDate\": \"2019-09-30T06:00:00Z\",\n\t    \"id\": \"0a\",\n\t    \"typeId\": \"typeId\",\n\t    \"priority\": \"0\",\n\t    \"billingType\": \"PREMIUM\"\n\t},\n\t\"workingTimeExtension\": false,\n\t\"payerAuthorization\": false,\n\t\"rescheduling\": false\n}"
 										},
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/orders/{{orderId_appointment_missing}}/appointment-reservation",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/orders/{{orderId_appointment_missing}}/appointment-reservation",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"orders",
 												"{{orderId_appointment_missing}}",
@@ -9363,14 +9587,15 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"caseId\": \"string\",\n  \"phoneNumber\": \"1234123\",\n  \"date\": \"2019-11-22T16:02:37.426Z\",\n  \"e2eContractId\": \"string\",\n  \"category\": \"string\",\n  \"subCategory\": \"string\",\n  \"reason\": \"string\",\n  \"agentId\": \"string\",\n  \"team\": \"string\"\n}"
+											"raw": "{\n  \"caseId\": \"TXlFTC8yb3FyQVYrY0c3eENyeE9kOEZ0S29sUU5OM29uaUQwS1IxOWpYOD0=\",\n  \"phoneNumber\": \"1234123\",\n  \"date\": \"2019-11-22T16:02:37.426Z\",\n  \"e2eContractId\": \"MXoyb3g1SDl1N2hzOWduV2JQUTA0UT09\",\n  \"category\": \"string\",\n  \"subCategory\": \"string\",\n  \"reason\": \"string\",\n  \"agentId\": \"string\",\n  \"team\": \"string\"\n}"
 										},
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/agendas/angel/appointments",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/agendas/angel/appointments",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"agendas",
 												"angel",
@@ -9401,12 +9626,17 @@
 												"value": "application/json"
 											}
 										],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/agendas/angel/appointments/{{appointmentId}}",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/agendas/angel/appointments/{{appointmentId}}",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"agendas",
 												"angel",
@@ -9454,14 +9684,15 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"caseId\": \"string\",\n  \"phoneNumber\": \"1234123\",\n  \"date\": \"2019-11-22T16:06:52.636Z\",\n  \"e2eContractId\": \"string\",\n  \"category\": \"string\",\n  \"subCategory\": \"string\",\n  \"reason\": \"string\",\n  \"agentId\": \"string\",\n  \"team\": \"string\"\n}"
+											"raw": "{\n  \"caseId\": \"TXlFTC8yb3FyQVYrY0c3eENyeE9kOEZ0S29sUU5OM29uaUQwS1IxOWpYOD0=\",\n  \"phoneNumber\": \"1234123\",\n  \"date\": \"2019-11-22T16:06:52.636Z\",\n  \"e2eContractId\": \"MXoyb3g1SDl1N2hzOWduV2JQUTA0UT09\",\n  \"category\": \"string\",\n  \"subCategory\": \"string\",\n  \"reason\": \"string\",\n  \"agentId\": \"string\",\n  \"team\": \"string\"\n}"
 										},
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/agendas/angel/appointments/{{appointmentId}}",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/agendas/angel/appointments/{{appointmentId}}",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"agendas",
 												"angel",
@@ -9505,21 +9736,16 @@
 											"raw": "{\n  \"event\": \"Alive\"\n}"
 										},
 										"url": {
-											"raw": "{{BASE_URL}}/{{ENV}}/e2e-contracts/:id/events",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/e2e-contracts/{{e2eContractId_7804492_S831016}}/events",
 											"host": [
 												"{{BASE_URL}}"
 											],
 											"path": [
+												"{{DOMAIN}}",
 												"{{ENV}}",
 												"e2e-contracts",
-												":id",
+												"{{e2eContractId_7804492_S831016}}",
 												"events"
-											],
-											"variable": [
-												{
-													"key": "id",
-													"value": "{{e2eContractId_7804492_S831016}}"
-												}
 											]
 										}
 									},
@@ -9530,15 +9756,21 @@
 							"_postman_isSubFolder": true
 						},
 						{
-							"name": "Get Voucher Burnt_422",
+							"name": "Get Voucher Existing_200",
 							"event": [
 								{
 									"listen": "test",
 									"script": {
 										"id": "6e7222e3-e712-4337-8c8c-9cda12e252ce",
 										"exec": [
-											"pm.test(\"Status code is 422\", function () {",
-											"    pm.response.to.have.status(422);",
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var jsonData = pm.response.json();",
+											"pm.test(\"Contains Expected Spotify voucher\", function () {",
+											"    pm.expect(jsonData.contractVouchers.filter(c => c.type === \"SPOTIFY\")).to.have.lengthOf(1);",
+											"    pm.expect(jsonData.contractVouchers[0].code).is.equal(\"irEuYybtyR\")",
 											"});",
 											""
 										],
@@ -9566,13 +9798,14 @@
 									}
 								],
 								"url": {
-									"raw": "{{BASE_URL}}/e2e-contracts/{{e2eContractId_456546}}/vouchers",
+									"raw": "{{BASE_URL}}/{{ENV}}/e2e-contracts/{{e2eContractId_7804492_S831016}}/vouchers",
 									"host": [
 										"{{BASE_URL}}"
 									],
 									"path": [
+										"{{ENV}}",
 										"e2e-contracts",
-										"{{e2eContractId_456546}}",
+										"{{e2eContractId_7804492_S831016}}",
 										"vouchers"
 									]
 								}
@@ -9622,11 +9855,12 @@
 									}
 								],
 								"url": {
-									"raw": "{{BASE_URL}}/e2e-contracts/{{e2eContractId_444555}}/vouchers",
+									"raw": "{{BASE_URL}}/{{ENV}}/e2e-contracts/{{e2eContractId_444555}}/vouchers",
 									"host": [
 										"{{BASE_URL}}"
 									],
 									"path": [
+										"{{ENV}}",
 										"e2e-contracts",
 										"{{e2eContractId_444555}}",
 										"vouchers"
@@ -9636,21 +9870,15 @@
 							"response": []
 						},
 						{
-							"name": "Get Voucher Existing_200",
+							"name": "Get Voucher Burnt_422",
 							"event": [
 								{
 									"listen": "test",
 									"script": {
 										"id": "6e7222e3-e712-4337-8c8c-9cda12e252ce",
 										"exec": [
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});",
-											"",
-											"var jsonData = pm.response.json();",
-											"pm.test(\"Contains Expected Spotify voucher\", function () {",
-											"    pm.expect(jsonData.contractVouchers.filter(c => c.type === \"SPOTIFY\")).to.have.lengthOf(1);",
-											"    pm.expect(jsonData.contractVouchers[0].code).is.equal(\"irEuYybtyR\")",
+											"pm.test(\"Status code is 422\", function () {",
+											"    pm.response.to.have.status(422);",
 											"});",
 											""
 										],
@@ -9678,13 +9906,14 @@
 									}
 								],
 								"url": {
-									"raw": "{{BASE_URL}}/e2e-contracts/{{e2eContractId_7804492_S831016}}/vouchers",
+									"raw": "{{BASE_URL}}/{{ENV}}/e2e-contracts/{{e2eContractId_456546}}/vouchers",
 									"host": [
 										"{{BASE_URL}}"
 									],
 									"path": [
+										"{{ENV}}",
 										"e2e-contracts",
-										"{{e2eContractId_7804492_S831016}}",
+										"{{e2eContractId_456546}}",
 										"vouchers"
 									]
 								}
@@ -9696,10 +9925,10 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "8fcc9b6b-fee7-4599-9840-0d675cbf79d3",
+								"id": "a99ac326-9cb6-4384-bbe0-8836948434bc",
 								"type": "text/javascript",
 								"exec": [
-									"if (pm.environment.get('ENV') =='test') {",
+									"/*if (pm.environment.get('ENV') =='test') {",
 									"    ",
 									"var req = pm.iterationData.get('list');",
 									"//var req = JSON.parse(pm.globals.get('requesting')).list;",
@@ -9713,14 +9942,14 @@
 									"        postman.setNextRequest(elem.next);",
 									"        }",
 									"    });",
-									"} else postman.setNextRequest();"
+									"} else postman.setNextRequest();*/"
 								]
 							}
 						},
 						{
 							"listen": "test",
 							"script": {
-								"id": "6cf9d48b-535a-4db5-8184-4aa62768e8b3",
+								"id": "9a0e0fab-e489-4945-978d-1750615c6c32",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -9736,30 +9965,34 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "c4603a6a-70e5-411d-bef6-80594bc33097",
+						"id": "edd089b4-dce4-40d6-9dff-cae9c86dae83",
 						"type": "text/javascript",
 						"exec": [
-							""
+							"if (pm.environment.get('ENV') =='test') {",
+							"    ",
+							"var req = pm.iterationData.get('list');",
+							"//var req = JSON.parse(pm.globals.get('requesting')).list;",
+							"var actual = pm.info.requestName;",
+							"    ",
+							"console.log(\"My Request is: \"+ actual);",
+							"    ",
+							"req.forEach(function(elem) {",
+							"    if(elem.name == actual){",
+							"        console.log(\"Eseguo: \"+actual);   ",
+							"        postman.setNextRequest(elem.next);",
+							"        }",
+							"    });",
+							"} else postman.setNextRequest();"
 						]
 					}
 				},
 				{
 					"listen": "test",
 					"script": {
-						"id": "d28eeca7-1d42-438d-98c6-31ff7aee5f0c",
+						"id": "8ca6c867-4d8c-48cf-94b5-45bd812fd017",
 						"type": "text/javascript",
 						"exec": [
-							"/*var req = JSON.parse(pm.globals.get('requesting')).list;",
-							"var actual = pm.info.requestName;",
-							"",
-							"console.log(\"My Request is: \"+ actual);",
-							"",
-							"req.forEach( function(elem) {",
-							"    if(elem.name == actual){",
-							"        console.log(\"Esueguo: \"+actual);   ",
-							"        postman.setNextRequest(elem.next);",
-							"    }",
-							"});*/"
+							""
 						]
 					}
 				}
@@ -9771,7 +10004,7 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "f1f0f20f-1b9f-413d-b40e-d04097064031",
+				"id": "7f768a8f-12b6-43ed-96dd-5f7228e32691",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -9781,7 +10014,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "0b2e18bb-562f-4d15-9a9f-c031135114f5",
+				"id": "0fe3353e-855e-4c12-b94c-cb05515d2a05",
 				"type": "text/javascript",
 				"exec": [
 					""
