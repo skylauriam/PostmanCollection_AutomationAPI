@@ -12,7 +12,7 @@
 					"name": "Authorization",
 					"item": [
 						{
-							"name": "Auth User_1",
+							"name": "Auth",
 							"event": [
 								{
 									"listen": "test",
@@ -26,7 +26,9 @@
 											"",
 											"        var token = pm.response.json().slt;",
 											"        pm.environment.set(\"JWTC-S831016\", \"Bearer \" + token);",
+											"        pm.environment.set(\"JWTC-V7758345\", \"Bearer \" + token);",
 											"        pm.globals.set(\"token\", \"Bearer \" + token);",
+											"        ",
 											"            ",
 											"    }",
 											" ",
@@ -90,104 +92,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{ \n  \"application\":\"web\",\n  \"type\":\"JWTC\",\n  \"user\": {\n  \t\"username\": \"{{USER_1}}\",\n  \t\"password\": \"{{PWD}}\"\n  }\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{BASE_URL}}/tokenmanager/{{ENV}}/auths",
-									"host": [
-										"{{BASE_URL}}"
-									],
-									"path": [
-										"tokenmanager",
-										"{{ENV}}",
-										"auths"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Auth User_2",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"id": "f3924f9a-b4f1-4a35-9f92-e7c217273d73",
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "test",
-									"script": {
-										"id": "a5ce20f8-e75a-48de-be84-ef2990a634c3",
-										"exec": [
-											"if (pm.environment.get(\"ENV\") == \"test\") {    ",
-											"    pm.test('Status code is 201', function () {",
-											"        pm.response.to.have.status(201);",
-											"    });",
-											"",
-											"        var token = pm.response.json().slt;",
-											"        pm.environment.set(\"JWTC-V7758345\", \"Bearer \" + token);",
-											"}",
-											"  ",
-											"",
-											"",
-											"/*pm.test('token has been extracted!', function() {",
-											"    pm.expect(pm.response.json()).",
-											"    var token = pm.response.json().slt;",
-											"    pm.globals.set(\"token\", token);",
-											"});*/"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"type": "text",
-										"value": "application/json, text/plain, */*"
-									},
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"type": "text",
-										"value": "application/json"
-									},
-									{
-										"key": "User-Agent",
-										"type": "text",
-										"value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36"
-									},
-									{
-										"key": "Sec-Fetch-Mode",
-										"type": "text",
-										"value": "cors"
-									},
-									{
-										"key": "Referer",
-										"type": "text",
-										"value": "http://wsc-testbb.sky.it/login"
-									},
-									{
-										"key": "Origin",
-										"type": "text",
-										"value": "http://wsc-testbb.sky.it"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"application\":\"web\",\n  \"type\":\"JWTC\",\n  \"user\": {\n  \t\"username\": \"{{USER_2}}\",\n  \t\"password\": \"{{PWD}}\"\n  \t\n  }\n}",
+									"raw": "{ \n  \"application\":\"web\",\n  \"type\":\"JWTC\",\n  \"user\": {\n  \t\"username\": \"{{USER}}\",\n  \t\"password\": \"{{PWD}}\"\n  }\n}",
 									"options": {
 										"raw": {
 											"language": "json"
