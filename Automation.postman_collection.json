@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "17bb9bc7-ed84-46eb-a335-95e16b534cc6",
-		"name": "Automation copy",
+		"_postman_id": "997919c1-ae84-490b-ab37-cdc345f8cd89",
+		"name": "Automation",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -17,18 +17,18 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "bcba5764-7bf0-494f-9408-e6d58a24968a",
+										"id": "df7112da-1426-4cec-8410-594351c1e379",
 										"exec": [
 											"if (pm.environment.get(\"ENV\") == \"test\") {",
 											"   pm.test('Status code is 201', function () {",
 											"        pm.response.to.have.status(201);",
 											"    });",
 											"",
-											"var token = pm.response.json().slt;",
-											"pm.environment.set(\"JWTC-S831016\", \"Bearer \" + token);",
-											"pm.environment.set(\"JWTC-V7758345\", \"Bearer \" + token);",
-											"pm.globals.set(\"token\", \"Bearer \" + token);",
-											"",
+											"        var token = pm.response.json().slt;",
+											"        pm.environment.set(\"JWTC-S831016\", \"Bearer \" + token);",
+											"        pm.environment.set(\"JWTC-V7758345\", \"Bearer \" + token);",
+											"        pm.globals.set(\"token\", \"Bearer \" + token);",
+											"        ",
 											"            ",
 											"    }",
 											" ",
@@ -47,7 +47,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "6f343edf-55d7-4d1f-abe4-0342316ec639",
+										"id": "cd388de6-6af4-421a-91ac-d006859f9d9c",
 										"exec": [
 											""
 										],
@@ -2282,19 +2282,6 @@
 														],
 														"type": "text/javascript"
 													}
-												},
-												{
-													"listen": "prerequest",
-													"script": {
-														"id": "79939546-3da4-444a-bed7-dc5085c87194",
-														"exec": [
-															"if (pm.environment.get('ENV') == 'test') {",
-															"    pm.environment.set('e2eContractId_15519865', pm.globals.get(\"contract1\"));",
-															"",
-															"}"
-														],
-														"type": "text/javascript"
-													}
 												}
 											],
 											"request": {
@@ -2690,7 +2677,7 @@
 												{
 													"listen": "prerequest",
 													"script": {
-														"id": "7a05ee55-dd6a-4eb9-87f2-ad6930b16383",
+														"id": "516d141c-b495-4733-841f-9dce466c9010",
 														"exec": [
 															"if (pm.environment.get('ENV') == 'test') {",
 															"    pm.environment.set('e2eContractId_15519865', pm.globals.get(\"contract0\"));",
@@ -6715,7 +6702,7 @@
 													}
 												],
 												"url": {
-													"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/orders/{{orderId_migrationCodeCheck}}/appointments/{{appointmentId}}/check-rescheduled?",
+													"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/orders/{{orderId_migrationCodeCheck}}/appointments/check-rescheduled?",
 													"host": [
 														"{{BASE_URL}}"
 													],
@@ -6725,7 +6712,6 @@
 														"orders",
 														"{{orderId_migrationCodeCheck}}",
 														"appointments",
-														"{{appointmentId}}",
 														"check-rescheduled"
 													],
 													"query": [
@@ -6780,7 +6766,7 @@
 													}
 												],
 												"url": {
-													"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/orders/{{orderId_appointment_frozen}}/appointments/{{appointmentId}}/check-rescheduled",
+													"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/orders/{{orderId_appointment_frozen}}/appointments/check-rescheduled",
 													"host": [
 														"{{BASE_URL}}"
 													],
@@ -6790,7 +6776,6 @@
 														"orders",
 														"{{orderId_appointment_frozen}}",
 														"appointments",
-														"{{appointmentId}}",
 														"check-rescheduled"
 													]
 												}
@@ -6838,7 +6823,7 @@
 													}
 												],
 												"url": {
-													"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/orders/{{orderId_installationNotFinished}}/appointments/{{appointmentId}}/check-rescheduled?",
+													"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/orders/{{orderId_installationNotFinished}}/appointments/check-rescheduled?",
 													"host": [
 														"{{BASE_URL}}"
 													],
@@ -6848,7 +6833,6 @@
 														"orders",
 														"{{orderId_installationNotFinished}}",
 														"appointments",
-														"{{appointmentId}}",
 														"check-rescheduled"
 													],
 													"query": [
@@ -6903,7 +6887,7 @@
 													}
 												],
 												"url": {
-													"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/orders/{{orderId_suspended_appointment}}/appointments/{{appointmentId}}/check-rescheduled",
+													"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/orders/{{orderId_suspended_appointment}}/appointments/check-rescheduled",
 													"host": [
 														"{{BASE_URL}}"
 													],
@@ -6913,7 +6897,6 @@
 														"orders",
 														"{{orderId_suspended_appointment}}",
 														"appointments",
-														"{{appointmentId}}",
 														"check-rescheduled"
 													]
 												}
