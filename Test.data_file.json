@@ -1,6 +1,7 @@
 [{
 	"list":[
-		{"name": "Auth", "next": "GetUserConsents_200"},
+		{"name": "Auth", "next": "e2e-contract"},
+        {"name": "e2e-contract", "next": "GetUserConsents_200"},
 		{"name": "GetUserConsents_200", "next": "GetAllDevices_200"},
 		{"name": "GetAllDevices_200", "next": "Retrieve the URLs to perform a document upload_200_Auto"},
 		{"name": "Retrieve the URLs to perform a document upload_200_Auto", "next": "GetExtra_200"},

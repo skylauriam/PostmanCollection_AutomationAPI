@@ -1,1 +1,0 @@
-newman run Automation.postman_collection.json -e Sky.postman_environment.json --reporters cli,xml --reporter-xml-export test_run.xml
