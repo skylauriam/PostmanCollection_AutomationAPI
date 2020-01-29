@@ -1,7 +1,9 @@
 [{
 	"list":[
 		{"name": "Auth", "next": "e2e-contract"},
-        {"name": "e2e-contract", "next": "GetUserConsents_200"},
+        {"name": "e2e-contract", "next": "AddressNormalization_Cities_To_Egon_200_OK_Auto"},
+        {"name": "AddressNormalization_Cities_To_Egon_200_OK_Auto", "next": "AddressNormalization_Cities_As_Guest_200_OK_Auto"},
+        {"name": "AddressNormalization_Cities_As_Guest_200_OK_Auto", "next": "GetUserConsents_200"},
 		{"name": "GetUserConsents_200", "next": "GetAllDevices_200"},
 		{"name": "GetAllDevices_200", "next": "Retrieve the URLs to perform a document upload_200_Auto"},
 		{"name": "Retrieve the URLs to perform a document upload_200_Auto", "next": "GetExtra_200"},
@@ -16,6 +18,12 @@
 		{"name": "RetrieveInvoicesByE2eContract_200", "next": "Retrieve Offer by contract_200"},
 		{"name": "Retrieve Offer by contract_200", "next": "Retrieve Offer by contract_200 With Code Filter"},
 		{"name": "Retrieve Offer by contract_200 With Code Filter", "next": "RetrieveCompatibleMops"},
-		{"name": "RetrieveCompatibleMops", "next": ""}
+		{"name": "RetrieveCompatibleMops", "next": "ReturnLeadByTokenId_404_Auto"},
+        {"name": "ReturnLeadByTokenId_404_Auto", "next": "ReturnLeadByTokenId_422_Auto"},
+        {"name": "ReturnLeadByTokenId_422_Auto", "next": "ReturnLeadByContractId_200"},
+        {"name": "ReturnLeadByContractId_200", "next": "ReturnLeadByContractId_200 Empty"},
+        {"name": "ReturnLeadByContractId_200", "next": "Get Voucher Existing_200"},
+        {"name": "Get Voucher Existing_200", "next": "Get Voucher Not Existing_200"},
+        {"name": "Get Voucher Not Existing_200", "next": ""}
 		]
 }]

@@ -230,7 +230,7 @@
 											"script": {
 												"id": "82C66ED2-66C9-41D5-B1B5-B97713BFF3EC",
 												"exec": [
-													"pm.test('Status code is 200', function () {",
+													" pm.test('Status code is 200', function () {",
 													"pm.response.to.have.status(200);",
 													"});",
 													"if (pm.environment.get('ENV') == 'dev' || pm.environment.get('ENV') == 'api/rest') {",
@@ -299,7 +299,7 @@
 											"script": {
 												"id": "7e5283f2-ec3a-4deb-8fd7-86ad5a6a8a0c",
 												"exec": [
-													"pm.test('Status code is 200', function () {",
+													"/*pm.test('Status code is 200', function () {",
 													"pm.response.to.have.status(200);",
 													"});",
 													"pm.test('City name is returned', function() {",
@@ -313,7 +313,9 @@
 													"});",
 													"pm.test('Egon-Route header set to true', function() {",
 													"pm.response.to.be.header('egon-route', 'true');",
-													"});"
+													"});*/",
+													"",
+													""
 												],
 												"type": "text/javascript"
 											}
@@ -366,7 +368,7 @@
 											"script": {
 												"id": "33bf6608-1c54-4013-a632-d4ed1a2199a6",
 												"exec": [
-													"pm.test('Status code is 200', function () {",
+													"/*pm.test('Status code is 200', function () {",
 													"pm.response.to.have.status(200);",
 													"});",
 													"pm.test('City name is returned', function() {",
@@ -380,6 +382,9 @@
 													"});",
 													"pm.test('Egon-Route header set to true', function() {",
 													"pm.response.to.be.header('egon-route', 'true');",
+													"});*/",
+													"pm.test('Set egonId', function(){",
+													"pm.environment.set('cityEgonId', pm.response.json().egonId);",
 													"});"
 												],
 												"type": "text/javascript"
@@ -6458,6 +6463,7 @@
 													"    var jsonData = pm.response.json();",
 													"    pm.expect(jsonData.leads).to.be.an('array').that.is.empty;",
 													"});",
+													"",
 													""
 												],
 												"type": "text/javascript"
