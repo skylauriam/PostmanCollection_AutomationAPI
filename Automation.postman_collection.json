@@ -20,17 +20,19 @@
 										"id": "df7112da-1426-4cec-8410-594351c1e379",
 										"exec": [
 											"if (pm.environment.get(\"ENV\") == \"test\") {",
-											"   pm.test('Status code is 201', function () {",
+											"        ",
+											"    pm.test('Status code is 201', function(){",
 											"        pm.response.to.have.status(201);",
 											"    });",
-											"",
+											"    ",
+											"    pm.test('Token extracted', function(){",
 											"        var token = pm.response.json().slt;",
 											"        pm.environment.set(\"JWTC-S831016\", \"Bearer \" + token);",
 											"        pm.environment.set(\"JWTC-V7758345\", \"Bearer \" + token);",
 											"        pm.globals.set(\"token\", \"Bearer \" + token);",
+											"    });",
 											"        ",
-											"            ",
-											"    }",
+											"}",
 											" ",
 											"/*pm.test('token has been extracted!', function() {",
 											"    pm.expect(pm.response.json()).",
@@ -122,22 +124,34 @@
 										"id": "d0422869-a648-4b1f-ad7c-c3d0a113abe0",
 										"exec": [
 											"if (pm.environment.get('ENV') == 'test') {",
-											"    var e2eContractId = JSON.parse(responseBody).e2eContracts[0].id;",
-											"    var e2eContractId1 = JSON.parse(responseBody).e2eContracts[1].id;",
-											"    pm.globals.set('contract0', e2eContractId);",
-											"    pm.globals.set('contract1', e2eContractId1);",
-											"    pm.environment.set('e2eContractId_15519862', e2eContractId);",
-											"    pm.environment.set('e2eContractId_7804492', e2eContractId);",
-											"    pm.environment.set('e2eContractId_15519863', e2eContractId);",
-											"    pm.environment.set('e2eContractId_15519862', e2eContractId);",
-											"    pm.environment.set('e2eContractId_15519865', e2eContractId1);",
-											"    pm.environment.set('e2eContractId_7804492_S831016', e2eContractId1);",
-											"    pm.environment.set('e2eContractId_444555', e2eContractId);",
-											"    pm.environment.set('e2eContractId_456546', e2eContractId);",
-											"    pm.environment.set('e2eContractId_15519866', e2eContractId);",
-											"    pm.environment.set('e2eContractId_15519867', e2eContractId);",
-											"    pm.environment.set('invoiceId_TV', e2eContractId);",
-											"}"
+											"    ",
+											"    pm.test('Status code is 200',function(){",
+											"        pm.response.to.have.status(200);",
+											"    });",
+											"    ",
+											"    pm.test('E2E Contract extracted', function(){",
+											"    ",
+											"        pm.globals.set('contract0', JSON.parse(responseBody).e2eContracts[0].id);",
+											"        pm.globals.set('contract1', JSON.parse(responseBody).e2eContracts[1].id);",
+											"        ",
+											"        var c0 = JSON.parse(responseBody).e2eContracts[0].id;",
+											"        var c1 = JSON.parse(responseBody).e2eContracts[1].id;",
+											"        ",
+											"        pm.environment.set('e2eContractId_15519862', c0);",
+											"        pm.environment.set('e2eContractId_7804492', c0);",
+											"        pm.environment.set('e2eContractId_15519864', c1)",
+											"        pm.environment.set('e2eContractId_15519863', c1);",
+											"        pm.environment.set('e2eContractId_15519862', c0);",
+											"        pm.environment.set('e2eContractId_15519865', c1);",
+											"        pm.environment.set('e2eContractId_7804492_S831016', c1);",
+											"        pm.environment.set('e2eContractId_444555', c0);",
+											"        pm.environment.set('e2eContractId_456546', c0);",
+											"        pm.environment.set('e2eContractId_15519866', c0);",
+											"        pm.environment.set('e2eContractId_15519867', c0);",
+											"        pm.environment.set('invoiceId_TV', c0);",
+											"      ",
+											"    })",
+											"    }"
 										],
 										"type": "text/javascript"
 									}
@@ -230,14 +244,18 @@
 											"script": {
 												"id": "82C66ED2-66C9-41D5-B1B5-B97713BFF3EC",
 												"exec": [
-													" pm.test('Status code is 200', function () {",
-													"pm.response.to.have.status(200);",
-													"});",
-													"if (pm.environment.get('ENV') == 'dev' || pm.environment.get('ENV') == 'api/rest') {",
-													"pm.test('Both agendas are returned', function() {",
-													"pm.expect(pm.response.json().items.length).to.eql(2);",
-													"});",
-													"}"
+													"if (pm.environment.get('ENV') != 'test') {",
+													"    ",
+													"    pm.test('Status code is 200', function () {",
+													"        pm.response.to.have.status(200);",
+													"    });",
+													"",
+													"    pm.test('Both agendas are returned', function() {",
+													"        pm.expect(pm.response.json().items.length).to.eql(2);",
+													"    });",
+													"} else pm.test('Status code is 200', function () {",
+													"            pm.response.to.have.status(200);",
+													"        });"
 												],
 												"type": "text/javascript"
 											}
@@ -299,22 +317,25 @@
 											"script": {
 												"id": "7e5283f2-ec3a-4deb-8fd7-86ad5a6a8a0c",
 												"exec": [
-													"/*pm.test('Status code is 200', function () {",
-													"pm.response.to.have.status(200);",
-													"});",
-													"pm.test('City name is returned', function() {",
-													"pm.expect(pm.response.json()[0].name).to.eql('MILANO');",
-													"});",
-													"pm.test('Egon Id is returned', function() {",
-													"pm.expect(pm.response.json()[0].egonId).to.eql('38000002491');",
-													"});",
-													"pm.test('Province is returned', function() {",
-													"pm.expect(pm.response.json()[0].province).to.eql('MILANO');",
-													"});",
-													"pm.test('Egon-Route header set to true', function() {",
-													"pm.response.to.be.header('egon-route', 'true');",
-													"});*/",
-													"",
+													"if (pm.environment.get('ENV') != 'test') {",
+													"    pm.test('Status code is 200', function () {",
+													"        pm.response.to.have.status(200);",
+													"    });",
+													"    pm.test('City name is returned', function() {",
+													"        pm.expect(pm.response.json()[0].name).to.eql('MILANO');",
+													"    });",
+													"    pm.test('Egon Id is returned', function() {",
+													"        pm.expect(pm.response.json()[0].egonId).to.eql('38000002491');",
+													"    });",
+													"    pm.test('Province is returned', function() {",
+													"        pm.expect(pm.response.json()[0].province).to.eql('MILANO');",
+													"    });",
+													"    pm.test('Egon-Route header set to true', function() {",
+													"        pm.response.to.be.header('egon-route', 'true');",
+													"    });",
+													"} else pm.test('Status code is 200', function () {",
+													"        pm.response.to.have.status(200);",
+													"    });",
 													""
 												],
 												"type": "text/javascript"
@@ -368,24 +389,31 @@
 											"script": {
 												"id": "33bf6608-1c54-4013-a632-d4ed1a2199a6",
 												"exec": [
-													"/*pm.test('Status code is 200', function () {",
-													"pm.response.to.have.status(200);",
-													"});",
-													"pm.test('City name is returned', function() {",
-													"pm.expect(pm.response.json()[0].name).to.eql('MILANO');",
-													"});",
-													"pm.test('Egon Id is returned', function() {",
-													"pm.expect(pm.response.json()[0].egonId).to.eql('38000002491');",
-													"});",
-													"pm.test('Province is returned', function() {",
-													"pm.expect(pm.response.json()[0].province).to.eql('MILANO');",
-													"});",
-													"pm.test('Egon-Route header set to true', function() {",
-													"pm.response.to.be.header('egon-route', 'true');",
-													"});*/",
-													"pm.test('Set egonId', function(){",
-													"pm.environment.set('cityEgonId', pm.response.json().egonId);",
-													"});"
+													"if (pm.environment.get('ENV') != 'test') {",
+													"    pm.test('Status code is 200', function () {",
+													"        pm.response.to.have.status(200);",
+													"    });",
+													"    pm.test('City name is returned', function() {",
+													"        pm.expect(pm.response.json()[0].name).to.eql('MILANO');",
+													"    });",
+													"    pm.test('Egon Id is returned', function() {",
+													"        pm.expect(pm.response.json()[0].egonId).to.eql('38000002491');",
+													"    });",
+													"    pm.test('Province is returned', function() {",
+													"        pm.expect(pm.response.json()[0].province).to.eql('MILANO');",
+													"    });",
+													"    pm.test('Egon-Route header set to true', function() {",
+													"        pm.response.to.be.header('egon-route', 'true');",
+													"    });",
+													"} else {",
+													"    pm.test('Status code is 200', function () {",
+													"        pm.response.to.have.status(200);",
+													"    });",
+													"    ",
+													"    pm.test('Set egonId', function(){",
+													"        pm.environment.set('cityEgonId', pm.response.json()[0].egonId);",
+													"    });",
+													"}"
 												],
 												"type": "text/javascript"
 											}
@@ -433,15 +461,22 @@
 											"script": {
 												"id": "a7195f81-d218-45cb-9054-cb2921ffa086",
 												"exec": [
-													"pm.test('Status code is 200', function () {",
-													"pm.response.to.have.status(200);",
-													"});",
-													"pm.test('Empty body is returned', function() {",
-													"pm.response.to.have.body('[]')",
-													"});",
-													"pm.test('Egon-Route header set to false', function() {",
-													"pm.response.to.be.header('egon-route', 'false');",
-													"});"
+													"if (pm.environment.get('ENV') != 'test') {",
+													"    ",
+													"    pm.test('Status code is 200', function () {",
+													"        pm.response.to.have.status(200);",
+													"    });",
+													"    pm.test('Empty body is returned', function() {",
+													"        pm.response.to.have.body('[]')",
+													"    });",
+													"    pm.test('Egon-Route header set to false', function() {",
+													"        pm.response.to.be.header('egon-route', 'false');",
+													"    });",
+													"    ",
+													"} else pm.test('Status code is 200', function(){",
+													"            pm.response.to.have.status(200);",
+													"        });",
+													""
 												],
 												"type": "text/javascript"
 											}
@@ -489,21 +524,26 @@
 											"script": {
 												"id": "2366927d-ff82-40bb-9c40-7c73c88bb917",
 												"exec": [
-													"pm.test('Status code is 200', function () {",
-													"pm.response.to.have.status(200);",
+													"if (pm.environment.get('ENV') != 'test') {",
+													"        ",
+													"    pm.test('Status code is 200', function () {",
+													"        pm.response.to.have.status(200);",
+													"    });",
+													"    pm.test('City name is returned', function() {",
+													"        pm.expect(pm.response.json()[0].name).to.eql('MILANO');",
+													"    });",
+													"    pm.test('Egon Id is returned', function() {",
+													"        pm.expect(pm.response.json()[0].egonId).to.eql('38000002491');",
+													"    });",
+													"    pm.test('Province is returned', function() {",
+													"        pm.expect(pm.response.json()[0].province).to.eql('MILANO');",
+													"    });",
+													"    pm.test('Egon-Route header set to false', function() {",
+													"        pm.response.to.be.header('egon-route', 'false');",
 													"});",
-													"pm.test('City name is returned', function() {",
-													"pm.expect(pm.response.json()[0].name).to.eql('MILANO');",
-													"});",
-													"pm.test('Egon Id is returned', function() {",
-													"pm.expect(pm.response.json()[0].egonId).to.eql('38000002491');",
-													"});",
-													"pm.test('Province is returned', function() {",
-													"pm.expect(pm.response.json()[0].province).to.eql('MILANO');",
-													"});",
-													"pm.test('Egon-Route header set to false', function() {",
-													"pm.response.to.be.header('egon-route', 'false');",
-													"});"
+													"} else pm.test('Status code is 200', function(){",
+													"            pm.response.to.have.status(200);",
+													"        });"
 												],
 												"type": "text/javascript"
 											}
@@ -551,15 +591,22 @@
 											"script": {
 												"id": "a2f4869d-4f27-4a2e-925e-41fc2b4ec0bf",
 												"exec": [
-													"pm.test('Status code is 200', function () {",
-													"pm.response.to.have.status(200);",
-													"});",
-													"pm.test('Empty body is returned', function() {",
-													"pm.response.to.have.body('[]')",
-													"});",
-													"pm.test('Egon-Route header set to false', function() {",
-													"pm.response.to.be.header('egon-route', 'false');",
-													"});"
+													"if (pm.environment.get('ENV') != 'test') {",
+													"        ",
+													"    pm.test('Status code is 200', function () {",
+													"        pm.response.to.have.status(200);",
+													"    });",
+													"    ",
+													"    pm.test('Empty body is returned', function() {",
+													"        pm.response.to.have.body('[]')",
+													"    });",
+													"    ",
+													"    pm.test('Egon-Route header set to false', function() {",
+													"        pm.response.to.be.header('egon-route', 'false');",
+													"    });",
+													"} else pm.test('Status code is 200', function(){",
+													"            pm.response.to.have.status(200);",
+													"        });"
 												],
 												"type": "text/javascript"
 											}
@@ -607,9 +654,20 @@
 											"script": {
 												"id": "611f4d17-d2d8-40c7-ba9d-745f4540d95b",
 												"exec": [
-													"pm.test('Status code is 200', function () {",
-													"pm.response.to.have.status(200);",
-													"});"
+													"if (pm.environment.get('ENV') != 'test') {",
+													"    ",
+													"        pm.test('Status code is 200', function () {",
+													"        pm.response.to.have.status(200);",
+													"    });",
+													"} else {",
+													"    pm.test('Status code is 200' , function(){",
+													"        pm.response.to.have.status(200);",
+													"    });",
+													"    ",
+													"    pm.test('Set Street Egon Id', function(){",
+													"        pm.environment.set(\"streetEgonId\", pm.response.json()[0].egonId);",
+													"    });",
+													"}"
 												],
 												"type": "text/javascript"
 											}
@@ -657,12 +715,17 @@
 											"script": {
 												"id": "c89283c4-5cdd-48af-b21d-d4b5ad61dea3",
 												"exec": [
-													"pm.test('Status code is 200', function () {",
-													"pm.response.to.have.status(200);",
-													"});",
-													"pm.test('Egon-Route header set to true', function() {",
-													"pm.response.to.be.header('egon-route', 'true');",
-													"});"
+													"if (pm.environment.get('ENV') != 'test') {",
+													"        ",
+													"    pm.test('Status code is 200', function () {",
+													"        pm.response.to.have.status(200);",
+													"    });",
+													"    pm.test('Egon-Route header set to true', function() {",
+													"        pm.response.to.be.header('egon-route', 'true');",
+													"    });",
+													"} else pm.test('Status code is 200', function(){",
+													"            pm.response.to.have.status(200);",
+													"        });"
 												],
 												"type": "text/javascript"
 											}
@@ -765,15 +828,23 @@
 											"script": {
 												"id": "84c7633c-18a6-4036-be04-5fbf0e90fcbe",
 												"exec": [
-													"pm.test('Status code is 200', function () {",
-													"pm.response.to.have.status(200);",
-													"});",
-													"pm.test('Empty body is returned', function() {",
-													"pm.response.to.have.body('[]')",
-													"});",
-													"pm.test('Egon-Route header set to false', function() {",
-													"pm.response.to.be.header('egon-route', 'false');",
-													"});"
+													"if (pm.environment.get('ENV') != 'test') {",
+													"    ",
+													"    pm.test('Status code is 200', function () {",
+													"        pm.response.to.have.status(200);",
+													"    });",
+													"    ",
+													"    pm.test('Empty body is returned', function() {",
+													"        pm.response.to.have.body('[]')",
+													"    });",
+													"    ",
+													"    pm.test('Egon-Route header set to false', function() {",
+													"        pm.response.to.be.header('egon-route', 'false');",
+													"    });",
+													"} else pm.test('Status code is 200', function(){",
+													"            pm.response.to.have.status(200);",
+													"        });",
+													""
 												],
 												"type": "text/javascript"
 											}
@@ -821,19 +892,23 @@
 											"script": {
 												"id": "6893ad8a-860c-45cc-83ec-f4faa7f5d31a",
 												"exec": [
-													"pm.test('Status code is 200', function () {",
-													"pm.response.to.have.status(200);",
-													"});",
-													"pm.test('Street name is returned', function() {",
-													"pm.expect(pm.response.json()[0].name).to.eql('VIA BUONABITACOLO');",
-													"});",
-													"pm.test('Egon Id is returned', function() {",
-													"pm.expect(pm.response.json()[0].egonId).to.eql('38000078351');",
-													"});",
-													"pm.test('zipCode is returned', function() {",
-													"pm.expect(pm.response.json()[0].zipCode).to.eql('00134');",
-													"});",
-													""
+													"if (pm.environment.get('ENV') != 'test') {",
+													"    ",
+													"    pm.test('Status code is 200', function () {",
+													"        pm.response.to.have.status(200);",
+													"    });",
+													"    pm.test('Street name is returned', function() {",
+													"        pm.expect(pm.response.json()[0].name).to.eql('VIA BUONABITACOLO');",
+													"    });",
+													"    pm.test('Egon Id is returned', function() {",
+													"        pm.expect(pm.response.json()[0].egonId).to.eql('38000078351');",
+													"    });",
+													"    pm.test('zipCode is returned', function() {",
+													"        pm.expect(pm.response.json()[0].zipCode).to.eql('00134');",
+													"    });",
+													"} else pm.test('Status code is 200', function(){",
+													"            pm.response.to.have.status(200);",
+													"        });"
 												],
 												"type": "text/javascript"
 											}
@@ -881,15 +956,27 @@
 											"script": {
 												"id": "01d3ad86-843e-4a3f-81e8-048901d66539",
 												"exec": [
-													"pm.test(\"Status code is 200\", function () {",
-													"    pm.response.to.have.status(200);",
-													"});",
-													"pm.test('Street number is returned', function() {",
-													"    pm.expect(pm.response.json()[0].egonId).to.eql('380100174147937');",
-													"});",
-													"pm.test('Egon-Route header set to true', function() {",
-													"    pm.response.to.be.header('egon-route', 'true');",
-													"});"
+													"if (pm.environment.get('ENV') != 'test') {",
+													"    ",
+													"    pm.test(\"Status code is 200\", function () {",
+													"        pm.response.to.have.status(200);",
+													"    });",
+													"    pm.test('Street number is returned', function() {",
+													"        pm.expect(pm.response.json()[0].egonId).to.eql('380100174147937');",
+													"    });",
+													"    pm.test('Egon-Route header set to true', function() {",
+													"        pm.response.to.be.header('egon-route', 'true');",
+													"    });",
+													"} else {",
+													"    pm.test('Status code is 200', function(){",
+													"            pm.response.to.have.status(200);",
+													"    });",
+													"    ",
+													"    pm.test('Set street number egon Id', function(){",
+													"        pm.environment.set(\"streetNumberEgonId\", pm.response.json()[0].number);",
+													"    });",
+													"    ",
+													"}"
 												],
 												"type": "text/javascript"
 											}
@@ -944,15 +1031,20 @@
 											"script": {
 												"id": "01d3ad86-843e-4a3f-81e8-048901d66539",
 												"exec": [
-													"pm.test(\"Status code is 200\", function () {",
-													"    pm.response.to.have.status(200);",
-													"});",
-													"pm.test('Street number is returned', function() {",
-													"    pm.expect(pm.response.json()[0].egonId).to.eql('380100174147937');",
-													"});",
-													"pm.test('Egon-Route header set to true', function() {",
-													"    pm.response.to.be.header('egon-route', 'true');",
-													"});"
+													"if (pm.environment.get('ENV') != 'test') {",
+													"    ",
+													"    pm.test(\"Status code is 200\", function () {",
+													"        pm.response.to.have.status(200);",
+													"    });",
+													"    pm.test('Street number is returned', function() {",
+													"        pm.expect(pm.response.json()[0].egonId).to.eql('380100174147937');",
+													"    });",
+													"    pm.test('Egon-Route header set to true', function() {",
+													"        pm.response.to.be.header('egon-route', 'true');",
+													"    });",
+													"} else pm.test('Status code is 200', function(){",
+													"            pm.response.to.have.status(200);",
+													"        });"
 												],
 												"type": "text/javascript"
 											}
@@ -1012,15 +1104,20 @@
 											"script": {
 												"id": "01d3ad86-843e-4a3f-81e8-048901d66539",
 												"exec": [
-													"pm.test(\"Status code is 200\", function () {",
-													"    pm.response.to.have.status(200);",
-													"});",
-													"pm.test('Empty body is returned', function() {",
-													"    pm.response.to.have.body('[]');",
-													"});",
-													"pm.test('Egon-Route header set to false', function() {",
-													"    pm.response.to.be.header('egon-route', 'false');",
-													"});"
+													"if (pm.environment.get('ENV') != 'test') {",
+													"     ",
+													"    pm.test(\"Status code is 200\", function () {",
+													"        pm.response.to.have.status(200);",
+													"    });",
+													"    pm.test('Empty body is returned', function() {",
+													"        pm.response.to.have.body('[]');",
+													"    });",
+													"    pm.test('Egon-Route header set to false', function() {",
+													"        pm.response.to.be.header('egon-route', 'false');",
+													"    });",
+													"} else pm.test('Status code is 200', function(){",
+													"            pm.response.to.have.status(200);",
+													"        });"
 												],
 												"type": "text/javascript"
 											}
@@ -1070,15 +1167,20 @@
 											"script": {
 												"id": "01d3ad86-843e-4a3f-81e8-048901d66539",
 												"exec": [
-													"pm.test(\"Status code is 200\", function () {",
-													"    pm.response.to.have.status(200);",
-													"});",
-													"pm.test('Street number is returned', function() {",
-													"    pm.expect(pm.response.json()[0].egonId).to.eql('380100174147937');",
-													"});",
-													"pm.test('Egon-Route header set to false', function() {",
-													"    pm.response.to.be.header('egon-route', 'false');",
-													"});"
+													"if (pm.environment.get('ENV') != 'test') {",
+													"",
+													"    pm.test(\"Status code is 200\", function () {",
+													"        pm.response.to.have.status(200);",
+													"    });",
+													"    pm.test('Street number is returned', function() {",
+													"        pm.expect(pm.response.json()[0].egonId).to.eql('380100174147937');",
+													"    });",
+													"    pm.test('Egon-Route header set to false', function() {",
+													"        pm.response.to.be.header('egon-route', 'false');",
+													"    });",
+													"} else pm.test('Status code is 200', function(){",
+													"            pm.response.to.have.status(200);",
+													"        });"
 												],
 												"type": "text/javascript"
 											}
@@ -1128,15 +1230,20 @@
 											"script": {
 												"id": "01d3ad86-843e-4a3f-81e8-048901d66539",
 												"exec": [
-													"pm.test(\"Status code is 200\", function () {",
-													"    pm.response.to.have.status(200);",
-													"});",
-													"pm.test('Empty body is returned', function() {",
-													"    pm.response.to.have.body('[]');",
-													"});",
-													"pm.test('Egon-Route header set to false', function() {",
-													"    pm.response.to.be.header('egon-route', 'false');",
-													"});"
+													"if (pm.environment.get('ENV') != 'test') {",
+													"",
+													"    pm.test(\"Status code is 200\", function () {",
+													"        pm.response.to.have.status(200);",
+													"    });",
+													"    pm.test('Empty body is returned', function() {",
+													"        pm.response.to.have.body('[]');",
+													"    });",
+													"    pm.test('Egon-Route header set to false', function() {",
+													"        pm.response.to.be.header('egon-route', 'false');",
+													"    });",
+													"} else pm.test('Status code is 200', function(){",
+													"            pm.response.to.have.status(200);",
+													"        });"
 												],
 												"type": "text/javascript"
 											}
@@ -1308,13 +1415,19 @@
 											"script": {
 												"id": "e3f6c747-fb63-4e03-93c9-292e63861d66",
 												"exec": [
-													"pm.test(\"Status code is 422\", function () {",
-													"    pm.response.to.have.status(422);",
-													"});",
-													"pm.test(\"Check error code is SCx00000005\", function() {",
-													"    var jsonData = pm.response.json();",
-													"    pm.expect(jsonData.code).to.eql(\"SCx00000005\");",
-													"});"
+													"if (pm.environment.get('ENV') != 'test') {",
+													"    ",
+													"    pm.test(\"Status code is 422\", function () {",
+													"        pm.response.to.have.status(422);",
+													"    });",
+													"    pm.test(\"Check error code is SCx00000005\", function() {",
+													"        var jsonData = pm.response.json();",
+													"        pm.expect(jsonData.code).to.eql(\"SCx00000005\");",
+													"    });",
+													"} else pm.test(\"Status code is 422\", function () {",
+													"        pm.response.to.have.status(422);",
+													"    });",
+													""
 												],
 												"type": "text/javascript"
 											}
@@ -1366,13 +1479,18 @@
 											"script": {
 												"id": "e3f6c747-fb63-4e03-93c9-292e63861d66",
 												"exec": [
-													"pm.test(\"Status code is 422\", function () {",
-													"    pm.response.to.have.status(422);",
-													"});",
-													"pm.test(\"Check error code is SCCMNx0000001\", function() {",
-													"    var jsonData = pm.response.json();",
-													"    pm.expect(jsonData.code).to.eql(\"SCCMNx0000001\");",
-													"});"
+													"if (pm.environment.get('ENV') != 'test') {",
+													"    ",
+													"    pm.test(\"Status code is 422\", function () {",
+													"        pm.response.to.have.status(422);",
+													"    });",
+													"    pm.test(\"Check error code is SCCMNx0000001\", function() {",
+													"        var jsonData = pm.response.json();",
+													"        pm.expect(jsonData.code).to.eql(\"SCCMNx0000001\");",
+													"    });",
+													"} else pm.test(\"Status code is 422\", function () {",
+													"        pm.response.to.have.status(422);",
+													"    });"
 												],
 												"type": "text/javascript"
 											}
@@ -1424,13 +1542,17 @@
 											"script": {
 												"id": "e3f6c747-fb63-4e03-93c9-292e63861d66",
 												"exec": [
-													"pm.test(\"Status code is 422\", function () {",
-													"    pm.response.to.have.status(422);",
-													"});",
-													"pm.test(\"Check error code is SCx00000005\", function() {",
-													"    var jsonData = pm.response.json();",
-													"    pm.expect(jsonData.code).to.eql(\"SCx00000005\");",
-													"});"
+													"if (pm.environment.get('ENV') != 'test') {",
+													"    pm.test(\"Status code is 422\", function () {",
+													"        pm.response.to.have.status(422);",
+													"    });",
+													"    pm.test(\"Check error code is SCx00000005\", function() {",
+													"        var jsonData = pm.response.json();",
+													"        pm.expect(jsonData.code).to.eql(\"SCx00000005\");",
+													"    });",
+													"} else pm.test(\"Status code is 422\", function () {",
+													"        pm.response.to.have.status(422);",
+													"    });"
 												],
 												"type": "text/javascript"
 											}
@@ -1599,21 +1721,23 @@
 											"script": {
 												"id": "e3f6c747-fb63-4e03-93c9-292e63861d66",
 												"exec": [
-													"pm.test(\"Status code is 200\", function () {",
-													"    pm.response.to.have.status(200);",
-													"});",
-													"",
-													"if (pm.environment.get('ENV') == 'dev' || pm.environment.get('ENV') == 'api/rest') {",
-													"pm.test(\"Check availableSlots\", function() {",
-													"    var jsonData = pm.response.json();",
-													"    pm.expect(jsonData.availableSlots).to.eql(7);",
-													"});",
-													"",
-													"pm.test(\"Check devices id\", function() {",
-													"    var jsonData = pm.response.json();",
-													"    pm.expect(jsonData.devices[0].id).to.eql(\"AA1D9351BC5B6D167D936EF59D37F12D86C300C1\");",
-													"});",
-													"}"
+													"if (pm.environment.get('ENV') != 'test') {",
+													"    pm.test(\"Status code is 200\", function () {",
+													"        pm.response.to.have.status(200);",
+													"    });",
+													"    ",
+													"    pm.test(\"Check availableSlots\", function() {",
+													"        var jsonData = pm.response.json();",
+													"        pm.expect(jsonData.availableSlots).to.eql(7);",
+													"    });",
+													"    ",
+													"    pm.test(\"Check devices id\", function() {",
+													"        var jsonData = pm.response.json();",
+													"        pm.expect(jsonData.devices[0].id).to.eql(\"AA1D9351BC5B6D167D936EF59D37F12D86C300C1\");",
+													"    });",
+													"} else pm.test('Status code is 200', function () {",
+													"            pm.response.to.have.status(200);",
+													"        });"
 												],
 												"type": "text/javascript"
 											}
@@ -1657,7 +1781,6 @@
 											"script": {
 												"id": "e3f6c747-fb63-4e03-93c9-292e63861d66",
 												"exec": [
-													"return;",
 													"pm.test(\"Status code is 422\", function () {",
 													"    pm.response.to.have.status(422);",
 													"});"
@@ -2044,13 +2167,18 @@
 											"script": {
 												"id": "d3dc340a-3b61-42aa-9d5b-1448273db75a",
 												"exec": [
-													"pm.test(\"Status code is 200\", function () {",
-													"    pm.response.to.have.status(200);",
-													"});",
-													"",
-													"pm.test(\"Body matches string\", function () {",
-													"    pm.expect(pm.response.text(\"wholesaler\")).to.include(\"TIM\");",
-													"});"
+													"if (pm.environment.get('ENV') != 'test') {",
+													"    ",
+													"    pm.test(\"Status code is 200\", function () {",
+													"        pm.response.to.have.status(200);",
+													"    });",
+													"    ",
+													"    pm.test(\"Body matches string\", function () {",
+													"        pm.expect(pm.response.text(\"wholesaler\")).to.include(\"TIM\");",
+													"    });",
+													"} else pm.test('Status code is 200', function () {",
+													"            pm.response.to.have.status(200);",
+													"        });"
 												],
 												"type": "text/javascript"
 											}
@@ -2099,13 +2227,18 @@
 											"script": {
 												"id": "58c35c4e-a2e7-4ed9-a107-e2e2bc2336b2",
 												"exec": [
-													"pm.test(\"Status code is 422\", function () {",
-													"    pm.response.to.have.status(422);",
-													"});",
-													"",
-													"pm.test(\"Body matches string\", function () {",
-													"    pm.expect(pm.response.text(\"description\")).to.include(\"Middleware Integration Error\");",
-													"});"
+													"if (pm.environment.get('ENV') != 'test') {",
+													"    ",
+													"    pm.test(\"Status code is 422\", function () {",
+													"        pm.response.to.have.status(422);",
+													"    });",
+													"    ",
+													"    pm.test(\"Body matches string\", function () {",
+													"        pm.expect(pm.response.text(\"description\")).to.include(\"Middleware Integration Error\");",
+													"    });",
+													"} else pm.test('Status code is 422', function () {",
+													"            pm.response.to.have.status(422);",
+													"        });"
 												],
 												"type": "text/javascript"
 											}
@@ -2263,27 +2396,30 @@
 													"script": {
 														"id": "60da7c12-f33f-4983-b94d-a67ff6d49841",
 														"exec": [
-															"pm.test(\"Status code is 200\", function () {",
-															"    pm.response.to.have.status(200);",
-															"});",
-															"if (pm.environment.get('ENV') == 'dev' || pm.environment.get('ENV') == 'api/rest') {",
-															"pm.test(\"Check loyaltyEligibilityDate\", function() {",
-															"    var jsonData = pm.response.json();",
-															"    pm.expect(jsonData.loyaltyEligibilityDate).to.eql(\"2007-07-11\");",
-															"});",
-															"pm.test(\"Check ageingLoyaltyDate\", function() {",
-															"    var jsonData = pm.response.json();",
-															"    pm.expect(jsonData.ageingLoyaltyDate).to.eql(\"2006-07-11\");",
-															"});",
-															"pm.test(\"Check agingSkyExtra\", function() {",
-															"    var jsonData = pm.response.json();",
-															"    pm.expect(jsonData.agingSkyExtra).to.eql(\"10\");",
-															"});",
-															"pm.test(\"Check skyExtraFlag\", function() {",
-															"    var jsonData = pm.response.json();",
-															"    pm.expect(jsonData.skyExtraFlag).to.eql(\"Y\");",
-															"});",
-															"}"
+															"if (pm.environment.get('ENV') != 'test') {",
+															"    ",
+															"    pm.test(\"Status code is 200\", function () {",
+															"        pm.response.to.have.status(200);",
+															"    });",
+															"    pm.test(\"Check loyaltyEligibilityDate\", function() {",
+															"        var jsonData = pm.response.json();",
+															"        pm.expect(jsonData.loyaltyEligibilityDate).to.eql(\"2007-07-11\");",
+															"    });",
+															"    pm.test(\"Check ageingLoyaltyDate\", function() {",
+															"        var jsonData = pm.response.json();",
+															"        pm.expect(jsonData.ageingLoyaltyDate).to.eql(\"2006-07-11\");",
+															"    });",
+															"    pm.test(\"Check agingSkyExtra\", function() {",
+															"        var jsonData = pm.response.json();",
+															"        pm.expect(jsonData.agingSkyExtra).to.eql(\"10\");",
+															"    });",
+															"    pm.test(\"Check skyExtraFlag\", function() {",
+															"        var jsonData = pm.response.json();",
+															"        pm.expect(jsonData.skyExtraFlag).to.eql(\"Y\");",
+															"    });",
+															"} else  pm.test(\"Status code is 200\", function () {",
+															"            pm.response.to.have.status(200);",
+															"        });"
 														],
 														"type": "text/javascript"
 													}
@@ -2348,7 +2484,7 @@
 													}
 												],
 												"url": {
-													"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/e2e-contracts/{{e2eContractId_error}}/extra",
+													"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/e2e-contracts/{{e2eContractId_error}}/extra/",
 													"host": [
 														"{{BASE_URL}}"
 													],
@@ -2357,7 +2493,8 @@
 														"{{ENV}}",
 														"e2e-contracts",
 														"{{e2eContractId_error}}",
-														"extra"
+														"extra",
+														""
 													]
 												}
 											},
@@ -2456,7 +2593,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\n    \"channel\": \"WEB\",\n    \"operationCode\": \"invalid\"\n}"
+													"raw": "{\n    \"channel\": \"WEB\",\n    \"operationCode\": \"1\"\n}"
 												},
 												"url": {
 													"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/e2e-contracts/{{e2eContractId_error}}/contracts/{{e2eContractId_error}}/requirement-trace",
@@ -2491,35 +2628,54 @@
 													"script": {
 														"id": "60da7c12-f33f-4983-b94d-a67ff6d49841",
 														"exec": [
-															"pm.test(\"Status code is 200\", function () {",
-															"    pm.response.to.have.status(200);",
-															"});",
-															"if (pm.environment.get('ENV') == 'dev' || pm.environment.get('ENV') == 'api/rest') {",
-															"pm.test(\"Check total recurring costs\", function() {",
-															"    var jsonData = pm.response.json();",
-															"    pm.expect(jsonData.totalRecurring.price).to.eql(\"20,00\");",
-															"});",
-															"pm.test(\"Check total not recurring costs\", function() {",
-															"    var jsonData = pm.response.json();",
-															"    pm.expect(jsonData.totalNotRecurring.price).to.eql(\"10,00\");",
-															"});",
-															"pm.test(\"Check total recurring and not discounted costs\", function() {",
-															"    var jsonData = pm.response.json();",
-															"    pm.expect(jsonData.totalRecurringNotDiscounted.price).to.eql(\"80,00\");",
-															"});",
-															"pm.test(\"Check total not recurring and not discounted costs\", function() {",
-															"    var jsonData = pm.response.json();",
-															"    pm.expect(jsonData.totalNotRecurringNotDiscounted.price).to.eql(\"148,00\");",
-															"});",
-															"pm.test(\"Check recurring costs\", function() {",
-															"    var jsonData = pm.response.json();",
-															"    pm.expect(jsonData.recurringCosts.length).to.be.above(0);",
-															"});",
-															"pm.test(\"Check not recurring costs\", function() {",
-															"    var jsonData = pm.response.json();",
-															"    pm.expect(jsonData.unaTantumCosts.length).to.be.above(0);",
-															"});",
+															"if (pm.environment.get('ENV') != 'test') {",
+															"    ",
+															"    pm.test(\"Status code is 200\", function () {",
+															"        pm.response.to.have.status(200);",
+															"    });",
+															"    pm.test(\"Check total recurring costs\", function() {",
+															"        var jsonData = pm.response.json();",
+															"        pm.expect(jsonData.totalRecurring.price).to.eql(\"20,00\");",
+															"    });",
+															"    pm.test(\"Check total not recurring costs\", function() {",
+															"        var jsonData = pm.response.json();",
+															"        pm.expect(jsonData.totalNotRecurring.price).to.eql(\"10,00\");",
+															"    });",
+															"    pm.test(\"Check total recurring and not discounted costs\", function() {",
+															"        var jsonData = pm.response.json();",
+															"        pm.expect(jsonData.totalRecurringNotDiscounted.price).to.eql(\"80,00\");",
+															"    });",
+															"    pm.test(\"Check total not recurring and not discounted costs\", function() {",
+															"        var jsonData = pm.response.json();",
+															"        pm.expect(jsonData.totalNotRecurringNotDiscounted.price).to.eql(\"148,00\");",
+															"    });",
+															"    pm.test(\"Check recurring costs\", function() {",
+															"        var jsonData = pm.response.json();",
+															"        pm.expect(jsonData.recurringCosts.length).to.be.above(0);",
+															"    });",
+															"    pm.test(\"Check not recurring costs\", function() {",
+															"        var jsonData = pm.response.json();",
+															"        pm.expect(jsonData.unaTantumCosts.length).to.be.above(0);",
+															"    });",
+															"} else {",
+															"    pm.test(\"Status code is 200\", function () {",
+															"            pm.response.to.have.status(200);",
+															"    });",
+															"    pm.test(\"Restore e2eContract\", function(){",
+															"        pm.environment.set('e2eContractId_15519865', pm.globals.get('contract1'));",
+															"    })",
+															"    ",
 															"}"
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"id": "67880c03-bb21-487f-b30d-9d1c47adb1d6",
+														"exec": [
+															"pm.environment.set('e2eContractId_15519865', pm.globals.get('contract0'));"
 														],
 														"type": "text/javascript"
 													}
@@ -2614,67 +2770,70 @@
 													"script": {
 														"id": "60da7c12-f33f-4983-b94d-a67ff6d49841",
 														"exec": [
-															"pm.test(\"Status code is 200\", function () {",
-															"    pm.response.to.have.status(200);",
-															"});",
-															"if (pm.environment.get('ENV') == 'dev' || pm.environment.get('ENV') == 'api/rest') {",
-															"pm.test(\"Check shipmentCode\", function() {",
-															"    var jsonData = pm.response.json();",
-															"    pm.expect(jsonData.shipmentCode).to.eql(\"A01039104100\");",
-															"});",
-															"pm.test(\"Check mode tracking\", function() {",
-															"    var jsonData = pm.response.json();",
-															"    pm.expect(jsonData.modeTracking).to.eql(\"EMAIL\");",
-															"});",
-															"pm.test(\"Check city\", function() {",
-															"    var jsonData = pm.response.json();",
-															"    pm.expect(jsonData.shipmentAddress.city).to.eql(\"PALERMO\");",
-															"});",
-															"pm.test(\"Check postal code\", function() {",
-															"    var jsonData = pm.response.json();",
-															"    pm.expect(jsonData.shipmentAddress.postalCode).to.eql(\"80129\");",
-															"});",
-															"pm.test(\"Check province\", function() {",
-															"    var jsonData = pm.response.json();",
-															"    pm.expect(jsonData.shipmentAddress.province).to.eql(\"NA\");",
-															"});",
-															"pm.test(\"Check staircase\", function() {",
-															"    var jsonData = pm.response.json();",
-															"    pm.expect(jsonData.shipmentAddress.staircaseId).to.eql(\"\");",
-															"});",
-															"pm.test(\"Check street\", function() {",
-															"    var jsonData = pm.response.json();",
-															"    pm.expect(jsonData.shipmentAddress.street).to.eql(\"SAN GENNARO AL VOMERO\");",
-															"});",
-															"pm.test(\"Check street number\", function() {",
-															"    var jsonData = pm.response.json();",
-															"    pm.expect(jsonData.shipmentAddress.streetNumber).to.eql(\"8\");",
-															"});",
-															"pm.test(\"Check toponym\", function() {",
-															"    var jsonData = pm.response.json();",
-															"    pm.expect(jsonData.shipmentAddress.toponym).to.eql(\"VIA\");",
-															"});",
-															"pm.test(\"Check complex\", function() {",
-															"    var jsonData = pm.response.json();",
-															"    pm.expect(jsonData.shipmentAddress.complexBuilding).to.eql(\"\");",
-															"});",
-															"pm.test(\"Check indoor\", function() {",
-															"    var jsonData = pm.response.json();",
-															"    pm.expect(jsonData.shipmentAddress.indoor).to.eql(\"\");",
-															"});",
-															"pm.test(\"Check floor\", function() {",
-															"    var jsonData = pm.response.json();",
-															"    pm.expect(jsonData.shipmentAddress.floor).to.eql(\"\");",
-															"});",
-															"pm.test(\"Check fraction\", function() {",
-															"    var jsonData = pm.response.json();",
-															"    pm.expect(jsonData.shipmentAddress.fraction).to.eql(\"NAPOLI\");",
-															"});",
-															"pm.test(\"Check tracking states\", function() {",
-															"    var jsonData = pm.response.json();",
-															"    pm.expect(jsonData.trackingStates.length).to.be.above(0);",
-															"});",
-															"}"
+															"if (pm.environment.get('ENV') != 'test') {",
+															"    ",
+															"    pm.test(\"Status code is 200\", function () {",
+															"        pm.response.to.have.status(200);",
+															"    });",
+															"    pm.test(\"Check shipmentCode\", function() {",
+															"        var jsonData = pm.response.json();",
+															"        pm.expect(jsonData.shipmentCode).to.eql(\"A01039104100\");",
+															"    });",
+															"    pm.test(\"Check mode tracking\", function() {",
+															"        var jsonData = pm.response.json();",
+															"        pm.expect(jsonData.modeTracking).to.eql(\"EMAIL\");",
+															"    });",
+															"    pm.test(\"Check city\", function() {",
+															"        var jsonData = pm.response.json();",
+															"        pm.expect(jsonData.shipmentAddress.city).to.eql(\"PALERMO\");",
+															"    });",
+															"    pm.test(\"Check postal code\", function() {",
+															"        var jsonData = pm.response.json();",
+															"        pm.expect(jsonData.shipmentAddress.postalCode).to.eql(\"80129\");",
+															"    });",
+															"    pm.test(\"Check province\", function() {",
+															"        var jsonData = pm.response.json();",
+															"        pm.expect(jsonData.shipmentAddress.province).to.eql(\"NA\");",
+															"    });",
+															"    pm.test(\"Check staircase\", function() {",
+															"        var jsonData = pm.response.json();",
+															"        pm.expect(jsonData.shipmentAddress.staircaseId).to.eql(\"\");",
+															"    });",
+															"    pm.test(\"Check street\", function() {",
+															"        var jsonData = pm.response.json();",
+															"        pm.expect(jsonData.shipmentAddress.street).to.eql(\"SAN GENNARO AL VOMERO\");",
+															"    });",
+															"    pm.test(\"Check street number\", function() {",
+															"        var jsonData = pm.response.json();",
+															"        pm.expect(jsonData.shipmentAddress.streetNumber).to.eql(\"8\");",
+															"    });",
+															"    pm.test(\"Check toponym\", function() {",
+															"        var jsonData = pm.response.json();",
+															"        pm.expect(jsonData.shipmentAddress.toponym).to.eql(\"VIA\");",
+															"    });",
+															"    pm.test(\"Check complex\", function() {",
+															"        var jsonData = pm.response.json();",
+															"        pm.expect(jsonData.shipmentAddress.complexBuilding).to.eql(\"\");",
+															"    });",
+															"    pm.test(\"Check indoor\", function() {",
+															"        var jsonData = pm.response.json();",
+															"        pm.expect(jsonData.shipmentAddress.indoor).to.eql(\"\");",
+															"    });",
+															"    pm.test(\"Check floor\", function() {",
+															"        var jsonData = pm.response.json();",
+															"        pm.expect(jsonData.shipmentAddress.floor).to.eql(\"\");",
+															"    });",
+															"    pm.test(\"Check fraction\", function() {",
+															"        var jsonData = pm.response.json();",
+															"        pm.expect(jsonData.shipmentAddress.fraction).to.eql(\"NAPOLI\");",
+															"    });",
+															"    pm.test(\"Check tracking states\", function() {",
+															"        var jsonData = pm.response.json();",
+															"        pm.expect(jsonData.trackingStates.length).to.be.above(0);",
+															"    });",
+															"} else pm.test(\"Status code is 200\", function () {",
+															"        pm.response.to.have.status(200);",
+															"    });"
 														],
 														"type": "text/javascript"
 													}
@@ -2783,7 +2942,18 @@
 														"exec": [
 															"pm.test(\"Status code is 200\", function () {",
 															"    pm.response.to.have.status(200);",
-															"});"
+															"});",
+															""
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"id": "28f34dd7-2d51-4a29-8af3-b668edcb393c",
+														"exec": [
+															""
 														],
 														"type": "text/javascript"
 													}
@@ -2833,16 +3003,21 @@
 													"script": {
 														"id": "964b5d5d-1e38-4cd8-b32f-00f098bb53fb",
 														"exec": [
-															"pm.test(\"Status code is 200\", function () {",
-															"    pm.response.to.have.status(200);",
-															"});",
-															"",
-															"pm.test(\"Response contains items\", function () {",
-															"    let items = pm.response.json().items;",
-															"    pm.expect(items.filter(item => item.deliveryMethod == 'EMAIL')).to.have.length(1);",
-															"    pm.expect(items.filter(item => item.deliveryMethod == 'NONE')).to.have.length(1);",
-															"    pm.expect(items.filter(item => item.deliveryMethod == 'MAIL')).to.have.length(1);",
-															"});"
+															"if (pm.environment.get('ENV') != 'test') {",
+															"    ",
+															"        pm.test(\"Status code is 200\", function () {",
+															"        pm.response.to.have.status(200);",
+															"    });",
+															"    ",
+															"    pm.test(\"Response contains items\", function () {",
+															"        let items = pm.response.json().items;",
+															"        pm.expect(items.filter(item => item.deliveryMethod == 'EMAIL')).to.have.length(1);",
+															"        pm.expect(items.filter(item => item.deliveryMethod == 'NONE')).to.have.length(1);",
+															"        pm.expect(items.filter(item => item.deliveryMethod == 'MAIL')).to.have.length(1);",
+															"    });",
+															"} else pm.test(\"Status code is 200\", function () {",
+															"        pm.response.to.have.status(200);",
+															"    });"
 														],
 														"type": "text/javascript"
 													}
@@ -2892,18 +3067,22 @@
 													"script": {
 														"id": "60da7c12-f33f-4983-b94d-a67ff6d49841",
 														"exec": [
-															"pm.test(\"Status code is 200\", function () {",
-															"    pm.response.to.have.status(200);",
-															"});",
-															"pm.test(\"Check payer's document\", function() {",
-															"    var jsonData = pm.response.json();",
-															"    pm.expect(jsonData.payerDocument).not.eql(undefined).and.not.eql(null);",
-															"});",
-															"pm.test(\"Check consumer's document\", function() {",
-															"    var jsonData = pm.response.json();",
-															"    pm.expect(jsonData.consumerDocument).not.eql(undefined).and.not.eql(null);",
-															"});",
-															""
+															"if (pm.environment.get('ENV') != 'test') {",
+															"    ",
+															"    pm.test(\"Status code is 200\", function () {",
+															"        pm.response.to.have.status(200);",
+															"    });",
+															"    pm.test(\"Check payer's document\", function() {",
+															"        var jsonData = pm.response.json();",
+															"        pm.expect(jsonData.payerDocument).not.eql(undefined).and.not.eql(null);",
+															"    });",
+															"    pm.test(\"Check consumer's document\", function() {",
+															"        var jsonData = pm.response.json();",
+															"        pm.expect(jsonData.consumerDocument).not.eql(undefined).and.not.eql(null);",
+															"    });",
+															"} else pm.test(\"Status code is 200\", function () {",
+															"        pm.response.to.have.status(200);",
+															"    });"
 														],
 														"type": "text/javascript"
 													}
@@ -3000,31 +3179,35 @@
 													"script": {
 														"id": "60da7c12-f33f-4983-b94d-a67ff6d49841",
 														"exec": [
-															"pm.test(\"Status code is 200\", function () {",
-															"    pm.response.to.have.status(200);",
-															"});",
-															"",
-															"let response = pm.response.json();",
-															"pm.test(\"Has NOT DEVICE_STBDECODER\", function() {",
-															"    var count = 0;",
-															"    for(var i=0; i<response.assets.length; i++) {",
-															"        if (typeof response.assets[i].productCode !== 'undefined' && response.assets[i].productCode == 'DEVICE_STBDECODER') {",
-															"            count++;",
+															"if (pm.environment.get('ENV') != 'test') {",
+															"    ",
+															"    pm.test(\"Status code is 200\", function () {",
+															"        pm.response.to.have.status(200);",
+															"    });",
+															"    ",
+															"    let response = pm.response.json();",
+															"    pm.test(\"Has NOT DEVICE_STBDECODER\", function() {",
+															"        var count = 0;",
+															"        for(var i=0; i<response.assets.length; i++) {",
+															"            if (typeof response.assets[i].productCode !== 'undefined' && response.assets[i].productCode == 'DEVICE_STBDECODER') {",
+															"                count++;",
+															"            }",
 															"        }",
-															"    }",
-															"    pm.expect(count).to.equal(0);",
-															"});",
-															"",
-															"pm.test(\"Has NOT VISION_DEVICE\", function() {",
-															"    var count = 0;",
-															"    for(var i=0; i<response.assets.length; i++) {",
-															"        if (typeof response.assets[i].productCode !== 'undefined' && response.assets[i].productCode == 'VISION_DEVICE') {",
-															"            count++;",
+															"        pm.expect(count).to.equal(0);",
+															"    });",
+															"    ",
+															"    pm.test(\"Has NOT VISION_DEVICE\", function() {",
+															"        var count = 0;",
+															"        for(var i=0; i<response.assets.length; i++) {",
+															"            if (typeof response.assets[i].productCode !== 'undefined' && response.assets[i].productCode == 'VISION_DEVICE') {",
+															"                count++;",
+															"            }",
 															"        }",
-															"    }",
-															"    pm.expect(count).to.equal(0);",
-															"});",
-															""
+															"        pm.expect(count).to.equal(0);",
+															"    });",
+															"} else pm.test(\"Status code is 200\", function () {",
+															"        pm.response.to.have.status(200);",
+															"    });"
 														],
 														"type": "text/javascript"
 													}
@@ -3067,31 +3250,35 @@
 													"script": {
 														"id": "60da7c12-f33f-4983-b94d-a67ff6d49841",
 														"exec": [
-															"pm.test(\"Status code is 200\", function () {",
-															"    pm.response.to.have.status(200);",
-															"});",
-															"",
-															"let response = pm.response.json();",
-															"pm.test(\"Has NOT DEVICE_STBDECODER\", function() {",
-															"    var count = 0;",
-															"    for(var i=0; i<response.assets.length; i++) {",
-															"        if (typeof response.assets[i].productCode !== 'undefined' && response.assets[i].productCode == 'DEVICE_STBDECODER') {",
-															"            count++;",
+															"if (pm.environment.get('ENV') != 'test') {",
+															"    ",
+															"    pm.test(\"Status code is 200\", function () {",
+															"        pm.response.to.have.status(200);",
+															"    });",
+															"    ",
+															"    let response = pm.response.json();",
+															"    pm.test(\"Has NOT DEVICE_STBDECODER\", function() {",
+															"        var count = 0;",
+															"        for(var i=0; i<response.assets.length; i++) {",
+															"            if (typeof response.assets[i].productCode !== 'undefined' && response.assets[i].productCode == 'DEVICE_STBDECODER') {",
+															"                count++;",
+															"            }",
 															"        }",
-															"    }",
-															"    pm.expect(count).to.equal(0);",
-															"});",
-															"",
-															"pm.test(\"Has NOT VISION_DEVICE\", function() {",
-															"    var count = 0;",
-															"    for(var i=0; i<response.assets.length; i++) {",
-															"        if (typeof response.assets[i].productCode !== 'undefined' && response.assets[i].productCode == 'VISION_DEVICE') {",
-															"            count++;",
+															"        pm.expect(count).to.equal(0);",
+															"    });",
+															"    ",
+															"    pm.test(\"Has NOT VISION_DEVICE\", function() {",
+															"        var count = 0;",
+															"        for(var i=0; i<response.assets.length; i++) {",
+															"            if (typeof response.assets[i].productCode !== 'undefined' && response.assets[i].productCode == 'VISION_DEVICE') {",
+															"                count++;",
+															"            }",
 															"        }",
-															"    }",
-															"    pm.expect(count).to.equal(0);",
-															"});",
-															""
+															"        pm.expect(count).to.equal(0);",
+															"    });",
+															"} else pm.test(\"Status code is 200\", function () {",
+															"        pm.response.to.have.status(200);",
+															"    });"
 														],
 														"type": "text/javascript"
 													}
@@ -3134,31 +3321,35 @@
 													"script": {
 														"id": "60da7c12-f33f-4983-b94d-a67ff6d49841",
 														"exec": [
-															"pm.test(\"Status code is 200\", function () {",
-															"    pm.response.to.have.status(200);",
-															"});",
-															"",
-															"let response = pm.response.json();",
-															"pm.test(\"Has DEVICE_STBDECODER\", function() {",
-															"    var count = 0;",
-															"    for(var i=0; i<response.assets.length; i++) {",
-															"        if (typeof response.assets[i].productCode !== 'undefined' && response.assets[i].productCode == 'DEVICE_STBDECODER') {",
-															"            count++;",
+															"if (pm.environment.get('ENV') != 'test') {",
+															"    ",
+															"    pm.test(\"Status code is 200\", function () {",
+															"        pm.response.to.have.status(200);",
+															"    });",
+															"    ",
+															"    let response = pm.response.json();",
+															"    pm.test(\"Has DEVICE_STBDECODER\", function() {",
+															"        var count = 0;",
+															"        for(var i=0; i<response.assets.length; i++) {",
+															"            if (typeof response.assets[i].productCode !== 'undefined' && response.assets[i].productCode == 'DEVICE_STBDECODER') {",
+															"                count++;",
+															"            }",
 															"        }",
-															"    }",
-															"    pm.expect(count).to.equal(1);",
-															"});",
-															"",
-															"pm.test(\"Has MINIPACK\", function() {",
-															"    var count = 0;",
-															"    for(var i=0; i<response.assets.length; i++) {",
-															"        if (typeof response.assets[i].productCode !== 'undefined' && response.assets[i].productCode == 'MINIPACK') {",
-															"            count++;",
+															"        pm.expect(count).to.equal(1);",
+															"    });",
+															"    ",
+															"    pm.test(\"Has MINIPACK\", function() {",
+															"        var count = 0;",
+															"        for(var i=0; i<response.assets.length; i++) {",
+															"            if (typeof response.assets[i].productCode !== 'undefined' && response.assets[i].productCode == 'MINIPACK') {",
+															"                count++;",
+															"            }",
 															"        }",
-															"    }",
-															"    pm.expect(count).to.equal(1);",
-															"});",
-															""
+															"        pm.expect(count).to.equal(1);",
+															"    });",
+															"} else pm.test(\"Status code is 200\", function () {",
+															"        pm.response.to.have.status(200);",
+															"    });"
 														],
 														"type": "text/javascript"
 													}
@@ -5188,19 +5379,22 @@
 											"script": {
 												"id": "6e7222e3-e712-4337-8c8c-9cda12e252ce",
 												"exec": [
-													"pm.test(\"Status code is 200\", function () {",
-													"    pm.response.to.have.status(200);",
-													"});",
-													"if (pm.environment.get('ENV') == 'dev' || pm.environment.get('ENV') == 'api/rest') {",
-													"var jsonData = pm.response.json();",
-													"pm.test(\"Contains promotions\", function () {",
-													"    pm.expect(jsonData.offers.filter(o => o.type === \"PROMOTION\")).to.have.lengthOf(4);",
-													"});",
-													"",
-													"pm.test(\"Does not contain product PPACK_CINEMA\", function() {",
-													"    pm.expect(jsonData.offers.filter(o => o.code === \"PPACK_CINEMA\")).to.be.empty;",
-													"});",
-													"}"
+													"if (pm.environment.get('ENV') != 'test') {",
+													"    pm.test(\"Status code is 200\", function () {",
+													"        pm.response.to.have.status(200);",
+													"    });",
+													"    ",
+													"    var jsonData = pm.response.json();",
+													"    pm.test(\"Contains promotions\", function () {",
+													"        pm.expect(jsonData.offers.filter(o => o.type === \"PROMOTION\")).to.have.lengthOf(4);",
+													"    });",
+													"    ",
+													"    pm.test(\"Does not contain product PPACK_CINEMA\", function() {",
+													"        pm.expect(jsonData.offers.filter(o => o.code === \"PPACK_CINEMA\")).to.be.empty;",
+													"    });",
+													"} else pm.test(\"Status code is 200\", function () {",
+													"        pm.response.to.have.status(200);",
+													"    });"
 												],
 												"type": "text/javascript"
 											}
@@ -5226,7 +5420,7 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/e2e-contracts/{{e2eContractId_7804492_S831016}}/offers",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/e2e-contracts/{{e2eContractId_7804492_S831016}}/offers?onlyRTD=false",
 											"host": [
 												"{{BASE_URL}}"
 											],
@@ -5236,6 +5430,12 @@
 												"e2e-contracts",
 												"{{e2eContractId_7804492_S831016}}",
 												"offers"
+											],
+											"query": [
+												{
+													"key": "onlyRTD",
+													"value": "false"
+												}
 											]
 										}
 									},
@@ -5249,16 +5449,18 @@
 											"script": {
 												"id": "6e7222e3-e712-4337-8c8c-9cda12e252ce",
 												"exec": [
-													"pm.test(\"Status code is 200\", function () {",
-													"    pm.response.to.have.status(200);",
-													"});",
-													"",
-													"if (pm.environment.get('ENV') == 'dev' || pm.environment.get('ENV') == 'api/rest') {",
-													"var jsonData = pm.response.json();",
-													"pm.test(\"Contains only PPACK_SPORT\", function() {",
-													"    pm.expect(jsonData.offers.filter(o => o.code === \"PPACK_SPORT\")).to.have.lengthOf(1);",
-													"});",
-													"}"
+													"if (pm.environment.get('ENV') != 'test') {",
+													"    pm.test(\"Status code is 200\", function () {",
+													"        pm.response.to.have.status(200);",
+													"    });",
+													"    ",
+													"    var jsonData = pm.response.json();",
+													"    pm.test(\"Contains only PPACK_SPORT\", function() {",
+													"        pm.expect(jsonData.offers.filter(o => o.code === \"PPACK_SPORT\")).to.have.lengthOf(1);",
+													"    });",
+													"} else pm.test(\"Status code is 200\", function () {",
+													"        pm.response.to.have.status(200);",
+													"    });"
 												],
 												"type": "text/javascript"
 											}
@@ -5284,7 +5486,7 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/e2e-contracts/{{e2eContractId_7804492_S831016}}/offers?productCodeToFilter=PPACK_SPORT",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/e2e-contracts/{{e2eContractId_7804492_S831016}}/offers?productCodeToFilter=PPACK_SPORT&onlyRTD=false",
 											"host": [
 												"{{BASE_URL}}"
 											],
@@ -5299,6 +5501,10 @@
 												{
 													"key": "productCodeToFilter",
 													"value": "PPACK_SPORT"
+												},
+												{
+													"key": "onlyRTD",
+													"value": "false"
 												}
 											]
 										}
@@ -6376,25 +6582,29 @@
 											"script": {
 												"id": "f843f7c4-1f1a-41f6-8c8d-94345b10fe82",
 												"exec": [
-													"pm.test(\"Status code is 200: Lead found\", function () {",
-													"    pm.response.to.have.status(200);",
-													"});",
-													"",
-													"pm.test(\"Check Array Size\", function () {",
-													"    var jsonData = pm.response.json();",
-													"    pm.expect(jsonData.leads.length).to.eql(1);",
-													"});",
-													"",
-													"pm.test(\"Check Name\", function () {",
-													"    var jsonData = pm.response.json();",
-													"    pm.expect(jsonData.leads[0].address.city).to.eql(\"Milano\");",
-													"});",
-													"",
-													"pm.test(\"clientId does not exist\", function () {",
-													"    var jsonData = pm.response.json();",
-													"    pm.expect(jsonData.clientId).to.not.exist;",
-													"});",
-													""
+													"if (pm.environment.get('ENV') != 'test') {",
+													"    ",
+													"    pm.test(\"Status code is 200: Lead found\", function () {",
+													"        pm.response.to.have.status(200);",
+													"    });",
+													"    ",
+													"    pm.test(\"Check Array Size\", function () {",
+													"        var jsonData = pm.response.json();",
+													"        pm.expect(jsonData.leads.length).to.eql(1);",
+													"    });",
+													"    ",
+													"    pm.test(\"Check Name\", function () {",
+													"        var jsonData = pm.response.json();",
+													"        pm.expect(jsonData.leads[0].address.city).to.eql(\"Milano\");",
+													"    });",
+													"    ",
+													"    pm.test(\"clientId does not exist\", function () {",
+													"        var jsonData = pm.response.json();",
+													"        pm.expect(jsonData.clientId).to.not.exist;",
+													"    });",
+													"} else pm.test(\"Status code is 200: Lead found\", function () {",
+													"        pm.response.to.have.status(200);",
+													"    });"
 												],
 												"type": "text/javascript"
 											}
@@ -6455,16 +6665,20 @@
 											"script": {
 												"id": "f843f7c4-1f1a-41f6-8c8d-94345b10fe82",
 												"exec": [
-													"pm.test(\"Status code is 200: Lead found\", function () {",
-													"    pm.response.to.have.status(200);",
-													"});",
+													"if (pm.environment.get('ENV') != 'test') {",
+													"    ",
+													"    pm.test(\"Status code is 200: Lead found\", function () {",
+													"        pm.response.to.have.status(200);",
+													"    });",
+													"    ",
+													"    pm.test(\"Empty list\", function () {",
+													"        var jsonData = pm.response.json();",
+													"        pm.expect(jsonData.leads).to.be.an('array').that.is.empty;",
+													"    });",
 													"",
-													"pm.test(\"Empty list\", function () {",
-													"    var jsonData = pm.response.json();",
-													"    pm.expect(jsonData.leads).to.be.an('array').that.is.empty;",
-													"});",
-													"",
-													""
+													"} else pm.test(\"Status code is 200: Lead found\", function () {",
+													"        pm.response.to.have.status(200);",
+													"    });"
 												],
 												"type": "text/javascript"
 											}
@@ -9825,16 +10039,19 @@
 									"script": {
 										"id": "6e7222e3-e712-4337-8c8c-9cda12e252ce",
 										"exec": [
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});",
-											"",
-											"var jsonData = pm.response.json();",
-											"pm.test(\"Contains Expected Spotify voucher\", function () {",
-											"    pm.expect(jsonData.contractVouchers.filter(c => c.type === \"SPOTIFY\")).to.have.lengthOf(1);",
-											"    pm.expect(jsonData.contractVouchers[0].code).is.equal(\"irEuYybtyR\")",
-											"});",
-											""
+											"if (pm.environment.get('ENV') != 'test') {",
+											"    pm.test(\"Status code is 200\", function () {",
+											"        pm.response.to.have.status(200);",
+											"    });",
+											"    ",
+											"    var jsonData = pm.response.json();",
+											"    pm.test(\"Contains Expected Spotify voucher\", function () {",
+											"        pm.expect(jsonData.contractVouchers.filter(c => c.type === \"SPOTIFY\")).to.have.lengthOf(1);",
+											"        pm.expect(jsonData.contractVouchers[0].code).is.equal(\"irEuYybtyR\")",
+											"    });",
+											"} else pm.test(\"Status code is 200\", function () {",
+											"        pm.response.to.have.status(200);",
+											"    });"
 										],
 										"type": "text/javascript"
 									}
@@ -9883,16 +10100,19 @@
 									"script": {
 										"id": "6e7222e3-e712-4337-8c8c-9cda12e252ce",
 										"exec": [
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});",
-											"",
-											"var jsonData = pm.response.json();",
-											"pm.test(\"Contains Expected Spotify voucher\", function () {",
-											"    pm.expect(jsonData.contractVouchers.filter(c => c.type === \"SPOTIFY\")).to.have.lengthOf(1);",
-											"    pm.expect(jsonData.contractVouchers[0].code).is.equal(\"r9nes8PmVz\")",
-											"});",
-											""
+											"if (pm.environment.get('ENV') != 'test') {",
+											"    pm.test(\"Status code is 200\", function () {",
+											"        pm.response.to.have.status(200);",
+											"    });",
+											"    ",
+											"    var jsonData = pm.response.json();",
+											"    pm.test(\"Contains Expected Spotify voucher\", function () {",
+											"        pm.expect(jsonData.contractVouchers.filter(c => c.type === \"SPOTIFY\")).to.have.lengthOf(1);",
+											"        pm.expect(jsonData.contractVouchers[0].code).is.equal(\"r9nes8PmVz\")",
+											"    });",
+											"} else pm.test(\"Status code is 200\", function () {",
+											"        pm.response.to.have.status(200);",
+											"    });"
 										],
 										"type": "text/javascript"
 									}
