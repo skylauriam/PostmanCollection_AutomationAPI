@@ -2,15 +2,58 @@
 	"list":[
 		{"name": "Auth", "next": "e2e-contract"},
         {"name": "e2e-contract", "next": "AddressNormalization_Cities_To_Egon_200_OK_Auto"},
+        
         {"name": "AddressNormalization_Cities_To_Egon_200_OK_Auto", "next": "AddressNormalization_Cities_As_Guest_200_OK_Auto"},
-        {"name": "AddressNormalization_Cities_As_Guest_200_OK_Auto", "next": "GetUserConsents_200"},
-		{"name": "GetUserConsents_200", "next": "GetAllDevices_200"},
-		{"name": "GetAllDevices_200", "next": "Retrieve the URLs to perform a document upload_200_Auto"},
-		{"name": "Retrieve the URLs to perform a document upload_200_Auto", "next": "GetExtra_200"},
-		{"name": "GetExtra_200", "next": "ShipmentTracking_200"},
-		{"name": "ShipmentTracking_200", "next": "RetrieveContractById_200_Auto"},
+        {"name": "AddressNormalization_Cities_As_Guest_200_OK_Auto", "next": "AddressNormalization_Cities_To_Egon_Empty_200_OK_Auto"},
+        {"name": "AddressNormalization_Cities_To_Egon_Empty_200_OK_Auto", "next": "AddressNormalization_Cities_To_OSS_200_OK_Auto"},
+        {"name": "AddressNormalization_Cities_To_OSS_200_OK_Auto", "next": "AddressNormalization_Cities_To_OSS_Empty_200_OK_Auto"},
+        {"name": "AddressNormalization_Cities_To_OSS_Empty_200_OK_Auto", "next": "AddressNormalization_StreetByCity_As_Guest_200_OK_Auto"},
+        
+        {"name": "AddressNormalization_StreetByCity_As_Guest_200_OK_Auto", "next": "AddressNormalization_StreetByCity_To_Egon_200_OK_Auto"},
+        {"name": "AddressNormalization_StreetByCity_To_Egon_200_OK_Auto", "next": "AddressNormalization_StreetByCity_To_Egon_Empty_200_OK_Auto"},
+        {"name": "AddressNormalization_StreetByCity_To_Egon_Empty_200_OK_Auto", "next": "AddressNormalization_StreetByCity_To_OSS_Empty_200_OK_Auto"},
+        {"name": "AddressNormalization_StreetByCity_To_OSS_Empty_200_OK_Auto", "next": "AddressNormalization_StreetByCity_To_OSS_200_OK_Auto"},
+        {"name": "AddressNormalization_StreetByCity_To_OSS_200_OK_Auto", "next": "AddressNormalization_StreetNumber_As_Guest_200_OK_Auto"},
+        
+        {"name": "AddressNormalization_StreetNumber_As_Guest_200_OK_Auto", "next": "AddressNormalization_StreetNumber_To_Egon_200_OK_Auto"},
+        {"name": "AddressNormalization_StreetNumber_To_Egon_200_OK_Auto", "next": "AddressNormalization_StreetNumber_To_Egon_Empty_200_OK_Auto"},
+        {"name": "AddressNormalization_StreetNumber_To_Egon_Empty_200_OK_Auto", "next": "AddressNormalization_StreetNumber_To_OSS_200_OK_Auto"},
+        {"name": "AddressNormalization_StreetNumber_To_OSS_200_OK_Auto", "next": "AddressNormalization_StreetNumber_To_OSS_Empty_200_OK_Auto"},
+        {"name": "AddressNormalization_StreetNumber_To_OSS_Empty_200_OK_Auto", "next": "SetCallMeNow_422_1_10"},
+        
+        {"name": "SetCallMeNow_422_1_10", "next": "SetCallMeNow_422_1_31"},
+        {"name": "SetCallMeNow_422_1_31", "next": "SetCallMeNow_422_1_99"},
+        {"name": "SetCallMeNow_422_1_99", "next": "GetUserConsents_200"},
+        
+		{"name": "GetUserConsents_200", "next": "UpdateUserConsents_200"},
+        {"name": "UpdateUserConsents_200", "next": "GetAllDevices_200"},
+        
+		{"name": "GetAllDevices_200", "next": "RemoveDevices_422"},
+        {"name": "RemoveDevices_422", "next": "GetInstalmentPlans_200_Auto"},
+        
+        {"name": "GetInstalmentPlans_200_Auto", "next": "GetInstalmentPlans_403_Auto"},
+        {"name": "GetInstalmentPlans_403_Auto", "next": "Retrieve the URLs to perform a document upload_200_Auto"},
+        
+		{"name": "Retrieve the URLs to perform a document upload_200_Auto", "next": "Check address coverage_200_Auto"},
+        
+        {"name": "Check address coverage_200_Auto", "next": "Check address coverage_422_Auto"},
+        {"name": "Check address coverage_422_Auto", "next": "SetExtra_204"},
+       
+        {"name": "SetExtra_204", "next": "GetExtra_200"},
+		{"name": "GetExtra_200", "next": "OfferSummary_200"},
+        
+        {"name": "OfferSummary_200", "next": "ShipmentTracking_200"},
+        
+		{"name": "ShipmentTracking_200", "next": "RetrieveInvoiceDeliveryOptions_200"},
+        
+        {"name": "RetrieveInvoiceDeliveryOptions_200", "next": "RetrieveUsersDocuments_200_Auto"},
+       
+        {"name": "RetrieveUsersDocuments_200_Auto", "next": "RetrieveContractById_200_Auto"},
+        
 		{"name": "RetrieveContractById_200_Auto", "next": "Get pdf links for contract"},
+        
 		{"name": "Get pdf links for contract", "next": "RetrieveContractById_444555_200_Auto"},
+        
 		{"name": "RetrieveContractById_444555_200_Auto", "next": "RetrieveContractById_456546_200_Auto"},
 		{"name": "RetrieveContractById_456546_200_Auto", "next": "RetrieveContractById_15519866_200"},
 		{"name": "RetrieveContractById_15519866_200", "next": "RetrieveContractById_15519867_200"},
@@ -19,10 +62,12 @@
 		{"name": "Retrieve Offer by contract_200", "next": "Retrieve Offer by contract_200 With Code Filter"},
 		{"name": "Retrieve Offer by contract_200 With Code Filter", "next": "RetrieveCompatibleMops"},
 		{"name": "RetrieveCompatibleMops", "next": "ReturnLeadByTokenId_404_Auto"},
+        
         {"name": "ReturnLeadByTokenId_404_Auto", "next": "ReturnLeadByTokenId_422_Auto"},
         {"name": "ReturnLeadByTokenId_422_Auto", "next": "ReturnLeadByContractId_200"},
         {"name": "ReturnLeadByContractId_200", "next": "ReturnLeadByContractId_200 Empty"},
         {"name": "ReturnLeadByContractId_200", "next": "Get Voucher Existing_200"},
+        
         {"name": "Get Voucher Existing_200", "next": "Get Voucher Not Existing_200"},
         {"name": "Get Voucher Not Existing_200", "next": ""}
 		]
