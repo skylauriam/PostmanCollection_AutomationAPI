@@ -16,7 +16,7 @@
         {"name": "AddressNormalization_StreetByCity_To_OSS_200_OK_Auto", "next": "AddressNormalization_StreetNumber_As_Guest_200_OK_Auto"},
         
         {"name": "AddressNormalization_StreetNumber_As_Guest_200_OK_Auto", "next": "AddressNormalization_StreetNumber_To_Egon_200_OK_Auto"},
-        {"name": "AddressNormalization_StreetNumber_To_Egon_200_OK_Auto", "next": "AddressNormalization_StreetNumber_To_Egon_Empty_200_OK_Auto"},
+        {"name": "AddressNormalization_StreetNumber_To_Egon_7200_OK_Auto", "next": "AddressNormalization_StreetNumber_To_Egon_Empty_200_OK_Auto"},
         {"name": "AddressNormalization_StreetNumber_To_Egon_Empty_200_OK_Auto", "next": "AddressNormalization_StreetNumber_To_OSS_200_OK_Auto"},
         {"name": "AddressNormalization_StreetNumber_To_OSS_200_OK_Auto", "next": "AddressNormalization_StreetNumber_To_OSS_Empty_200_OK_Auto"},
         {"name": "AddressNormalization_StreetNumber_To_OSS_Empty_200_OK_Auto", "next": "SetCallMeNow_422_1_10"},
@@ -48,12 +48,14 @@
         
         {"name": "RetrieveInvoiceDeliveryOptions_200", "next": "RetrieveUsersDocuments_200_Auto"},
        
-        {"name": "RetrieveUsersDocuments_200_Auto", "next": "RetrieveContractById_200_Auto"},
+        {"name": "RetrieveUsersDocuments_200_Auto", "next": "getAssetsByIdParentChildFilter_7804492_200"},
+        
+        {"name": "getAssetsByIdParentChildFilter_7804492_200", "next": "getAssetsByIdParentChildFilter_15519863_200"},
+        {"name": "getAssetsByIdParentChildFilter_15519863_200", "next": "getAssetsByIdParentChildFilter_15519864_200"},
+        {"name": "getAssetsByIdParentChildFilter_15519864_200", "next": "RetrieveContractById_200_Auto"},
         
 		{"name": "RetrieveContractById_200_Auto", "next": "Get pdf links for contract"},
-        
 		{"name": "Get pdf links for contract", "next": "RetrieveContractById_444555_200_Auto"},
-        
 		{"name": "RetrieveContractById_444555_200_Auto", "next": "RetrieveContractById_456546_200_Auto"},
 		{"name": "RetrieveContractById_456546_200_Auto", "next": "RetrieveContractById_15519866_200"},
 		{"name": "RetrieveContractById_15519866_200", "next": "RetrieveContractById_15519867_200"},
@@ -64,9 +66,24 @@
 		{"name": "RetrieveCompatibleMops", "next": "ReturnLeadByTokenId_404_Auto"},
         
         {"name": "ReturnLeadByTokenId_404_Auto", "next": "ReturnLeadByTokenId_422_Auto"},
-        {"name": "ReturnLeadByTokenId_422_Auto", "next": "ReturnLeadByContractId_200"},
+        {"name": "ReturnLeadByTokenId_422_Auto", "next": "CreateNewLead_AsGuest_422_wrongRecaptcha"},
+        {"name": "CreateNewLead_AsGuest_422_wrongRecaptcha", "next": "CreateNewLead_AsGuest_400_missingRecaptcha"},
+        {"name": "CreateNewLead_AsGuest_400_missingRecaptcha", "next": "CreateNewLead_AsGuest_400"},
+        {"name": "CreateNewLead_AsGuest_400", "next": "CreateNewLead_AsCustomer_400"},
+        {"name": "CreateNewLead_AsCustomer_400", "next": "CreateNewLead_AsGuest_422"},
+        {"name": "CreateNewLead_AsGuest_422", "next": "CreateNewLead_AsCustomer_422"},
+        {"name": "CreateNewLead_AsCustomer_422", "next": "ReturnLeadByContractId_200"},
         {"name": "ReturnLeadByContractId_200", "next": "ReturnLeadByContractId_200 Empty"},
-        {"name": "ReturnLeadByContractId_200", "next": "Get Voucher Existing_200"},
+        {"name": "ReturnLeadByContractId_200", "next": "Verify migration code correctness_422_Auto"},
+        
+        {"name": "Verify migration code correctness_422_Auto", "next": "Return list of Services of Interest_200"},
+        {"name": "Return list of Services of Interest_200", "next": "GetZipCode_200_OK_Auto"},
+        {"name": "GetZipCode_200_OK_Auto", "next": "NumberPortabilityValidation_200_success"},
+        {"name": "NumberPortabilityValidation_200_success", "next": "NumberPortabilityValidation_200_error"},
+        {"name": "NumberPortabilityValidation_200_error", "next": "NumberPortabilityValidation_400_wrong_input"},
+        {"name": "NumberPortabilityValidation_400_wrong_input", "next": "Retrieve telco providers list_200"},
+        {"name": "Retrieve telco providers list_200", "next": "Get Voucher Existing_200"},
+        
         
         {"name": "Get Voucher Existing_200", "next": "Get Voucher Not Existing_200"},
         {"name": "Get Voucher Not Existing_200", "next": ""}
