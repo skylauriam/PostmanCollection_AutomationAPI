@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "997919c1-ae84-490b-ab37-cdc345f8cd89",
+		"_postman_id": "ed657b85-bee0-4d6c-b35e-62072c5937fa",
 		"name": "Automation",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -20,26 +20,36 @@
 										"id": "df7112da-1426-4cec-8410-594351c1e379",
 										"exec": [
 											"if (pm.environment.get(\"ENV\") == \"test\") {",
-											"        ",
-											"    pm.test('Status code is 201', function(){",
-											"        pm.response.to.have.status(201);",
-											"    });",
 											"    ",
-											"    pm.test('Token extracted', function(){",
-											"        var token = pm.response.json().slt;",
-											"        pm.environment.set(\"JWTC-S831016\", \"Bearer \" + token);",
-											"        pm.environment.set(\"JWTC-V7758345\", \"Bearer \" + token);",
-											"        pm.globals.set(\"token\", \"Bearer \" + token);",
-											"    });",
+											"        pm.test('Status code is 201', function(){",
+											"            pm.response.to.have.status(201);",
+											"        });",
 											"        ",
-											"}",
-											" ",
-											"/*pm.test('token has been extracted!', function() {",
-											"    pm.expect(pm.response.json()).",
-											"    var token = pm.response.json().slt;",
-											"    pm.globals.set(\"token\", token);",
-											"});*/",
+											"    if (pm.response.code == 201){",
+											"            pm.test('Token extracted', function(){",
+											"                var token = pm.response.json().slt;",
+											"                pm.environment.set(\"JWTC-S831016\", \"Bearer \" + token);",
+											"                pm.environment.set(\"JWTC-V7758345\", \"Bearer \" + token);",
+											"                pm.environment.set(\"token\", \"Bearer \" + token);",
+											"            });",
+											"    }",
 											"",
+											"    var i = pm.environment.get(\"count\");",
+											"    if (pm.response.code != 201 && i<3) {",
+											"            console.log(i);",
+											"            i++;",
+											"            pm.environment.set(\"count\", i);",
+											"            postman.setNextRequest(\"Auth\");",
+											"            ",
+											"        if (i==3){",
+											"            pm.environment.set(\"count\",0);",
+											"            postman.setNextRequest(null);",
+											"        }",
+											"    } else {",
+											"        pm.environment.set(\"count\",0);",
+											"        postman.setNextRequest();",
+											"    }",
+											"}",
 											"",
 											""
 										],
@@ -94,12 +104,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{ \n  \"application\":\"web\",\n  \"type\":\"JWTC\",\n  \"user\": {\n  \t\"username\": \"{{USER}}\",\n  \t\"password\": \"{{PWD}}\"\n  }\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
+									"raw": "{ \n  \"application\":\"web\",\n  \"type\":\"JWTC\",\n  \"user\": {\n  \t\"username\": \"{{USER}}\",\n  \t\"password\": \"{{PWD}}\"\n  }\n}"
 								},
 								"url": {
 									"raw": "{{BASE_URL}}/tokenmanager/{{ENV}}/auths",
@@ -1781,6 +1786,7 @@
 											"script": {
 												"id": "e3f6c747-fb63-4e03-93c9-292e63861d66",
 												"exec": [
+													"return;",
 													"pm.test(\"Status code is 422\", function () {",
 													"    pm.response.to.have.status(422);",
 													"});"
@@ -2593,7 +2599,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\n    \"channel\": \"WEB\",\n    \"operationCode\": \"1\"\n}"
+													"raw": "{\n    \"channel\": \"WEB\",\n    \"operationCode\": \"invalid\"\n}"
 												},
 												"url": {
 													"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/e2e-contracts/{{e2eContractId_error}}/contracts/{{e2eContractId_error}}/requirement-trace",
@@ -2675,7 +2681,9 @@
 													"script": {
 														"id": "67880c03-bb21-487f-b30d-9d1c47adb1d6",
 														"exec": [
-															"pm.environment.set('e2eContractId_15519865', pm.globals.get('contract0'));"
+															"if (pm.environment.get('ENV') == 'test') {",
+															"    pm.environment.set('e2eContractId_15519865', pm.globals.get('contract0'));",
+															"}"
 														],
 														"type": "text/javascript"
 													}
@@ -3669,7 +3677,7 @@
 													"raw": "{\r\n      \"city\": \"Monticelli d'Adda\",\r\n      \"displayName\": \"Monticelli d'Adda\",\r\n      \"zipCode\": \"26842\",\r\n      \"province\": \"CR\",\r\n      \"street\": \"Bandiera d'Italia\",\r\n      \"streetNumber\": \"1\"\r\n}"
 												},
 												"url": {
-													"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/e2e-contracts/{{e2eContractId_15519872}}/billing-address",
+													"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/e2e-contracts/{{e2eContractId_444555}}/billing-address",
 													"host": [
 														"{{BASE_URL}}"
 													],
@@ -3677,7 +3685,7 @@
 														"{{DOMAIN}}",
 														"{{ENV}}",
 														"e2e-contracts",
-														"{{e2eContractId_15519872}}",
+														"{{e2eContractId_444555}}",
 														"billing-address"
 													]
 												}
@@ -5467,6 +5475,142 @@
 									"response": []
 								},
 								{
+									"name": "Retrieve Offer by contract_200 RTD 15519863",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "6e7222e3-e712-4337-8c8c-9cda12e252ce",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"if (pm.environment.get('ENV') == 'dev' || pm.environment.get('ENV') == 'api/rest') {",
+													"var jsonData = pm.response.json();",
+													"pm.test(\"Contains promotions\", function () {",
+													"    pm.expect(jsonData.offers.filter(o => o.type === \"PROMOTION\")).to.have.lengthOf(2);",
+													"});",
+													"",
+													"}"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "{{JWTC-S831016}}"
+											},
+											{
+												"key": "Accept",
+												"type": "text",
+												"value": "application/json"
+											},
+											{
+												"key": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/e2e-contracts/{{e2eContractId_15519863}}/offers?onlyRTD=false&interactionPoint=IP_OL_IlMioAbbonamento",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"{{DOMAIN}}",
+												"{{ENV}}",
+												"e2e-contracts",
+												"{{e2eContractId_15519863}}",
+												"offers"
+											],
+											"query": [
+												{
+													"key": "onlyRTD",
+													"value": "false"
+												},
+												{
+													"key": "interactionPoint",
+													"value": "IP_OL_IlMioAbbonamento"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Retrieve Offer by contract_200 RTD 15519866",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "6e7222e3-e712-4337-8c8c-9cda12e252ce",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"if (pm.environment.get('ENV') == 'dev' || pm.environment.get('ENV') == 'api/rest') {",
+													"var jsonData = pm.response.json();",
+													"pm.test(\"Contains promotions\", function () {",
+													"    pm.expect(jsonData.offers.filter(o => o.type === \"PROMOTION\")).to.have.lengthOf(1);",
+													"});",
+													"",
+													"}"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "{{JWTC-S831016}}"
+											},
+											{
+												"key": "Accept",
+												"type": "text",
+												"value": "application/json"
+											},
+											{
+												"key": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/e2e-contracts/{{e2eContractId_15519866}}/offers?onlyRTD=true&interactionPoint=IP_OL_IlMioAbbonamento",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"{{DOMAIN}}",
+												"{{ENV}}",
+												"e2e-contracts",
+												"{{e2eContractId_15519866}}",
+												"offers"
+											],
+											"query": [
+												{
+													"key": "onlyRTD",
+													"value": "true"
+												},
+												{
+													"key": "interactionPoint",
+													"value": "IP_OL_IlMioAbbonamento"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
 									"name": "Retrieve Offer by contract_200 With Code Filter",
 									"event": [
 										{
@@ -5481,8 +5625,8 @@
 													"    });",
 													"    ",
 													"    var jsonData = pm.response.json();",
-													"    pm.test(\"Contains only PPACK_SPORT\", function() {",
-													"        pm.expect(jsonData.offers.filter(o => o.code === \"PPACK_SPORT\")).to.have.lengthOf(1);",
+													"    pm.test(\"Contains only 75028\", function() {",
+													"        pm.expect(jsonData.offers.filter(o => o.code === \"75028\")).to.have.lengthOf(1);",
 													"    });",
 													"} else pm.test(\"Status code is 200\", function () {",
 													"        pm.response.to.have.status(200);",
@@ -5512,7 +5656,7 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/e2e-contracts/{{e2eContractId_7804492_S831016}}/offers?productCodeToFilter=PPACK_SPORT&onlyRTD=false",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/e2e-contracts/{{e2eContractId_7804492_S831016}}/offers?productCodeToFilter=PPACK_CINEMA&onlyRTD=false",
 											"host": [
 												"{{BASE_URL}}"
 											],
@@ -5526,7 +5670,7 @@
 											"query": [
 												{
 													"key": "productCodeToFilter",
-													"value": "PPACK_SPORT"
+													"value": "PPACK_CINEMA"
 												},
 												{
 													"key": "onlyRTD",
@@ -9322,7 +9466,7 @@
 											{
 												"key": "Authorization",
 												"type": "text",
-												"value": "{{JWTC-S831016}}"
+												"value": "{{JWTC-S831016-2}}"
 											}
 										],
 										"body": {
@@ -9338,6 +9482,64 @@
 												"{{DOMAIN}}",
 												"{{ENV}}",
 												"cart-calculation"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "CreateCart_success_200",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "0e379b72-7b57-4e67-b052-c9850c636f21",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "",
+												"value": "application/json",
+												"disabled": true
+											},
+											{
+												"key": "",
+												"value": "application/json",
+												"disabled": true
+											},
+											{
+												"key": "Selected-E2E-Id",
+												"value": "S000SVI4ZklBbHZOekxpdWliWWVrdz09"
+											},
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "{{JWTC-S831016}}"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/cart",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"{{DOMAIN}}",
+												"{{ENV}}",
+												"cart"
 											]
 										}
 									},
