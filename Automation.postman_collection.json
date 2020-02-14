@@ -17,7 +17,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "df7112da-1426-4cec-8410-594351c1e379",
+										"id": "fa1c429e-6bb9-4c69-b6c7-7d9b22e99c33",
 										"exec": [
 											"if (pm.environment.get(\"ENV\") == \"test\") {",
 											"    ",
@@ -26,6 +26,11 @@
 											"        });",
 											"        ",
 											"    if (pm.response.code == 201){",
+											"           ",
+											"           pm.test('New token generated', function(){",
+											"              pm.expect(pm.response.json().slt).to.not.equal(pm.environment.get(\"JWTC-S831016\")); ",
+											"           });",
+											"           ",
 											"            pm.test('Token extracted', function(){",
 											"                var token = pm.response.json().slt;",
 											"                pm.environment.set(\"JWTC-S831016\", \"Bearer \" + token);",
@@ -59,7 +64,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "cd388de6-6af4-421a-91ac-d006859f9d9c",
+										"id": "057dd49b-5033-45a0-99ae-c17120080748",
 										"exec": [
 											""
 										],
@@ -133,6 +138,18 @@
 											"    pm.test('Status code is 200',function(){",
 											"        pm.response.to.have.status(200);",
 											"    });",
+											"    ",
+											"    /*if (pm.response.json().e2eContracts.displayId == '23119229'){",
+											"        pm.test('Correct ID for contract 23119229', function(){",
+											"            pm.expect(pm.response.json().e2eContracts[0].id).to.equal('L1Y5bU1qQ3hGQjg5OFJ4eGJUTmtnZz09');",
+											"        });",
+											"    }",
+											"    ",
+											"    if (pm.response.json().e2eContracts.displayId == '21101783'){",
+											"        pm.test('Correct ID for contract 21101783', function(){",
+											"            pm.expect(pm.response.json().e2eContracts[1].id).to.equal('QytBT1FIUTlCTmxHYVZPbWp4TXNBUT09');",
+											"        });",
+											"    }*/",
 											"    ",
 											"    pm.test('E2E Contract extracted', function(){",
 											"    ",

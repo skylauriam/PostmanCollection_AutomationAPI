@@ -78,10 +78,7 @@
         
         {"name": "Verify migration code correctness_422_Auto", "next": "Return list of Services of Interest_200"},
         {"name": "Return list of Services of Interest_200", "next": "GetZipCode_200_OK_Auto"},
-        {"name": "GetZipCode_200_OK_Auto", "next": "NumberPortabilityValidation_200_success"},
-        {"name": "NumberPortabilityValidation_200_success", "next": "NumberPortabilityValidation_200_error"},
-        {"name": "NumberPortabilityValidation_200_error", "next": "NumberPortabilityValidation_400_wrong_input"},
-        {"name": "NumberPortabilityValidation_400_wrong_input", "next": "Retrieve telco providers list_200"},
+        {"name": "GetZipCode_200_OK_Auto", "next": "Retrieve telco providers list_200"},
         {"name": "Retrieve telco providers list_200", "next": "Get Voucher Existing_200"},
         
         
