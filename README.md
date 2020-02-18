@@ -54,7 +54,9 @@ Test/UAT/PreProd/Prod environments: custom flow, small part of the requests can 
  
 As said, one of the two sub-folder is for the authentication in test environment, since it's integrated and need continuously to update a bearer token to have the right permissions for each request that has to be ran. 
  
-The rest of requests are divided into folders with the name of the API under test. 
- 
-At this moment, each request contains one or more test after it is sent to the API, from "response code" check, to functional check of the response. 
- 
+The rest of requests are divided into folders with the name of the API under test :
+```json
+API Name : [ServiceName]_[StatusCodeExpected]
+``` 
+
+At this moment, each request contains one or more test after it is sent to the API, from "response code" check, to functional check of the response.
