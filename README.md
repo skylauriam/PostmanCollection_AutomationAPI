@@ -60,3 +60,5 @@ API Name : [ServiceName]_[StatusCodeExpected]
 ``` 
 
 At this moment, each request contains one or more test after it is sent to the API, from "response code" check, to functional check of the response.
+
+**Please referer to [PostmanCollectionRepository](https://github.com/sky-uk/ita-selfcare-bb-automation_API) as example to follow**
