@@ -19,11 +19,7 @@
         {"name": "AddressNormalization_StreetNumber_To_Egon_7200_OK_Auto", "next": "AddressNormalization_StreetNumber_To_Egon_Empty_200_OK_Auto"},
         {"name": "AddressNormalization_StreetNumber_To_Egon_Empty_200_OK_Auto", "next": "AddressNormalization_StreetNumber_To_OSS_200_OK_Auto"},
         {"name": "AddressNormalization_StreetNumber_To_OSS_200_OK_Auto", "next": "AddressNormalization_StreetNumber_To_OSS_Empty_200_OK_Auto"},
-        {"name": "AddressNormalization_StreetNumber_To_OSS_Empty_200_OK_Auto", "next": "SetCallMeNow_422_1_10"},
-        
-        {"name": "SetCallMeNow_422_1_10", "next": "SetCallMeNow_422_1_31"},
-        {"name": "SetCallMeNow_422_1_31", "next": "SetCallMeNow_422_1_99"},
-        {"name": "SetCallMeNow_422_1_99", "next": "GetUserConsents_200"},
+        {"name": "AddressNormalization_StreetNumber_To_OSS_Empty_200_OK_Auto", "next": "GetUserConsents_200"},
         
 		{"name": "GetUserConsents_200", "next": "UpdateUserConsents_200"},
         {"name": "UpdateUserConsents_200", "next": "GetAllDevices_200"},

@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "8dbce152-6f4c-4ac6-9e34-838831d52bb2",
+		"_postman_id": "b15528c9-f12a-463a-99df-43a59a1c370a",
 		"name": "Automation",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -133,35 +133,145 @@
 									"script": {
 										"id": "d0422869-a648-4b1f-ad7c-c3d0a113abe0",
 										"exec": [
+											"",
+											"if (pm.response.code == 401) {postman.setNextRequest('Auth')}",
+											"",
 											"if (pm.environment.get('ENV') == 'test' || pm.environment.get('ENV') == 'uat') {",
 											"    ",
 											"    pm.test('Status code is 200',function(){",
 											"        pm.response.to.have.status(200);",
 											"    });",
 											"    ",
-											"    /*if (pm.response.json().e2eContracts.displayId == '23119229'){",
-											"        pm.test('Correct ID for contract 23119229', function(){",
-											"            pm.expect(pm.response.json().e2eContracts[0].id).to.equal('L1Y5bU1qQ3hGQjg5OFJ4eGJUTmtnZz09');",
-											"        });",
-											"    }",
 											"    ",
-											"    if (pm.response.json().e2eContracts.displayId == '21101783'){",
+											"    //The following block of code has to be run ONLY ONE TIME to import in the environment file the information of the user such as contract id, address and so on. PLEASE DON'T LEAVE THIS BLOCK OF CODE UNCOMMENTED!",
+											"    /*",
+											"    pm.environment.set('contract0', JSON.parse(responseBody).e2eContracts[0].id);",
+											"    pm.environment.set('contract1', JSON.parse(responseBody).e2eContracts[1].id);",
+											"    pm.environment.set('displayId0', JSON.parse(responseBody).e2eContracts[0].displayId);",
+											"    pm.environment.set('displayId1', JSON.parse(responseBody).e2eContracts[1].displayId);",
+											"    pm.environment.set('serviceEnvironment0', JSON.parse(responseBody).e2eContracts[0].contracts[0].serviceEnvironment);",
+											"    pm.environment.set('type1', JSON.parse(responseBody).e2eContracts[1].contracts[0].type);",
+											"    pm.environment.set('status0', JSON.parse(responseBody).e2eContracts[0].contracts[0].status);",
+											"    pm.environment.set('status1', JSON.parse(responseBody).e2eContracts[1].contracts[0].status);",
+											"    pm.environment.set('city0', JSON.parse(responseBody).e2eContracts[0].shippingAddress.city);",
+											"    pm.environment.set('city1', JSON.parse(responseBody).e2eContracts[1].shippingAddress.city);",
+											"    pm.environment.set('country0', JSON.parse(responseBody).e2eContracts[0].shippingAddress.country);",
+											"    pm.environment.set('country1', JSON.parse(responseBody).e2eContracts[1].shippingAddress.country);",
+											"    pm.environment.set('displayName0', JSON.parse(responseBody).e2eContracts[0].shippingAddress.displayName);",
+											"    pm.environment.set('displayName1', JSON.parse(responseBody).e2eContracts[1].shippingAddress.displayName);",
+											"    pm.environment.set('postalCode0', JSON.parse(responseBody).e2eContracts[0].shippingAddress.postalCode);",
+											"    pm.environment.set('postalCode1', JSON.parse(responseBody).e2eContracts[1].shippingAddress.postalCode);",
+											"    pm.environment.set('province0', JSON.parse(responseBody).e2eContracts[0].shippingAddress.province);",
+											"    pm.environment.set('province1', JSON.parse(responseBody).e2eContracts[1].shippingAddress.province);",
+											"    */",
+											"            pm.test('User contains contract ' + pm.environment.get('displayId0') , function(){",
+											"                pm.expect(pm.response.json().e2eContracts[0].displayId).to.equal(pm.environment.get('displayId0'));",
+											"            });",
+											"        ",
+											"        ",
+											"            pm.test('Correct ID for contract ' + pm.environment.get('displayId0'), function(){",
+											"                pm.expect(pm.response.json().e2eContracts[0].id).to.equal(pm.environment.get('contract0'));",
+											"            });",
+											"    ",
+											"        ",
+											"            pm.test('Contract ' + pm.environment.get('displayId0') + ' is ' + pm.environment.get('serviceEnvironment0') + ' ' + pm.environment.get('status0'), function(){",
+											"                pm.expect(pm.response.json().e2eContracts[0].contracts[0].serviceEnvironment).to.equal(pm.environment.get('serviceEnvironment0'));",
+											"                pm.expect(pm.response.json().e2eContracts[0].contracts[0].status).to.equal('COMPLETED');",
+											"            });",
+											"            ",
+											"            pm.test('Contract ' + pm.environment.get('displayId0') + ' has consents', function(){",
+											"                pm.expect(pm.response.json().e2eContracts[0].consents).contains([]);",
+											"            });",
+											"           ",
+											"            pm.test('City of contract ' + pm.environment.get('displayId0') + ' is ' + pm.environment.get('city0'), function(){",
+											"                pm.expect(pm.response.json().e2eContracts[0].shippingAddress.city).to.equal(pm.environment.get('city0'));",
+											"            });",
+											"            ",
+											"            pm.test('Country of contract ' + pm.environment.get('displayId0') + ' is ' + pm.environment.get('country0'), function(){",
+											"                pm.expect(pm.response.json().e2eContracts[0].shippingAddress.country).to.equal(pm.environment.get('country0'));",
+											"            });",
+											"            ",
+											"            pm.test('Displayed street of contract ' + pm.environment.get('displayId0') + ' is ' + pm.environment.get('displayName0'), function(){",
+											"                pm.expect(pm.response.json().e2eContracts[0].shippingAddress.displayName).to.equal(pm.environment.get('displayName0'));",
+											"            });",
+											"            ",
+											"            pm.test('Postal code of contract ' + pm.environment.get('displayId1') + ' is ' + pm.environment.get('postalCode0'), function(){",
+											"                pm.expect(pm.response.json().e2eContracts[0].shippingAddress.postalCode).to.equal(pm.environment.get('postalCode0'));",
+											"            });",
+											"            ",
+											"            pm.test('Province of contract ' + pm.environment.get('displayId1') +  ' is ' + pm.environment.get('province0'), function(){",
+											"                pm.expect(pm.response.json().e2eContracts[0].shippingAddress.province).to.equal(pm.environment.get('province0'));",
+											"            });",
+											"            ",
+											"            pm.test('User contains contract ' + pm.environment.get('displayId1'), function(){",
+											"                pm.expect(pm.response.json().e2eContracts[1].displayId).to.equal(pm.environment.get('displayId1'));",
+											"            });",
+											"            ",
+											"            pm.test('Correct ID for contract ' + pm.environment.get('displayId1'), function(){",
+											"                pm.expect(pm.response.json().e2eContracts[1].id).to.equal(pm.environment.get('contract1'));",
+											"            });",
+											"        ",
+											"            pm.test('Contract ' + pm.environment.get('displayId1') + ' is ' + pm.environment.get('status1') + ' ' + pm.environment.get('type1'), function(){",
+											"                pm.expect(pm.response.json().e2eContracts[1].contracts[0].type).to.equal(pm.environment.get('type1'));",
+											"                pm.expect(pm.response.json().e2eContracts[1].contracts[0].status).to.equal(pm.environment.get('status1'));",
+											"            });",
+											"        ",
+											"            pm.test('Contract ' + pm.environment.get('displayId1') + ' has consents', function(){",
+											"                pm.expect(pm.response.json().e2eContracts[1].consents).contains([]);",
+											"            });",
+											"            ",
+											"            pm.test('City of contract ' + pm.environment.get('displayId1') + ' is ' + pm.environment.get('city1'), function(){",
+											"                pm.expect(pm.response.json().e2eContracts[1].shippingAddress.city).to.equal(pm.environment.get('city1'));",
+											"            });",
+											"            ",
+											"            pm.test('Country of contract ' + pm.environment.get('displayId1') + ' is ' + pm.environment.get('country1'), function(){",
+											"                pm.expect(pm.response.json().e2eContracts[1].shippingAddress.country).to.equal(pm.environment.get('country1'));",
+											"            });",
+											"            ",
+											"            pm.test('Displayed street of contract ' + pm.environment.get('displayId1') + ' is ' + pm.environment.get('displayName1'), function(){",
+											"                pm.expect(pm.response.json().e2eContracts[1].shippingAddress.displayName).to.equal(pm.environment.get('displayName1'));",
+											"            });",
+											"            ",
+											"            pm.test('Postal code of contract ' + pm.environment.get('displayId1') + ' is ' + pm.environment.get('postalCode1'), function(){",
+											"                pm.expect(pm.response.json().e2eContracts[1].shippingAddress.postalCode).to.equal(pm.environment.get('postalCode1'));",
+											"            });",
+											"            ",
+											"            pm.test('Province of contract ' + pm.environment.get('displayId1') + ' is ' + pm.environment.get('province1'), function(){",
+											"                pm.expect(pm.response.json().e2eContracts[1].shippingAddress.province).to.equal(pm.environment.get('province1'));",
+											"            });",
+											"            ",
+											"    } else {",
+											"        /*pm.test('Correct ID for contract 23119229', function(){",
+											"                pm.expect(pm.response.json().e2eContracts[0].displayId).to.equal('23119229');",
+											"            });",
+											"        ",
 											"        pm.test('Correct ID for contract 21101783', function(){",
-											"            pm.expect(pm.response.json().e2eContracts[1].id).to.equal('QytBT1FIUTlCTmxHYVZPbWp4TXNBUT09');",
-											"        });",
-											"    }*/",
+											"                pm.expect(pm.response.json().e2eContracts[1].displayId).to.equal('21101783');",
+											"            });",
+											"            ",
+											"        if (pm.response.json().e2eContracts.displayId == ''){         //ABILITARE UNA VOLTA AVUTA UTENZA UAT",
+											"            pm.test('Correct ID for contract ', function(){",
+											"                pm.expect(pm.response.json().e2eContracts[0].id).to.equal('');",
+											"            });",
+											"        }",
+											"        ",
+											"        if (pm.response.json().e2eContracts.displayId == ''){",
+											"            pm.test('Correct ID for contract ', function(){",
+											"                pm.expect(pm.response.json().e2eContracts[1].id).to.equal('');",
+											"            });*/",
+											"        }",
+											"",
+											"    ",
 											"    ",
 											"    pm.test('E2E Contract extracted', function(){",
 											"    ",
-											"        pm.globals.set('contract0', JSON.parse(responseBody).e2eContracts[0].id);",
-											"        pm.globals.set('contract1', JSON.parse(responseBody).e2eContracts[1].id);",
 											"        ",
 											"        var c0 = JSON.parse(responseBody).e2eContracts[0].id;",
 											"        var c1 = JSON.parse(responseBody).e2eContracts[1].id;",
 											"        ",
 											"        pm.environment.set('e2eContractId_15519862', c0);",
 											"        pm.environment.set('e2eContractId_7804492', c0);",
-											"        pm.environment.set('e2eContractId_15519864', c1)",
+											"        pm.environment.set('e2eContractId_15519864', c1);",
 											"        pm.environment.set('e2eContractId_15519863', c1);",
 											"        pm.environment.set('e2eContractId_15519862', c0);",
 											"        pm.environment.set('e2eContractId_15519865', c1);",
@@ -171,9 +281,8 @@
 											"        pm.environment.set('e2eContractId_15519866', c0);",
 											"        pm.environment.set('e2eContractId_15519867', c0);",
 											"        pm.environment.set('invoiceId_TV', c0);",
-											"      ",
-											"    })",
-											"    }"
+											"    });",
+											""
 										],
 										"type": "text/javascript"
 									}
@@ -1410,7 +1519,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n\t\"phoneNumber\":\"3211234567\",\n\t\"mobilePhone\":null,\n\t\"e2eContractId\":\"{{e2eContractId_error}}\",\n\t\"contractId\":\"{{e2eContractId_error}}\",\n\t\"workDescription\":\"MIGRATION\",\n\t\"migrationType\":\"FIBRA\"\n}"
+											"raw": "{\n\t\"phoneNumber\":\"3211234567\",\n\t\"mobilePhone\":null,\n\t\"e2eContractId\":\"{{e2eContractId_error}}\",\n\t\"contractId\":\"{{e2eContractId_error}}\",\n\t\"workDescription\":\"MIGRATION\",\n\t\"migrationType\":\"FIBRA\"\n}\n\n"
 										},
 										"url": {
 											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/call-me-now",
@@ -2695,7 +2804,7 @@
 													"script": {
 														"id": "67880c03-bb21-487f-b30d-9d1c47adb1d6",
 														"exec": [
-															"if (pm.environment.get('ENV') == 'test') {",
+															"if (pm.environment.get('ENV') == 'test' || pm.environment.get('ENV') == 'uat') {",
 															"    pm.environment.set('e2eContractId_15519865', pm.globals.get('contract0'));",
 															"}"
 														],
@@ -2865,7 +2974,7 @@
 													"script": {
 														"id": "516d141c-b495-4733-841f-9dce466c9010",
 														"exec": [
-															"if (pm.environment.get('ENV') == 'test') {",
+															"if (pm.environment.get('ENV') == 'test' || pm.environment.get('ENV') == 'uat') {",
 															"    pm.environment.set('e2eContractId_15519865', pm.globals.get(\"contract0\"));",
 															"}"
 														],
@@ -5619,7 +5728,7 @@
 									"response": []
 								},
 								{
-									"name": "Retrieve Offer by contract_200 RTD 15519866",
+									"name": "Retrieve Offer by contract_200 RTD 15519869",
 									"event": [
 										{
 											"listen": "test",
@@ -5661,7 +5770,7 @@
 											}
 										],
 										"url": {
-											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/e2e-contracts/{{e2eContractId_15519866}}/offers?onlyRTD=true&interactionPoint=IP_OL_IlMioAbbonamento",
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/e2e-contracts/{{e2eContractId_15519869}}/offers?onlyRTD=true&interactionPoint=IP_OL_IlMioAbbonamento",
 											"host": [
 												"{{BASE_URL}}"
 											],
@@ -5669,7 +5778,7 @@
 												"{{DOMAIN}}",
 												"{{ENV}}",
 												"e2e-contracts",
-												"{{e2eContractId_15519866}}",
+												"{{e2eContractId_15519869}}",
 												"offers"
 											],
 											"query": [
@@ -5758,6 +5867,61 @@
 									"response": []
 								},
 								{
+									"name": "CartCalculation_TV_success_200_7804492_S831016",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "cfb7b4a5-666c-45b7-9d63-98451d1a7201",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Selected-E2E-Id",
+												"value": "{{e2eContractId_7804492_S831016}}"
+											},
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "{{JWTC-S831016}}"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"offers\": [\r\n    {\r\n      \"item\": {\r\n            \"id\": \"01u2400000ALUI5AAP\",\r\n            \"cmsId\": \"TVC_FAMILY\",\r\n            \"code\": \"TVC_FAMILY\",\r\n            \"type\": \"PRODUCT\",\r\n            \"parentId\": \"01t24000005fRNrAAM\",\r\n            \"hierarchyPath\": \"01t24000005fRNBAA2<01t24000005fRNwAAM<01t24000005fRNtAAM<01t24000005fRNrAAM\"\r\n        },\r\n      \"operation\": \"ADD\"\r\n    }\r\n  ],\r\n  \"e2eContractId\": \"{{e2eContractId_7804492_S831016}}\"\r\n}"
+										},
+										"url": {
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/cart-calculation",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"{{DOMAIN}}",
+												"{{ENV}}",
+												"cart-calculation"
+											]
+										}
+									},
+									"response": []
+								},
+								{
 									"name": "SubmitOrder_204",
 									"event": [
 										{
@@ -5777,7 +5941,8 @@
 													"    pm.expect(steps.filter(step => step.label == 'MOP')[0].pendingReasons).is.empty",
 													"    pm.expect(steps.filter(step => step.label == 'DOCUMENTS')[0].pendingReasons).is.empty",
 													"});",
-													""
+													"",
+													"setTimeout(function(){console.log(\"Sleeping for 1.5 seconds before next request.\");}, 1500);"
 												],
 												"type": "text/javascript"
 											}
@@ -10575,7 +10740,7 @@
 						"id": "edd089b4-dce4-40d6-9dff-cae9c86dae83",
 						"type": "text/javascript",
 						"exec": [
-							"if (pm.environment.get('ENV') == 'test' || pm.environment.get('ENV') == 'uat') {",
+							"/*if (pm.environment.get('ENV') == 'test' || pm.environment.get('ENV') == 'uat') {",
 							"    ",
 							"var req = pm.iterationData.get('list');",
 							"//var req = JSON.parse(pm.globals.get('requesting')).list;",
@@ -10589,7 +10754,7 @@
 							"        postman.setNextRequest(elem.next);",
 							"        }",
 							"    });",
-							"} else postman.setNextRequest();"
+							"} else postman.setNextRequest();*/"
 						]
 					}
 				},
