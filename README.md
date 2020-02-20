@@ -1,20 +1,24 @@
 # PostmanCollection_AutomationAPI
 This repository has been created to collect all file related to postman collection in CI
 
-Agenda 
+## Agenda 
+
+- Quick Postman Overview
+- Objectives 
+- How to create a correct Data input file 
+- Postman Collection | A common strategy 
+- Next Steps 
  
-Objectives 
-How to create a correct Data input file 
-Postman Collection | A common strategy 
-Next Steps 
- 
-Quick Postman Overview 
+### Quick Postman Overview 
+
 The aim of the Postman Collection is to allow the BE functional validation. This validation can be performed in two different ways. The first one using a manual approach (manual trigger of the script execution). The second one is related to have continuous integration regarding various working environments (best approach). It has to be dynamic and run a customized workflow on the basis of different inputs coming from environment and data files. 
  
-Objectives 
+### Objectives 
+
 The target is to insert the postman collection in a continuous integration (CI) process. That said, for each new back-end build of the software, the collection could be run to check for services integrity and make sure the entire system is working fine before release. 
  
-How to create a correct Data input file 
+### How to create a correct Data input file 
+
 The postman collection requires input files to run properly.  
 There are two files used: environment file, which is mandatory, and external data file, facultative. 
  
@@ -26,6 +30,8 @@ Actually, it's only used for the integrated environments, where is required a cu
 The actual external data file for test contains an array of objects which contains two different keys/values : one is for the actual request which to check during the run, the other contains the name of the next Request to set in the workflow. 
 Following an example of the structure used: 
  
+
+```json
 [{ 
 "RequestFlow" : [ 
 {"Actual":"request_1","NextRequest":"request_2"}, 
@@ -33,10 +39,12 @@ Following an example of the structure used:
 {"Actual":"request_3","NextRequest":" "} 
 ] 
 }] 
- 
+``` 
+
 This external data file is used in a pre-request script, which is run for every request, that cycles the entire list thanks to a forEach method, to find if the following request is contained in the "white-list" and can be run or instead has to be skipped. 
  
-Postman Collection | A common strategy 
+### Postman Collection | A common strategy 
+
 The collection contains a variety of requests that check the health of the BE services.  
  
 The top-level folder contains two sub-folders, one for an authentication request (we will see later what's about and why it's required) and the other one that contains all the remaining requests. 
@@ -46,7 +54,11 @@ Test/UAT/PreProd/Prod environments: custom flow, small part of the requests can 
  
 As said, one of the two sub-folder is for the authentication in test environment, since it's integrated and need continuously to update a bearer token to have the right permissions for each request that has to be ran. 
  
-The rest of requests are divided into folders with the name of the API under test. 
- 
-At this moment, each request contains one or more test after it is sent to the API, from "response code" check, to functional check of the response. 
- 
+The rest of requests are divided into folders with the name of the API under test :
+```json
+API Name : [ServiceName]_[StatusCodeExpected]
+``` 
+
+At this moment, each request contains one or more test after it is sent to the API, from "response code" check, to functional check of the response.
+
+**Please referer to [PostmanCollectionRepository](https://github.com/sky-uk/ita-selfcare-bb-automation_API) as example to follow**
