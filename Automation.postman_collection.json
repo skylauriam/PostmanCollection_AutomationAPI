@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "b15528c9-f12a-463a-99df-43a59a1c370a",
+		"_postman_id": "74612082-ebbc-44e1-b7bc-7a51697030c7",
 		"name": "Automation",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -445,7 +445,6 @@
 											"script": {
 												"id": "7e5283f2-ec3a-4deb-8fd7-86ad5a6a8a0c",
 												"exec": [
-													"if (pm.environment.get('ENV') != 'test' && pm.environment.get('ENV') != 'uat') {",
 													"    pm.test('Status code is 200', function () {",
 													"        pm.response.to.have.status(200);",
 													"    });",
@@ -455,16 +454,41 @@
 													"    pm.test('Egon Id is returned', function() {",
 													"        pm.expect(pm.response.json()[0].egonId).to.eql('38000002491');",
 													"    });",
+													"    ",
+													"if (pm.environment.get('ENV') != 'test' && pm.environment.get('ENV') != 'uat') {",
 													"    pm.test('Province is returned', function() {",
 													"        pm.expect(pm.response.json()[0].province).to.eql('MILANO');",
+													"    });",
+													"}",
+													"    pm.test('Egon-Route header set to true', function() {",
+													"        pm.response.to.be.header('egon-route', 'true');",
+													"    });",
+													"",
+													"/*else {",
+													"    pm.test('Status code is 200', function () {",
+													"        pm.response.to.have.status(200);",
+													"    });",
+													"    pm.test('City name is ' + pm.environment.get('city0'), function() {",
+													"        pm.expect(pm.response.json()[0].name).to.eql(pm.environment.get('city0'));",
+													"    });",
+													"    pm.test('Egon Id is ' + pm.environment.get('cityEgonId'), function() {",
+													"        pm.expect(pm.response.json()[0].egonId).to.eql(pm.environment.get('cityEgonId'));",
+													"    });",
+													"    pm.test('Province is ' + pm.environment.get('province0'), function() {",
+													"        pm.expect(pm.response.json()[0].province).to.eql(pm.environment.get('province0'));",
 													"    });",
 													"    pm.test('Egon-Route header set to true', function() {",
 													"        pm.response.to.be.header('egon-route', 'true');",
 													"    });",
-													"} else pm.test('Status code is 200', function () {",
-													"        pm.response.to.have.status(200);",
-													"    });",
-													""
+													"*/  ",
+													"    ",
+													"    //Import of city egonId. MUST run just one time to import the user informations for TEST and UAT environments!",
+													"    ",
+													"//if (pm.environment.get('ENV') == 'test' || pm.environment.get('ENV') == 'uat')",
+													"//    pm.test('EgonId set to environment variable', function(){",
+													"//       pm.environment.set('cityEgonId',pm.response.json()[0].egonId);",
+													"//    });",
+													"//}"
 												],
 												"type": "text/javascript"
 											}
@@ -517,7 +541,7 @@
 											"script": {
 												"id": "33bf6608-1c54-4013-a632-d4ed1a2199a6",
 												"exec": [
-													"if (pm.environment.get('ENV') != 'test' && pm.environment.get('ENV') != 'uat') {",
+													"",
 													"    pm.test('Status code is 200', function () {",
 													"        pm.response.to.have.status(200);",
 													"    });",
@@ -527,21 +551,32 @@
 													"    pm.test('Egon Id is returned', function() {",
 													"        pm.expect(pm.response.json()[0].egonId).to.eql('38000002491');",
 													"    });",
+													"if (pm.environment.get('ENV') != 'test' && pm.environment.get('ENV') != 'uat') {",
 													"    pm.test('Province is returned', function() {",
 													"        pm.expect(pm.response.json()[0].province).to.eql('MILANO');",
+													"    });",
+													"} ",
+													"    pm.test('Egon-Route header set to true', function() {",
+													"        pm.response.to.be.header('egon-route', 'true');",
+													"    });",
+													"    ",
+													"    /*else {",
+													"    pm.test('Status code is 200', function () {",
+													"        pm.response.to.have.status(200);",
+													"    });",
+													"    pm.test('City name is ' + pm.environment.get('city0'), function() {",
+													"        pm.expect(pm.response.json()[0].name).to.eql(pm.environment.get('city0'));",
+													"    });",
+													"    pm.test('Egon Id is ' + pm.environment.get('cityEgonId'), function() {",
+													"        pm.expect(pm.response.json()[0].egonId).to.eql(pm.environment.get('cityEgonId'));",
+													"    });",
+													"    pm.test('Province is ' + pm.environment.get('province0'), function() {",
+													"        pm.expect(pm.response.json()[0].province).to.eql(pm.environment.get('province0'));",
 													"    });",
 													"    pm.test('Egon-Route header set to true', function() {",
 													"        pm.response.to.be.header('egon-route', 'true');",
 													"    });",
-													"} else {",
-													"    pm.test('Status code is 200', function () {",
-													"        pm.response.to.have.status(200);",
-													"    });",
-													"    ",
-													"    pm.test('Set egonId', function(){",
-													"        pm.environment.set('cityEgonId', pm.response.json()[0].egonId);",
-													"    });",
-													"}"
+													"}*/"
 												],
 												"type": "text/javascript"
 											}
@@ -589,22 +624,15 @@
 											"script": {
 												"id": "a7195f81-d218-45cb-9054-cb2921ffa086",
 												"exec": [
-													"if (pm.environment.get('ENV') != 'test' && pm.environment.get('ENV') != 'uat') {",
-													"    ",
 													"    pm.test('Status code is 200', function () {",
 													"        pm.response.to.have.status(200);",
 													"    });",
 													"    pm.test('Empty body is returned', function() {",
-													"        pm.response.to.have.body('[]')",
+													"        pm.response.to.have.body('[]');",
 													"    });",
 													"    pm.test('Egon-Route header set to false', function() {",
 													"        pm.response.to.be.header('egon-route', 'false');",
-													"    });",
-													"    ",
-													"} else pm.test('Status code is 200', function(){",
-													"            pm.response.to.have.status(200);",
-													"        });",
-													""
+													"    });"
 												],
 												"type": "text/javascript"
 											}
@@ -652,8 +680,7 @@
 											"script": {
 												"id": "2366927d-ff82-40bb-9c40-7c73c88bb917",
 												"exec": [
-													"if (pm.environment.get('ENV') != 'test' && pm.environment.get('ENV') != 'uat') {",
-													"        ",
+													"",
 													"    pm.test('Status code is 200', function () {",
 													"        pm.response.to.have.status(200);",
 													"    });",
@@ -663,15 +690,15 @@
 													"    pm.test('Egon Id is returned', function() {",
 													"        pm.expect(pm.response.json()[0].egonId).to.eql('38000002491');",
 													"    });",
+													"    ",
 													"    pm.test('Province is returned', function() {",
 													"        pm.expect(pm.response.json()[0].province).to.eql('MILANO');",
 													"    });",
+													"",
 													"    pm.test('Egon-Route header set to false', function() {",
 													"        pm.response.to.be.header('egon-route', 'false');",
-													"});",
-													"} else pm.test('Status code is 200', function(){",
-													"            pm.response.to.have.status(200);",
-													"        });"
+													"    });",
+													""
 												],
 												"type": "text/javascript"
 											}
@@ -719,22 +746,19 @@
 											"script": {
 												"id": "a2f4869d-4f27-4a2e-925e-41fc2b4ec0bf",
 												"exec": [
-													"if (pm.environment.get('ENV') != 'test' && pm.environment.get('ENV') != 'uat') {",
-													"        ",
+													"",
 													"    pm.test('Status code is 200', function () {",
 													"        pm.response.to.have.status(200);",
 													"    });",
 													"    ",
 													"    pm.test('Empty body is returned', function() {",
-													"        pm.response.to.have.body('[]')",
+													"        pm.response.to.have.body('[]');",
 													"    });",
 													"    ",
 													"    pm.test('Egon-Route header set to false', function() {",
 													"        pm.response.to.be.header('egon-route', 'false');",
 													"    });",
-													"} else pm.test('Status code is 200', function(){",
-													"            pm.response.to.have.status(200);",
-													"        });"
+													""
 												],
 												"type": "text/javascript"
 											}
@@ -791,11 +815,26 @@
 													"    pm.test('Status code is 200' , function(){",
 													"        pm.response.to.have.status(200);",
 													"    });",
-													"    ",
-													"    pm.test('Set Street Egon Id', function(){",
-													"        pm.environment.set(\"streetEgonId\", pm.response.json()[0].egonId);",
+													"    pm.test('Street egonId is ' + pm.environment.get('streetEgonId'), function(){",
+													"        pm.expect(pm.response.json()[0].egonId).to.eql(pm.environment.get('streetEgonId'));",
 													"    });",
-													"}"
+													"    pm.test('Street egonId is ' + pm.environment.get('streetName'), function(){",
+													"        pm.expect(pm.response.json()[0].name).to.eql(pm.environment.get('streetName'));",
+													"    });",
+													"    ",
+													"}",
+													"",
+													"//Import of street egonId. MUST run just one time to import the user informations for TEST and UAT environments!",
+													"/*",
+													"if (pm.environment.get('ENV') == 'test' || pm.environment.get('ENV') == 'uat') {",
+													"    pm.test('Set Street Egon Id', function(){",
+													"       pm.environment.set(\"streetEgonId\", pm.response.json()[0].egonId);",
+													"    });",
+													"    pm.test('Set Street name', function(){",
+													"       pm.environment.set(\"streetName\", pm.response.json()[0].name);",
+													"    });",
+													"}",
+													"*/"
 												],
 												"type": "text/javascript"
 											}
@@ -843,17 +882,22 @@
 											"script": {
 												"id": "c89283c4-5cdd-48af-b21d-d4b5ad61dea3",
 												"exec": [
-													"if (pm.environment.get('ENV') != 'test' && pm.environment.get('ENV') != 'uat') {",
-													"        ",
 													"    pm.test('Status code is 200', function () {",
 													"        pm.response.to.have.status(200);",
 													"    });",
+													"    ",
+													"if (pm.environment.get('ENV' == 'test') || pm.environment.get('uat')){",
+													"    ",
+													"    pm.test('Street egonId is ' + pm.environment.get('streetEgonId'), function(){",
+													"        pm.expect(pm.response.json()[0].egonId).to.eql(pm.environment.get('streetEgonId'));",
+													"    });",
+													"    pm.test('Street egonId is ' + pm.environment.get('streetName'), function(){",
+													"        pm.expect(pm.response.json()[0].name).to.eql(pm.environment.get('streetName'));",
+													"    });",
+													"}",
 													"    pm.test('Egon-Route header set to true', function() {",
 													"        pm.response.to.be.header('egon-route', 'true');",
-													"    });",
-													"} else pm.test('Status code is 200', function(){",
-													"            pm.response.to.have.status(200);",
-													"        });"
+													"    });"
 												],
 												"type": "text/javascript"
 											}
@@ -906,9 +950,17 @@
 											"script": {
 												"id": "6cb45e86-efe2-4e55-bc11-5bbc51fc58c7",
 												"exec": [
-													"pm.test('Status code is 200', function () {",
-													"pm.response.to.have.status(200);",
-													"});"
+													"    pm.test('Status code is 200', function () {",
+													"        pm.response.to.have.status(200);",
+													"    });",
+													"    ",
+													"    pm.test('Empty body is returned', function() {",
+													"        pm.response.to.have.body('[]');",
+													"    });",
+													"    ",
+													"    pm.test('Egon-Route header set to false', function() {",
+													"        pm.response.to.be.header('egon-route', 'false');",
+													"    });"
 												],
 												"type": "text/javascript"
 											}
@@ -956,22 +1008,17 @@
 											"script": {
 												"id": "84c7633c-18a6-4036-be04-5fbf0e90fcbe",
 												"exec": [
-													"if (pm.environment.get('ENV') != 'test' && pm.environment.get('ENV') != 'uat') {",
-													"    ",
 													"    pm.test('Status code is 200', function () {",
 													"        pm.response.to.have.status(200);",
 													"    });",
 													"    ",
 													"    pm.test('Empty body is returned', function() {",
-													"        pm.response.to.have.body('[]')",
+													"        pm.response.to.have.body('[]');",
 													"    });",
 													"    ",
 													"    pm.test('Egon-Route header set to false', function() {",
 													"        pm.response.to.be.header('egon-route', 'false');",
 													"    });",
-													"} else pm.test('Status code is 200', function(){",
-													"            pm.response.to.have.status(200);",
-													"        });",
 													""
 												],
 												"type": "text/javascript"
@@ -1034,9 +1081,15 @@
 													"    pm.test('zipCode is returned', function() {",
 													"        pm.expect(pm.response.json()[0].zipCode).to.eql('00134');",
 													"    });",
-													"} else pm.test('Status code is 200', function(){",
-													"            pm.response.to.have.status(200);",
-													"        });"
+													"} else {",
+													"    pm.test('Status code is 200', function(){",
+													"        pm.response.to.have.status(200);",
+													"    });",
+													"    pm.test('Street name is returned', function() {",
+													"        pm.expect(pm.response.json()[0].name).to.eql(pm.environment.get('streetName'));",
+													"    });",
+													"",
+													"}"
 												],
 												"type": "text/javascript"
 											}
@@ -1100,11 +1153,31 @@
 													"            pm.response.to.have.status(200);",
 													"    });",
 													"    ",
-													"    pm.test('Set street number egon Id', function(){",
-													"        pm.environment.set(\"streetNumberEgonId\", pm.response.json()[0].number);",
-													"    });",
+													"    var bodyLength=JSON.parse(responseBody).length;",
+													"    console.log(bodyLength);",
 													"    ",
-													"}"
+													"    for(var i = 0; i < bodyLength; i++) {",
+													"        pm.test('Check street number\\'s egonId ' + pm.environment.get('streetNumberEgonId'+i), function(){",
+													"            pm.expect(pm.response.json()[i].egonId).to.eql(pm.environment.get('streetNumberEgonId' + i));",
+													"        });",
+													"        pm.test('Check street number' + pm.environment.get('streetNumber'+i), function(){",
+													"            pm.expect(pm.response.json()[i].number).to.eql(pm.environment.get('streetNumber' + i));",
+													"        });",
+													"    }",
+													"    ",
+													"}",
+													"",
+													"//Import of variables. MUST run just one time to import the user informations for TEST and UAT environments!",
+													"/*",
+													"    var body = JSON.parse(responseBody);",
+													"    console.log(body);",
+													"    ",
+													"    for(var i = 0; i < body.length; i++) {",
+													"        pm.environment.set('streetNumberEgonId' + i, body[i].egonId);",
+													"        pm.environment.set('streetNumber' + i, body[i].number);",
+													"        console.log(body[i]);",
+													"    }",
+													"*/"
 												],
 												"type": "text/javascript"
 											}
@@ -1170,9 +1243,24 @@
 													"    pm.test('Egon-Route header set to true', function() {",
 													"        pm.response.to.be.header('egon-route', 'true');",
 													"    });",
-													"} else pm.test('Status code is 200', function(){",
+													"} else {",
+													"        pm.test('Status code is 200', function(){",
 													"            pm.response.to.have.status(200);",
-													"        });"
+													"        });",
+													"",
+													"    var bodyLength=JSON.parse(responseBody).length;",
+													"    console.log(bodyLength);",
+													"    ",
+													"    for(var i = 0; i < bodyLength; i++) {",
+													"        pm.test('Check street number\\'s egonId ' + pm.environment.get('streetNumberEgonId'+i), function(){",
+													"            pm.expect(pm.response.json()[i].egonId).to.eql(pm.environment.get('streetNumberEgonId' + i));",
+													"        });",
+													"        pm.test('Check street number' + pm.environment.get('streetNumber'+i), function(){",
+													"            pm.expect(pm.response.json()[i].number).to.eql(pm.environment.get('streetNumber' + i));",
+													"        });",
+													"    }",
+													"    ",
+													"}"
 												],
 												"type": "text/javascript"
 											}
@@ -1232,8 +1320,6 @@
 											"script": {
 												"id": "01d3ad86-843e-4a3f-81e8-048901d66539",
 												"exec": [
-													"if (pm.environment.get('ENV') != 'test' && pm.environment.get('ENV') != 'uat') {",
-													"     ",
 													"    pm.test(\"Status code is 200\", function () {",
 													"        pm.response.to.have.status(200);",
 													"    });",
@@ -1243,9 +1329,7 @@
 													"    pm.test('Egon-Route header set to false', function() {",
 													"        pm.response.to.be.header('egon-route', 'false');",
 													"    });",
-													"} else pm.test('Status code is 200', function(){",
-													"            pm.response.to.have.status(200);",
-													"        });"
+													""
 												],
 												"type": "text/javascript"
 											}
@@ -1306,9 +1390,23 @@
 													"    pm.test('Egon-Route header set to false', function() {",
 													"        pm.response.to.be.header('egon-route', 'false');",
 													"    });",
-													"} else pm.test('Status code is 200', function(){",
-													"            pm.response.to.have.status(200);",
-													"        });"
+													"} else {",
+													"    pm.test('Status code is 200', function(){",
+													"        pm.response.to.have.status(200);",
+													"    });",
+													"        ",
+													"/*    var bodyLength=JSON.parse(responseBody).length;           //TO BE UPDATED",
+													"    console.log(bodyLength);",
+													"    ",
+													"    for(var i = 0; i < bodyLength; i++) {",
+													"        pm.test('Check street number\\'s egonId ' + pm.environment.get('streetNumberEgonId'+i), function(){",
+													"            pm.expect(pm.response.json()[i].egonId).to.eql(pm.environment.get('streetNumberEgonId' + i));",
+													"        });",
+													"        pm.test('Check street number' + pm.environment.get('streetNumber'+i), function(){",
+													"            pm.expect(pm.response.json()[i].number).to.eql(pm.environment.get('streetNumber' + i));",
+													"        });",
+													"    }*/",
+													"}"
 												],
 												"type": "text/javascript"
 											}
@@ -1519,7 +1617,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n\t\"phoneNumber\":\"3211234567\",\n\t\"mobilePhone\":null,\n\t\"e2eContractId\":\"{{e2eContractId_error}}\",\n\t\"contractId\":\"{{e2eContractId_error}}\",\n\t\"workDescription\":\"MIGRATION\",\n\t\"migrationType\":\"FIBRA\"\n}\n\n"
+											"raw": "{\n\t\"phoneNumber\":\"3211234567\",\n\t\"mobilePhone\":null,\n\t\"e2eContractId\":\"{{e2eContractId_error}}\",\n\t\"contractId\":\"{{e2eContractId_error}}\",\n\t\"workDescription\":\"MIGRATION\",\n\t\"migrationType\":\"FIBRA\"\n}"
 										},
 										"url": {
 											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/call-me-now",
@@ -5811,7 +5909,7 @@
 													"    ",
 													"    var jsonData = pm.response.json();",
 													"    pm.test(\"Contains only 75028\", function() {",
-													"        pm.expect(jsonData.offers.filter(o => o.code === \"75028\")).to.have.lengthOf(1);",
+													"        pm.expect(jsonData.offers.filter(o => o.id === \"75028\")).to.have.lengthOf(1);",
 													"    });",
 													"} else pm.test(\"Status code is 200\", function () {",
 													"        pm.response.to.have.status(200);",
@@ -5905,7 +6003,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"offers\": [\r\n    {\r\n      \"item\": {\r\n            \"id\": \"01u2400000ALUI5AAP\",\r\n            \"cmsId\": \"TVC_FAMILY\",\r\n            \"code\": \"TVC_FAMILY\",\r\n            \"type\": \"PRODUCT\",\r\n            \"parentId\": \"01t24000005fRNrAAM\",\r\n            \"hierarchyPath\": \"01t24000005fRNBAA2<01t24000005fRNwAAM<01t24000005fRNtAAM<01t24000005fRNrAAM\"\r\n        },\r\n      \"operation\": \"ADD\"\r\n    }\r\n  ],\r\n  \"e2eContractId\": \"{{e2eContractId_7804492_S831016}}\"\r\n}"
+											"raw": "{\r\n  \"offers\": [\r\n    {\r\n      \"item\": {\r\n            \"id\": \"TVC_FAMILY\",\r\n            \"cmsId\": \"TVC_FAMILY\",\r\n            \"type\": \"PRODUCT\",\r\n            \"origins\": [\"CRM\"]\r\n        },\r\n      \"operation\": \"ADD\"\r\n    }\r\n  ],\r\n  \"e2eContractId\": \"{{e2eContractId_7804492_S831016}}\"\r\n}"
 										},
 										"url": {
 											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/cart-calculation",
@@ -9581,7 +9679,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"offers\": [\r\n    {\r\n      \"item\": {\r\n            \"id\": \"01u2400000ALUI5AAP\",\r\n            \"cmsId\": \"TVC_FAMILY\",\r\n            \"code\": \"TVC_FAMILY\",\r\n            \"type\": \"PRODUCT\",\r\n            \"parentId\": \"01t24000005fRNrAAM\",\r\n            \"hierarchyPath\": \"01t24000005fRNBAA2<01t24000005fRNwAAM<01t24000005fRNtAAM<01t24000005fRNrAAM\"\r\n        },\r\n      \"operation\": \"ADD\"\r\n    }\r\n  ],\r\n  \"e2eContractId\": \"ZS9OMXJKdm1qZzk1cFRIaUUyM3BVUT09\"\r\n}"
+											"raw": "{\r\n  \"offers\": [\r\n    {\r\n      \"item\": {\r\n            \"id\": \"TVC_FAMILY\",\r\n            \"cmsId\": \"TVC_FAMILY\",\r\n            \"type\": \"PRODUCT\",\r\n            \"origins\": [\"CRM\"]\r\n        },\r\n      \"operation\": \"ADD\"\r\n    }\r\n  ],\r\n  \"e2eContractId\": \"ZS9OMXJKdm1qZzk1cFRIaUUyM3BVUT09\"\r\n}"
 										},
 										"url": {
 											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/cart-calculation",
@@ -9648,7 +9746,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"offers\": [\r\n    {\r\n      \"item\": {\r\n            \"id\": \"01u2400000ALUI5AAP\",\r\n            \"cmsId\": \"TVC_FAMILY\",\r\n            \"code\": \"TVC_FAMILY\",\r\n            \"type\": \"PRODUCT\",\r\n            \"parentId\": \"01t24000005fRNrAAM\",\r\n            \"hierarchyPath\": \"01t24000005fRNBAA2<01t24000005fRNwAAM<01t24000005fRNtAAM<01t24000005fRNrAAM\"\r\n        },\r\n      \"operation\": \"ADD\"\r\n    }\r\n  ],\r\n  \"e2eContractId\": \"ZS9OMXJKdm1qZzk1cFRIaUUyM3BVUT09\"\r\n}"
+											"raw": "{\r\n  \"offers\": [\r\n    {\r\n      \"item\": {\r\n            \"id\": \"TVC_FAMILY\",\r\n            \"cmsId\": \"TVC_FAMILY\",\r\n            \"type\": \"PRODUCT\",\r\n            \"origins\": [\"CRM\"]\r\n        },\r\n      \"operation\": \"ADD\"\r\n    }\r\n  ],\r\n  \"e2eContractId\": \"ZS9OMXJKdm1qZzk1cFRIaUUyM3BVUT09\"\r\n}"
 										},
 										"url": {
 											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/cart-calculation?purchase-policy=SKY_Q_BLACK",
@@ -9712,7 +9810,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"offers\": [\r\n    {\r\n      \"item\": {\r\n            \"id\": \"01u25000006cE9QAAU\",\r\n            \"cmsId\": \"BROADBAND_1_BB\",\r\n            \"code\": \"BROADBAND_1_BB\",\r\n            \"packageCategory\": \"BB_PACKAGE\",\r\n            \"productSpec\": \"BB\",\r\n            \"type\": \"PRODUCT\",\r\n            \"parentId\": \"01t25000003H49WAAS\",\r\n            \"hierarchyPath\": \"01t25000003H4AtAAK<01t25000003H49qAAC<01t25000003H49WAAS\"\r\n        },\r\n      \"operation\": \"ADD\"\r\n    }\r\n  ],\r\n  \"e2eContractId\": \"S000SVI4ZklBbHZOekxpdWliWWVrdz09\"\r\n}"
+											"raw": "{\r\n  \"offers\": [\r\n    {\r\n      \"item\": {\r\n            \"id\": \"75001\",\r\n            \"cmsId\": \"75001\",\r\n            \"productSpec\": \"BB\",\r\n            \"type\": \"PROMOTION\",\r\n            \"origins\": [\"CRM\"]\r\n        },\r\n      \"operation\": \"ADD\"\r\n    }\r\n  ],\r\n  \"e2eContractId\": \"S000SVI4ZklBbHZOekxpdWliWWVrdz09\"\r\n}"
 										},
 										"url": {
 											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/cart-calculation",
@@ -9781,6 +9879,61 @@
 												"{{DOMAIN}}",
 												"{{ENV}}",
 												"cart"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "CartCalculation_noteligible_422",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "0e379b72-7b57-4e67-b052-c9850c636f21",
+												"exec": [
+													"pm.test(\"Status code is 422\", function () {",
+													"    pm.response.to.have.status(422);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Selected-E2E-Id",
+												"value": "ZS9OMXJKdm1qZzk1cFRIaUUyM3BVUT09"
+											},
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "{{JWTC-S831016}}"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"offers\": [\r\n    {\r\n      \"item\": {\r\n            \"id\": \"PPACK_SPORT\",\r\n            \"cmsId\": \"PPACK_SPORT\",\r\n            \"type\": \"PRODUCT\",\r\n            \"origins\": [\"CRM\"]\r\n        },\r\n      \"operation\": \"ADD\"\r\n    }\r\n  ],\r\n  \"e2eContractId\": \"ZS9OMXJKdm1qZzk1cFRIaUUyM3BVUT09\"\r\n}"
+										},
+										"url": {
+											"raw": "{{BASE_URL}}/{{DOMAIN}}/{{ENV}}/cart-calculation",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"{{DOMAIN}}",
+												"{{ENV}}",
+												"cart-calculation"
 											]
 										}
 									},
@@ -10740,7 +10893,7 @@
 						"id": "edd089b4-dce4-40d6-9dff-cae9c86dae83",
 						"type": "text/javascript",
 						"exec": [
-							"/*if (pm.environment.get('ENV') == 'test' || pm.environment.get('ENV') == 'uat') {",
+							"if (pm.environment.get('ENV') == 'test' || pm.environment.get('ENV') == 'uat') {",
 							"    ",
 							"var req = pm.iterationData.get('list');",
 							"//var req = JSON.parse(pm.globals.get('requesting')).list;",
@@ -10754,7 +10907,7 @@
 							"        postman.setNextRequest(elem.next);",
 							"        }",
 							"    });",
-							"} else postman.setNextRequest();*/"
+							"} else postman.setNextRequest();"
 						]
 					}
 				},
